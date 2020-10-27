@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mimi.Dto.Dining;
-import com.mimi.Dto.User;
 import com.mimi.Service.DiningService;
 
 import io.swagger.annotations.ApiOperation;
