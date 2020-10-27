@@ -1,12 +1,14 @@
 package com.mimi.Dto;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Getter;
 import lombok.Setter;
+
 @Getter
 @Setter
-@Document(collection="store")
+@Document(collection = "store")
 public class Store {
 	@Id
 	private int id;
@@ -21,6 +23,7 @@ public class Store {
 	private int rvwCnt;
 	private String img;
 	private String tags;
+
 	public Store(int id, String name, String address, String tel, String category, String mainMn, String price,
 			String menu, Double rating, int rvwCnt, String img, String tags) {
 		super();
@@ -37,11 +40,12 @@ public class Store {
 		this.img = img;
 		this.tags = tags;
 	}
+
 	@Override
 	public String toString() {
 		return "Store [id=" + id + ", name=" + name + ", address=" + address + ", tel=" + tel + ", category=" + category
 				+ ", mainMn=" + mainMn + ", price=" + price + ", menu=" + menu + ", rating=" + rating + ", rvwCnt="
 				+ rvwCnt + ", img=" + img + ", tags=" + tags + "]";
 	}
-	
+
 }
