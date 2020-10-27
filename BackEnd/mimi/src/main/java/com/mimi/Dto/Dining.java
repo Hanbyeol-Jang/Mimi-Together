@@ -12,7 +12,7 @@ import lombok.Data;
 public class Dining {
 
 	@Id
-	private int id;
+	private String id;
 
 	private int dStatus;
 	private String dName;
