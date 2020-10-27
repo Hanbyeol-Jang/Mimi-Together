@@ -1,4 +1,4 @@
-package com.mimi.mimi;
+package com.mimi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

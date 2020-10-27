@@ -1,4 +1,4 @@
-package com.mimi.mimi.config;
+package com.mimi.config;
 
 
 import org.springframework.context.annotation.Bean;

@@ -1,12 +1,8 @@
-package com.mimi.mimi.store.Controller;
+package com.mimi.Controller;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.security.Principal;
-import java.util.Collection;
-import java.util.Enumeration;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mimi.mimi.store.Dto.Recommand;
-import com.mimi.mimi.store.Dto.Store;
-import com.mimi.mimi.store.Service.StoreService;
+import com.mimi.Dto.Recommand;
+import com.mimi.Dto.Store;
+import com.mimi.Service.StoreService;
 
 
 @CrossOrigin(origins = "*")

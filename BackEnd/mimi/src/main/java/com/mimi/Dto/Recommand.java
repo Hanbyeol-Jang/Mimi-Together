@@ -1,4 +1,4 @@
-package com.mimi.mimi.store.Dto;
+package com.mimi.Dto;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 

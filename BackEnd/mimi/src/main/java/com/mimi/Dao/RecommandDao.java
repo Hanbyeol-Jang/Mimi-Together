@@ -1,4 +1,4 @@
-package com.mimi.mimi.store.Dao;
+package com.mimi.Dao;
 
 
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import com.mimi.mimi.store.Dto.Recommand;
+import com.mimi.Dto.Recommand;
 
 @Repository
 public interface RecommandDao extends MongoRepository<Recommand, Object> {

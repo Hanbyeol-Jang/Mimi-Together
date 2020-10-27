@@ -1,14 +1,14 @@
-package com.mimi.mimi.store.Service;
+package com.mimi.Service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mimi.mimi.store.Dao.RecommandDao;
-import com.mimi.mimi.store.Dao.StoreDao;
-import com.mimi.mimi.store.Dto.Recommand;
-import com.mimi.mimi.store.Dto.Store;
+import com.mimi.Dao.RecommandDao;
+import com.mimi.Dao.StoreDao;
+import com.mimi.Dto.Recommand;
+import com.mimi.Dto.Store;
 
 @Service
 public class StoreService {
