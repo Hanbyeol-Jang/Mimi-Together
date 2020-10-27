@@ -1,0 +1,85 @@
+package com.mimi.Controller;
+
+import java.util.HashMap;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.mimi.Dto.User;
+import com.mimi.Service.UserService;
+
+import io.swagger.annotations.ApiOperation;
+
+@CrossOrigin(origins = "*")
+@RestController
+@RequestMapping("/user")
+public class UserController {
+
+	@Autowired
+	private UserService userService;
+
+	@PostMapping("/join")
+	@ApiOperation(value = "회원 가입")
+	public ResponseEntity<HashMap<String, Object>> join(@RequestBody User user) {
+		System.out.println("join Controller");
+		System.out.println(user.getId() + " " + user.getUName());
+
+		try {
+			HashMap<String, Object> map = new HashMap<>();
+			User userJoined = userService.join(user);
+
+			// id, 닉네임 중복 체크
+			if (userJoined == null) {
+				map.put("User", "fail");
+			} else {
+				map.put("User", userJoined);
+			}
+
+			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+	}
+
+	@GetMapping(value = "/user/{id}")
+	@ApiOperation(value = "id로 회원 정보 가져오기")
+	public ResponseEntity<HashMap<String, Object>> getUserinfo(@PathVariable("id") int id) {
+		System.out.println("getUserinfo Controller");
+		try {
+			HashMap<String, Object> map = new HashMap<>();
+
+			Optional<User> userinfo = userService.getUserinfo(id);
+			map.put("User", userinfo.get());
+
+			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+
+	}
+
+	@PostMapping("/deleteaccount")
+	@ApiOperation(value = "회원 탈퇴")
+	public ResponseEntity<HashMap<String, Object>> deleteAccount(@RequestBody User user) {
+		System.out.println("deleteAccount Controller");
+		try {
+			HashMap<String, Object> map = new HashMap<>();
+			userService.deleteAccount(user);
+			map.put("Userinfo", "deleted");
+
+			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+	}
+
+}
