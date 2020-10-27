@@ -26,9 +26,11 @@ public class TempController {
 	@GetMapping()
 	public ResponseEntity<?> test(){
 		List<Temp> list = tempService.test();
+		
+//		tempService.save(new Temp("test", "삼성", "후자"));
 		for (int i = 0; i < list.size(); i++) {
 			System.out.println(list.get(i));
 		}
-		return new ResponseEntity<List<Temp>>(list, HttpStatus.OK);
+		return new ResponseEntity<Object>(tempService.test(), HttpStatus.OK);
 	}
 }

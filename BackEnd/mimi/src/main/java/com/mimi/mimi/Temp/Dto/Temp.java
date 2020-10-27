@@ -13,6 +13,12 @@ public class Temp {
 	private String id;
 	private String temp;
 	private String temp2;
+	public Temp(String id, String temp, String temp2) {
+		super();
+		this.id = id;
+		this.temp = temp;
+		this.temp2 = temp2;
+	}
 	@Override
 	public String toString() {
 		return "Temp [id=" + id + ", temp=" + temp + ", temp2=" + temp2 + "]";

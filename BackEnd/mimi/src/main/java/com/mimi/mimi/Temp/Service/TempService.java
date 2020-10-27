@@ -13,6 +13,11 @@ public class TempService {
 	@Autowired
 	private TempDao tempdao;
 	
+	public Temp save(Temp temp) {
+		tempdao.save(temp);
+		return temp;
+	}
+	
 	public List<Temp> test() {
 		return tempdao.findAll();
 	}
