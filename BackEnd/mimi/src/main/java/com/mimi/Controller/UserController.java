@@ -52,7 +52,7 @@ public class UserController {
 
 	@GetMapping(value = "/user/{id}")
 	@ApiOperation(value = "id로 회원 정보 가져오기")
-	public ResponseEntity<HashMap<String, Object>> getUserinfo(@PathVariable("id") int id) {
+	public ResponseEntity<HashMap<String, Object>> getUserinfo(@PathVariable("id") String id) {
 		System.out.println("getUserinfo Controller");
 		try {
 			HashMap<String, Object> map = new HashMap<>();

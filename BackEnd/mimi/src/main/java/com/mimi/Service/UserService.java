@@ -13,5 +13,5 @@ public interface UserService {
 	public void deleteAccount(User user);
 
 	// 회원 정보 가져오기
-    public Optional<User> getUserinfo(int id);
+	public Optional<User> getUserinfo(String id);
 }
