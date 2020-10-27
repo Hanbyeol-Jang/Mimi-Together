@@ -43,7 +43,7 @@ public class StoreController {
 		for(int i = 0;i<10;i++) {
 			System.out.println(ls.get(i));
 		}
-		return null;
+		return new ResponseEntity<List<Recommand>>(ls, HttpStatus.OK);
 	}
 	
 	
