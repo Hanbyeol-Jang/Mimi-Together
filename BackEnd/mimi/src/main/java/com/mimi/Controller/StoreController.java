@@ -51,7 +51,10 @@ public class StoreController {
 	public ResponseEntity<?> recommand() throws InterruptedException, IOException{
 		List<Store> list = storeService.findAll();
 		System.out.println("recommand start.....");
-		String path = "C:/test/MongoConnect.py";
+		
+		String path = "/home/ubuntu/dev/s03p31b106/BackEnd/mimi/src/main/resource/bigdata/MongoConnect.py";
+//		String path = "C:/test/MongoConnect.py";
+		
 		ProcessBuilder processBuilder = new ProcessBuilder("python", path);
 		processBuilder.redirectErrorStream(true);
 		Process p = processBuilder.start();
