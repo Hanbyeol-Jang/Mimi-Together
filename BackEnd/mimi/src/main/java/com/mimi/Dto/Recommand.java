@@ -2,12 +2,17 @@ package com.mimi.Dto;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.mongodb.annotations.ThreadSafe;
+
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-@Getter
-@Setter
+import lombok.ToString;
+@Data
 @Document(collection="recommand")
-public class Recommand {
+public class Recommand implements Comparable<Recommand> {
+	
+	
 	@Id
 	private String id;
 	private String uid;
@@ -22,12 +27,12 @@ public class Recommand {
 	private String menu;
 	private String img;
 	private String tags;
-	@Override
-	public String toString() {
-		return "Recommand [id=" + id + ", uid=" + uid + ", rid=" + rid + ", rating=" + rating + ", name=" + name
-				+ ", address=" + address + ", tel=" + tel + ", category=" + category + ", mainMn=" + mainMn + ", price="
-				+ price + ", menu=" + menu + ", img=" + img + ", tags=" + tags + "]";
-	}
 	
+	@Override
+	public int compareTo(Recommand o) {
+		if(this.rating-o.rating>0)
+			return -1;
+		return 1;
+	}
 	
 }
