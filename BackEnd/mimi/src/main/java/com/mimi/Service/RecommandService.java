@@ -6,36 +6,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mimi.Dao.RecommandDao;
-import com.mimi.Dao.StoreDao;
+import com.mimi.Dao.ReviewDao;
 import com.mimi.Dto.Recommand;
-import com.mimi.Dto.Store;
+import com.mimi.Dto.RecommandRequest.Survey;
+import com.mimi.Dto.Review;
 
 @Service
 public class RecommandService {
 	@Autowired
-	private StoreDao storeDao;
+	private ReviewDao reviewDao;
 	@Autowired
 	private RecommandDao recommandDao;
-	
-	public Store save(Store store) {
-		storeDao.save(store);
-		return store;
+
+	public void survey(Survey[] list) {
+		for(int i =0;i<list.length;i++) {
+			Review temp = new Review();
+			temp.setRating(list[i].getRating());
+			temp.setResId(list[i].getRid());
+			temp.setUserName(""+list[i].getUid());
+			reviewDao.save(temp);
+		}
 	}
-	
 	public Recommand save(Recommand recommand) {
 		recommandDao.save(recommand);
 		return recommand;
 	}
 	
-	public List<Store> findAll() {
-		return storeDao.findAll();
+	public List<Recommand> findAll() {
+		return recommandDao.findAll();
 	}
 	
 	public List<Recommand> recom(String name, String address){
-		address = "%"+address+"%";
-//		return recommandDao.findByName("삼창교자");
-		return recommandDao.findByUid(name);
-//		return recommandDao.findByUidAndAddressLike(name, address);
+//		address = "%"+address+"%";
+		return recommandDao.findByUidAndAddressLikeOrderByRid(name, address);
 	}
 	
 }
