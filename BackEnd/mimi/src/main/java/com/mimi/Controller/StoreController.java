@@ -35,6 +35,7 @@ public class StoreController {
 	@GetMapping("surbey")
 	public ResponseEntity<?> surbey() {
 		List<Store> list = storeService.findAll();
+
 		List<Store> ret = new LinkedList<Store>();
 		for (int i = 0; i < 5; i++) {
 			int ran = (int) (Math.random() * 9999999 % list.size());
