@@ -19,4 +19,5 @@ public class User {
 	private String uToken;
 	private int[] diningList;
 	private int[] partyList;
+	private String device;
 }
