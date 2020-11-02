@@ -20,4 +20,6 @@ public class User {
 	private int[] diningList;
 	private int[] partyList;
 	private String device;
+	private String isSurvey;
+
 }

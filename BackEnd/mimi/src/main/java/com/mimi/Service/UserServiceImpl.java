@@ -15,6 +15,13 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 
 	@Override
+	public boolean login(String id) {
+		boolean checked = userDao.existsById(id);
+
+		return checked;
+	}
+
+	@Override
 	public User join(User user) {
 		return userDao.save(user);
 	}
