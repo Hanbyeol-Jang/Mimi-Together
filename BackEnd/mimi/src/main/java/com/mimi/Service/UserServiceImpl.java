@@ -15,6 +15,20 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 
 	@Override
+	public boolean login(String id) {
+		boolean checked = userDao.existsById(id);
+
+		return checked;
+	}
+
+	@Override
+	public void modifySurvey(String id) {
+		User user = userDao.findById(id).get();
+		user.setIsSurvey("true");
+		userDao.save(user);
+	}
+
+	@Override
 	public User join(User user) {
 		return userDao.save(user);
 	}
@@ -27,5 +41,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Optional<User> getUserinfo(String id) {
 		return userDao.findById(id);
+	}
+
+	@Override
+	public User update(User user) {
+		return userDao.save(user);
+	}
+
+	@Override
+	public User modify(User user) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

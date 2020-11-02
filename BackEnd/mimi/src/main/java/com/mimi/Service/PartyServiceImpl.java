@@ -1,5 +1,6 @@
 package com.mimi.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,13 @@ public class PartyServiceImpl implements PartyService {
 	}
 
 	@Override
-	public Optional<Party> getParty(String id) {
+	public Party save(Party party) {
+
+		return partyDao.save(party);
+	}
+
+	@Override
+	public Party getParty(String id) {
 		return partyDao.findById(id);
 	}
 }
