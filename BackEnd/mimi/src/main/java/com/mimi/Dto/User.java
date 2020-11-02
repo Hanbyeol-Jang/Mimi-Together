@@ -21,12 +21,7 @@ public class User {
 	private String uToken;
 	private List<Integer> diningList;
 	private List<Integer> partyList;
-	public Object getDevice() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public void setDevice(Object device) {
-		// TODO Auto-generated method stub
-		
-	}
+	private String device;
+	private String isSurvey;
+
 }

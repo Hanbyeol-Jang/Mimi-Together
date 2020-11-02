@@ -13,32 +13,37 @@ import com.mimi.Dto.Review;
 
 @Service
 public class RecommandService {
+
 	@Autowired
 	private ReviewDao reviewDao;
+
 	@Autowired
 	private RecommandDao recommandDao;
 
 	public void survey(Survey[] list) {
-		for(int i =0;i<list.length;i++) {
+		int index = (int) reviewDao.count();
+		for (int i = 0; i < list.length; i++) {
 			Review temp = new Review();
+			temp.setId(index+1+i);
 			temp.setRating(list[i].getRating());
 			temp.setResId(list[i].getRid());
-			temp.setUserName(""+list[i].getUid());
+			temp.setUserName("" + list[i].getUid());
 			reviewDao.save(temp);
 		}
 	}
+
 	public Recommand save(Recommand recommand) {
 		recommandDao.save(recommand);
 		return recommand;
 	}
-	
+
 	public List<Recommand> findAll() {
 		return recommandDao.findAll();
 	}
-	
-	public List<Recommand> recom(String name, String address){
+
+	public List<Recommand> recom(String name, String address) {
 //		address = "%"+address+"%";
 		return recommandDao.findByUidAndAddressLikeOrderByRid(name, address);
 	}
-	
+
 }
