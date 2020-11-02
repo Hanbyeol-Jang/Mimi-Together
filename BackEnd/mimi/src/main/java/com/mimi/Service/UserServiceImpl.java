@@ -28,4 +28,9 @@ public class UserServiceImpl implements UserService {
 	public Optional<User> getUserinfo(String id) {
 		return userDao.findById(id);
 	}
+
+	@Override
+	public User update(User user) {
+		return userDao.save(user);
+	}
 }

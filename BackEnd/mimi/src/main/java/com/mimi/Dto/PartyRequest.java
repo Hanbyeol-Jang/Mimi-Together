@@ -1,8 +1,5 @@
 package com.mimi.Dto;
 
-import java.util.Date;
-import java.util.List;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,15 +7,13 @@ import lombok.Data;
 
 @Data
 @Document(collection = "party")
-public class Party {
+public class PartyRequest {
 
 	@Id
 	private String id;
 
-	private List<Integer> userList;
+	private int[] userList;
 	private String pName;
-	private List<Integer> recoList;
-	//약속 정보
-	private Store promiseStore;
-	private Date promiseTime;
+	private int[] recoList;
+
 }
