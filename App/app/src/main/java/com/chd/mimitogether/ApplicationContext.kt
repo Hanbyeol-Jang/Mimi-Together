@@ -5,12 +5,28 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
+import android.util.Log
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 
 class ApplicationContext : Application() {
 
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
+        fcmAddOnCompleteListener()
+    }
+
+    private fun fcmAddOnCompleteListener() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.d("myLog", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            val token = task.result
+            Log.d("myLog", "token: $token")
+        })
     }
 
     private fun createNotificationChannel() {
