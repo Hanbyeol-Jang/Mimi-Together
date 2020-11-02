@@ -9,6 +9,9 @@ public interface UserService {
 	// 로그인
 	public boolean login(String id);
 
+	// isSurvey 수정
+	public void modifySurvey(String id);
+
 	// 회원 가입
 	public User join(User user);
 
