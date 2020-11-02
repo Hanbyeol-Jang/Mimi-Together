@@ -3,6 +3,8 @@ package com.mimi.Service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.mimi.Dao.RecommandDao;
@@ -27,8 +29,8 @@ public class StoreService {
 		return recommand;
 	}
 
-	public List<Store> findAll() {
-		return storeDao.findAll();
+	public Page<Store> findAllPaging(Pageable pageable) {
+		return storeDao.findAll(pageable);
 	}
 
 	public List<Recommand> recom(String name, String address) {
@@ -41,6 +43,10 @@ public class StoreService {
 	public Store getStore(String id) {
 		// TODO Auto-generated method stub
 		return storeDao.findById(Integer.parseInt(id)).get();
+	}
+
+	public List<Store> findAll() {
+		return storeDao.findAll();
 	}
 
 }
