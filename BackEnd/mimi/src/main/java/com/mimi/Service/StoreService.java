@@ -37,5 +37,10 @@ public class StoreService {
 		return recommandDao.findByUid(name);
 //		return recommandDao.findByUidAndAddressLike(name, address);
 	}
+
+	public Store getStore(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
