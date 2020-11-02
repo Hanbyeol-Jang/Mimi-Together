@@ -35,16 +35,17 @@ public class RecommandController {
 	private UserService userService;
 
 	@PostMapping("/survey")
-	public ResponseEntity<?> create(@RequestBody final RecommandRequest request)
+	public ResponseEntity<?> create(@RequestBody final Survey[] request)
 			throws IOException, InterruptedException {
-		Survey[] sur = request.getSurvey_list();
-		recommandService.survey(sur);
+		System.out.println(request);
+		recommandService.survey(request);
 		// recommand_update();
-
-		String id = request.getSurvey_list()[0].getUid();
+		System.out.println("review update success!!");
+		String id = request[0].getUid();
 		userService.modifySurvey(id);
-
-		return null;
+		System.out.println("survey success!!!");
+		
+		return new ResponseEntity<>(id, HttpStatus.OK);
 	}
 
 	@PostMapping("/multi")

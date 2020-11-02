@@ -21,9 +21,10 @@ public class RecommandService {
 	private RecommandDao recommandDao;
 
 	public void survey(Survey[] list) {
+		int index = (int) reviewDao.count();
 		for (int i = 0; i < list.length; i++) {
 			Review temp = new Review();
-			temp.setId(30000);
+			temp.setId(index+1+i);
 			temp.setRating(list[i].getRating());
 			temp.setResId(list[i].getRid());
 			temp.setUserName("" + list[i].getUid());
