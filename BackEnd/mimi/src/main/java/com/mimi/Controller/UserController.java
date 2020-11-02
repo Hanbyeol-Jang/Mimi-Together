@@ -27,28 +27,68 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@PostMapping("/join")
-	@ApiOperation(value = "회원 가입")
-	public ResponseEntity<HashMap<String, Object>> join(@RequestBody User user) {
-		System.out.println("join Controller");
-		System.out.println(user.getId() + " " + user.getUName());
-
+	@PostMapping(value = "/login")
+	@ApiOperation(value = "로그인 (DB에 없으면 회원가입)")
+	public ResponseEntity<HashMap<String, Object>> login(@RequestBody User user) {
+		System.out.println("login Controller");
 		try {
 			HashMap<String, Object> map = new HashMap<>();
-			User userJoined = userService.join(user);
 
-			// id, 닉네임 중복 체크
-			if (userJoined == null) {
-				map.put("User", "fail");
+			String id = user.getId();
+
+			// id 가 db 에 있는지 확인
+			boolean loginChecked = userService.login(id);
+			System.out.println(user.toString());
+			Optional<User> userinfo = userService.getUserinfo(id);
+
+			// 있으면 로그인
+			if (loginChecked) {
+				String survey = userinfo.get().getIsSurvey();
+
+				// survey 했는지 확인
+				if (survey.equals("true")) {
+					map.put("survey", true);
+				} else {
+					map.put("survey", false);
+				}
 			} else {
-				map.put("User", userJoined);
+				// db에 없으면 회원 가입
+				user.setIsSurvey("false");
+
+				User userJoined = userService.join(user);
+
+				map.put("survey", false);
 			}
 
 			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
+
 	}
+
+//	@PostMapping("/join")
+//	@ApiOperation(value = "회원 가입")
+//	public ResponseEntity<HashMap<String, Object>> join(@RequestBody User user) {
+//		System.out.println("join Controller");
+//		System.out.println(user.getId() + " " + user.getUName());
+//
+//		try {
+//			HashMap<String, Object> map = new HashMap<>();
+//			User userJoined = userService.join(user);
+//
+//			// id, 닉네임 중복 체크
+//			if (userJoined == null) {
+//				map.put("User", "fail");
+//			} else {
+//				map.put("User", userJoined);
+//			}
+//
+//			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
+//		} catch (Exception e) {
+//			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+//		}
+//	}
 
 	@GetMapping(value = "/user/{id}")
 	@ApiOperation(value = "id로 회원 정보 가져오기")
@@ -81,7 +121,7 @@ public class UserController {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	@PostMapping(value = "/deviceId")
 	@ApiOperation(value = "id기반으로 User 검색 후 deviceId 수정")
 	public ResponseEntity<HashMap<String, Object>> inputDeviceId(@RequestBody User user) {
@@ -92,7 +132,7 @@ public class UserController {
 			Optional<User> userinfo = userService.getUserinfo(user.getId());
 			userinfo.get().setDevice(user.getDevice());
 			userService.join(userinfo.get());
-			
+
 			map.put("User", userinfo.get());
 
 			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);

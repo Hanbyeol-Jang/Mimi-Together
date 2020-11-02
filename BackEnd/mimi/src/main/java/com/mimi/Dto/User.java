@@ -1,7 +1,5 @@
 package com.mimi.Dto;
 
-import java.util.List;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -19,6 +17,9 @@ public class User {
 	private String uProfile;
 	private String uThumb;
 	private String uToken;
-	private List<Integer> diningList;
-	private List<Integer> partyList;
+	private int[] diningList;
+	private int[] partyList;
+	private String device;
+	private String isSurvey;
+
 }
