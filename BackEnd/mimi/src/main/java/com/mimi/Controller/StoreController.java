@@ -44,7 +44,7 @@ public class StoreController {
 			HashMap<String, Object> map = new HashMap<>();
 
 			Store store = storeService.getStore(id);
-			map.put("Party", partyInfo);
+			map.put("Store", store);
 
 			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
 		} catch (Exception e) {
