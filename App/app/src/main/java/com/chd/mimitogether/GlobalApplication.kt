@@ -1,4 +1,4 @@
-package com.chd.mimitogether
+ package com.chd.mimitogether
 
 import android.app.Application
 import android.app.NotificationChannel
@@ -9,11 +9,14 @@ import android.util.Log
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 
-class ApplicationContext : Application() {
+class GlobalApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
+
+
+
         fcmAddOnCompleteListener()
     }
 
