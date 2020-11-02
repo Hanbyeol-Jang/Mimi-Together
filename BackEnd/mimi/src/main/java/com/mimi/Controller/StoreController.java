@@ -38,13 +38,13 @@ public class StoreController {
 	}
 	@GetMapping(value = "/{id}")
 	@ApiOperation(value = "id로 가게 가져오기")
-	public ResponseEntity<HashMap<String, Object>> getParty(@PathVariable("id") String id) {
+	public ResponseEntity<HashMap<String, Object>> getStore(@PathVariable("id") String id) {
 		System.out.println("getStore Controller");
 		try {
 			HashMap<String, Object> map = new HashMap<>();
 
 			Store store = storeService.getStore(id);
-			map.put("Party", partyInfo);
+			map.put("Store", store);
 
 			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
 		} catch (Exception e) {

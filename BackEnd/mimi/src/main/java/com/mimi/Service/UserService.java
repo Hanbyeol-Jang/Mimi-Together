@@ -18,5 +18,5 @@ public interface UserService {
 	// 회원 정보 가져오기
 	public Optional<User> getUserinfo(String id);
 
-	public User modify(User user);
+	public User update(User user);
 }
