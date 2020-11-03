@@ -28,5 +28,13 @@ public class Dining {
 	private String uiThumb;
 	private String uiToken;
 	private int[] storeList;
+	private String soldID;
+
+	@Data
+	private static class TenderInfo {
+		private String boID;
+		private int tiPrice;
+		private String tiInfo;
+	}
 
 }

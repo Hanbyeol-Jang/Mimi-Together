@@ -24,6 +24,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void modifySurvey(String id) {
 		User user = userDao.findById(id).get();
+		System.out.println(user.toString());
 		user.setIsSurvey("true");
 		userDao.save(user);
 	}

@@ -14,7 +14,7 @@ import lombok.ToString;
 public class Store {
 	@Id
 	private int id;
-	private int bID;
+	private String boID;
 	private String name;
 	private String address;
 	private String tel;
