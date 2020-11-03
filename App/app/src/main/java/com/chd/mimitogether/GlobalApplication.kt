@@ -8,14 +8,15 @@ import android.os.Build
 import android.util.Log
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
+import com.kakao.sdk.common.KakaoSdk
 
-class GlobalApplication : Application() {
+ class GlobalApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
 
-
+        KakaoSdk.init(this, "ca2792cb2157266119549a09886b99c1")
 
         fcmAddOnCompleteListener()
     }
