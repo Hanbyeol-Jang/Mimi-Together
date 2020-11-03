@@ -1,6 +1,7 @@
 package com.mimi.Controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mimi.Dto.Boss;
+import com.mimi.Dto.Dining;
 import com.mimi.Service.BossService;
+import com.mimi.Service.DiningService;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -49,7 +52,7 @@ public class BossController {
 		}
 	}
 
-	@GetMapping(value = "/{id}")
+	@GetMapping(value = "/check/{id}")
 	@ApiOperation(value = "사장님 id 로 확인")
 	public ResponseEntity<HashMap<String, Object>> getBoss(@PathVariable("id") String id) {
 		System.out.println("getBoss Controller");
@@ -80,6 +83,28 @@ public class BossController {
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
+	}
+
+	@GetMapping(value = "/{addr}")
+	@ApiOperation(value = "주소 경매 리스트 확인")
+	public ResponseEntity<List<Dining>> getAllAuction(@PathVariable("addr") String addr) {
+		System.out.println("getAllAuction Controller");
+
+		try {
+			HashMap<String, Object> map = new HashMap<>();
+
+			List<Dining> list = bossService.getAllAuction(addr);
+
+			for (int i = 0; i < list.size(); i++) {
+				System.out.println(list.get(i).getDnLocation() + " " + list.get(i).getDnName());
+			}
+
+			return new ResponseEntity<List<Dining>>(list, HttpStatus.OK);
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+
 	}
 
 }
