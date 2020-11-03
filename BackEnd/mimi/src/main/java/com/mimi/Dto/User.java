@@ -14,11 +14,11 @@ public class User {
 	@Id
 	private String id;
 
-	private String uName;
-	private String uEmail;
-	private String uProfile;
-	private String uThumb;
-	private String uToken;
+	private String uiName;
+	private String uiEmail;
+	private String uiProfile;
+	private String uiThumb;
+	private String uiToken;
 	private List<Integer> diningList;
 	private List<Integer> partyList;
 	private String device;

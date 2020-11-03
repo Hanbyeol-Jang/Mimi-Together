@@ -54,8 +54,9 @@ public class UserController {
 			} else {
 				// db에 없으면 회원 가입
 				user.setIsSurvey("false");
+				System.out.println(user.toString());
 
-				User userJoined = userService.join(user);
+				userService.join(user);
 
 				map.put("survey", false);
 			}

@@ -12,7 +12,9 @@ public class Boss {
 	@Id
 	private String id;
 
-	private String bPW;
+	private String boPW;
 	private int[] diningList;
+	private String boAddress;
 	private int[] storeList;
+
 }
