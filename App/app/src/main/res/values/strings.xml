@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">MimiTogether</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <!--    <string name="base_url">http://192.168.30.58:9999/</string>-->
+    <string name="base_url">https://k3b106.p.ssafy.io/</string>
+
+    <string name="party_notification_channel_id">partyNotificationChannelID</string>
+    <string name="party_notification_channel_name">partyNotificationChannelName</string>
+    <string name="party_notification_channel_desc">partyNotificationChannelDesc</string>
+</resources>
