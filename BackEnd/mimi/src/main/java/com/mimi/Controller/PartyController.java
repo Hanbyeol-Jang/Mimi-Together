@@ -124,22 +124,19 @@ public class PartyController {
 //		}
 //	}
 
-//	@GetMapping(value = "/list/{id}")
-//	@ApiOperation(value = "유저 id로 모임 목록 가져오기")
-//	public ResponseEntity<?> getPartylist(@PathVariable("id") String id) {
-//		System.out.println("getPartylist Controller");
-//		try {
-//			Optional<User> user = userService.getUserinfo(id);
-//			List<Integer> partyid = user.get().getPartyList();
-//			List<Party> partylist = new LinkedList<Party>();
-//			for (int i = 0; i < partyid.size(); i++) {
-//				partylist.add(partyService.getParty(String.valueOf(partyid.get(i))));
-//			}
-//			return new ResponseEntity<>(partylist, HttpStatus.OK);
-//		} catch (Exception e) {
-//			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-//		}
-//	}
+	@GetMapping(value = "/list/{id}")
+	@ApiOperation(value = "유저 id로 모임 목록 가져오기")
+	public ResponseEntity<?> getPartylist(@PathVariable("id") String id) {
+		System.out.println("getPartylist Controller");
+
+		try {
+			List<String> list = partyService.partyList(id);
+
+			return new ResponseEntity<List<String>>(list, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+	}
 
 	@PostMapping("/delete")
 	@ApiOperation(value = "모임 삭제")

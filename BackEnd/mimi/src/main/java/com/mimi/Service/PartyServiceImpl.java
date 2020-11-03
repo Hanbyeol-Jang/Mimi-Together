@@ -39,7 +39,7 @@ public class PartyServiceImpl implements PartyService {
 	public void joinParty(String userId, String partyId) {
 		// 모임에 초대 됨
 		Party party = partyDao.findById(partyId).get();
-		
+
 		List<String> list = party.getUserList();
 		list.add(userId);
 
@@ -49,13 +49,22 @@ public class PartyServiceImpl implements PartyService {
 
 		// user 에 모임 추가
 		User user = userDao.findById(userId).get();
-		
+
 		List<String> userList = user.getPartyList();
 		userList.add(partyId);
 
 		user.setPartyList(userList);
 
 		userDao.save(user);
+	}
+
+	@Override
+	public List<String> partyList(String userId) {
+		User user = userDao.findById(userId).get();
+
+		List<String> list = user.getPartyList();
+
+		return list;
 	}
 
 	@Override
