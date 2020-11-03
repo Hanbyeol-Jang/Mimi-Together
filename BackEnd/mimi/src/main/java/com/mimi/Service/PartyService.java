@@ -7,6 +7,9 @@ public interface PartyService {
 	// 모임 업데이트
 	public Party save(Party party);
 
+	// 모임 초대
+	public void joinParty(String userId, String partyId);
+
 	// 모임 생성
 	public Party createParty(PartyRequest party);
 

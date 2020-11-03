@@ -75,35 +75,20 @@ public class PartyController {
 		}
 	}
 
-//	@PostMapping(value = "/join")
-//	@ApiOperation(value = "모임 참여하기")
-//	public ResponseEntity<?> joinParty(@RequestParam String uid, @RequestParam String pid) {
-//		System.out.println("joinParty Controller");
-//		try {
-//			Party party = partyService.getParty(pid);
-//			User user = userService.getUserinfo(uid).get();
-//			System.out.println(user + " " + party);
-//
-//			List<Integer> updatePartyList = user.getPartyList();
-//			System.out.println(updatePartyList);
-//			updatePartyList.add(Integer.parseInt(pid));
-//			System.out.println("test");
-//			user.setPartyList(updatePartyList);
-//			System.out.println(user + " " + party);
-//			List<Integer> updateUserList = party.getUserList();
-//			updateUserList.add(Integer.parseInt(uid));
-//			user.setPartyList(updateUserList);
-//
-//			System.out.println(user + " " + party);
-//			partyService.save(party);
-//			userService.update(user);
-//			System.out.println("모임 참여 완료");
-//			return new ResponseEntity<>("모임 참여 완료", HttpStatus.OK);
-//		} catch (Exception e) {
-//			System.out.println("error");
-//			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-//		}
-//	}
+	@PostMapping(value = "/join")
+	@ApiOperation(value = "모임 참여하기")
+	public ResponseEntity<?> joinParty(@RequestParam String userId, @RequestParam String partyId) {
+		System.out.println("joinParty Controller");
+
+		try {
+			partyService.joinParty(userId, partyId);
+
+			return new ResponseEntity<>("모임 참여 완료", HttpStatus.OK);
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+	}
 
 //	@PostMapping(value = "/out")
 //	@ApiOperation(value = "모임 탈퇴하기")
@@ -139,22 +124,22 @@ public class PartyController {
 //		}
 //	}
 
-	@GetMapping(value = "/list/{id}")
-	@ApiOperation(value = "유저 id로 모임 목록 가져오기")
-	public ResponseEntity<?> getPartylist(@PathVariable("id") String id) {
-		System.out.println("getPartylist Controller");
-		try {
-			Optional<User> user = userService.getUserinfo(id);
-			List<Integer> partyid = user.get().getPartyList();
-			List<Party> partylist = new LinkedList<Party>();
-			for (int i = 0; i < partyid.size(); i++) {
-				partylist.add(partyService.getParty(String.valueOf(partyid.get(i))));
-			}
-			return new ResponseEntity<>(partylist, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-		}
-	}
+//	@GetMapping(value = "/list/{id}")
+//	@ApiOperation(value = "유저 id로 모임 목록 가져오기")
+//	public ResponseEntity<?> getPartylist(@PathVariable("id") String id) {
+//		System.out.println("getPartylist Controller");
+//		try {
+//			Optional<User> user = userService.getUserinfo(id);
+//			List<Integer> partyid = user.get().getPartyList();
+//			List<Party> partylist = new LinkedList<Party>();
+//			for (int i = 0; i < partyid.size(); i++) {
+//				partylist.add(partyService.getParty(String.valueOf(partyid.get(i))));
+//			}
+//			return new ResponseEntity<>(partylist, HttpStatus.OK);
+//		} catch (Exception e) {
+//			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+//		}
+//	}
 
 	@PostMapping("/delete")
 	@ApiOperation(value = "모임 삭제")
