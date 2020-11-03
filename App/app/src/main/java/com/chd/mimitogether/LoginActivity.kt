@@ -3,6 +3,7 @@ package com.chd.mimitogether
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.chd.mimitogether.dto.UserRequest
 import com.chd.mimitogether.dto.UserResponse
@@ -38,6 +39,9 @@ class LoginActivity : AppCompatActivity() {
                 val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
                     if (error != null) {
                         Log.e("myLog", "로그인 실패", error)
+                        val myToast =
+                            Toast.makeText(this, error.toString(), Toast.LENGTH_LONG)
+                            myToast.show()
                     } else if (token != null) {
                         Log.i("myLog", "로그인 성공 ${token.accessToken}")
 
@@ -45,6 +49,9 @@ class LoginActivity : AppCompatActivity() {
                         UserApiClient.instance.me { user, error ->
                             if (error != null) {
                                 Log.e("myLog", "사용자 정보 요청 실패", error)
+                                val myToast =
+                                    Toast.makeText(this, error.toString(), Toast.LENGTH_LONG)
+                                myToast.show()
                             } else if (user != null) {
                                 Log.i(
                                     "myLog", "사용자 정보 요청 성공" +
@@ -56,15 +63,15 @@ class LoginActivity : AppCompatActivity() {
 
                                 val userRequest = UserRequest(
                                     id = user.id.toString(),
-                                    uiname = user.kakaoAccount?.profile?.nickname!!,
+                                    uiName = user.kakaoAccount?.profile?.nickname!!,
                                     isSurvey = "false",
-                                    uiprofile = "https://cdn.pixabay.com/photo/2020/10/28/11/08/castle-5693094_960_720.jpg",
-                                    uithumb = "https://cdn.pixabay.com/photo/2020/10/28/11/08/castle-5693094_960_720.jpg",
-                                    uitoken = token.accessToken
+                                    uiProfile = "https://cdn.pixabay.com/photo/2020/10/28/11/08/castle-5693094_960_720.jpg",
+                                    uiThumb = "https://cdn.pixabay.com/photo/2020/10/28/11/08/castle-5693094_960_720.jpg",
+                                    uiToken = token.accessToken
                                 )
 
                                 val retrofit =
-                                    Retrofit.Builder().baseUrl("http://192.168.30.58:9999/")
+                                    Retrofit.Builder().baseUrl(getString(R.string.base_url))
                                         .addConverterFactory(
                                             GsonConverterFactory.create()
                                         ).build()
@@ -90,7 +97,10 @@ class LoginActivity : AppCompatActivity() {
                                             edit.putBoolean("isLogin", true)
                                             edit.putBoolean("isSurvey", response.body()?.survey!!)
                                             edit.putLong("uid", user.id)
-                                            edit.putString("unickname", user.kakaoAccount?.profile?.nickname)
+                                            edit.putString(
+                                                "unickname",
+                                                user.kakaoAccount?.profile?.nickname
+                                            )
                                             edit.apply()
 
                                             // 로그인 성공 & 설문을 했는지 여부

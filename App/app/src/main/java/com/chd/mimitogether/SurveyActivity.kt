@@ -114,12 +114,17 @@ class SurveyActivity : AppCompatActivity() {
                             response: Response<Void>
                         ) {
                             Log.d("myLog", "보내는데 성공했어요!!")
+
+                            val pref = getSharedPreferences("user", 0)
+                            val edit = pref.edit()
+                            edit.putBoolean("isSurvey", true)
+                            edit.apply()
+
+                            goMainActivity()
                         }
                     })
 
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
+
                 } else {
                     moveSurvey(number)
                 }
@@ -141,6 +146,11 @@ class SurveyActivity : AppCompatActivity() {
             Glide.with(this).load(store?.img).into(foodImage)
             foodName?.text = store?.mainMn
         }
+    }
 
+    private fun goMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }
