@@ -11,13 +11,16 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mimi.Dto.Boss;
 import com.mimi.Dto.Dining;
 import com.mimi.Service.BossService;
+import com.mimi.Service.DiningService;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -28,6 +31,9 @@ public class BossController {
 
 	@Autowired
 	private BossService bossService;
+
+	@Autowired
+	private DiningService diningService;
 
 	@PostMapping("/create")
 	@ApiOperation(value = "사장님 등록")
@@ -105,6 +111,22 @@ public class BossController {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 
+	}
+
+	@PostMapping("/tender/{id}")
+	@ApiOperation(value = "사장님 입찰")
+	public ResponseEntity<?> tender(@RequestParam String boID, @RequestParam int price, @RequestParam String memo,
+			@RequestParam String id) {
+		System.out.println("tender Controller");
+
+		try {
+			Dining dining = bossService.tender(id, boID, price, memo);
+
+			return new ResponseEntity<Dining>(dining, HttpStatus.OK);
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
 	}
 
 }

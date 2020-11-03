@@ -15,7 +15,6 @@ public class User {
 	private String id;
 
 	private String uiName;
-	private String uiEmail;
 	private String uiProfile;
 	private String uiThumb;
 	private String uiToken;

@@ -19,4 +19,7 @@ public interface BossService {
 	// 주소 경매 리스트 확인
 	public List<Dining> getAllAuction(String addr, int status);
 
+	// 입찰
+	public Dining tender(String dnID, String boID, int price, String memo);
+
 }
