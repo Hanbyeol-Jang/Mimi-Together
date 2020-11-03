@@ -31,7 +31,7 @@ public class DiningController {
 	@ApiOperation(value = "경매 등록")
 	public ResponseEntity<HashMap<String, Object>> upload(@RequestBody Dining dining) {
 		System.out.println("upload Controller");
-		System.out.println(dining.getDName() + " " + dining.getDLocation());
+		System.out.println(dining.getDnName() + " " + dining.getDnLocation());
 
 		try {
 			HashMap<String, Object> map = new HashMap<>();
