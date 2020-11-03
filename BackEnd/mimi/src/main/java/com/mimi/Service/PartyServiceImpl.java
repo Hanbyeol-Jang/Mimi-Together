@@ -1,13 +1,14 @@
 package com.mimi.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mimi.Dao.PartyDao;
 import com.mimi.Dto.Party;
+import com.mimi.Dto.PartyRequest;
 
 @Service
 public class PartyServiceImpl implements PartyService {
@@ -16,7 +17,16 @@ public class PartyServiceImpl implements PartyService {
 	private PartyDao partyDao;
 
 	@Override
-	public Party createParty(Party party) {
+	public Party createParty(PartyRequest partyReq) {
+
+		Party party = new Party();
+
+		List<String> list = new ArrayList<>();
+		list.add(partyReq.getUserID());
+
+		party.setUserList(list);
+		party.setPtName(partyReq.getPtName());
+
 		return partyDao.save(party);
 	}
 
@@ -33,6 +43,7 @@ public class PartyServiceImpl implements PartyService {
 
 	@Override
 	public Party getParty(String id) {
-		return partyDao.findById(id);
+		return null;
+//		return partyDao.findById(id);
 	}
 }

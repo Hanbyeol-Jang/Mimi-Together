@@ -10,10 +10,7 @@ import lombok.Data;
 public class PartyRequest {
 
 	@Id
-	private String id;
-
-	private int[] userList;
-	private String pName;
-	private int[] recoList;
+	private String userID;
+	private String ptName;
 
 }

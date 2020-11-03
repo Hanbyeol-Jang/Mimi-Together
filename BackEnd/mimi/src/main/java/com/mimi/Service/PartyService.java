@@ -1,15 +1,14 @@
 package com.mimi.Service;
 
-import java.util.List;
-import java.util.Optional;
-
 import com.mimi.Dto.Party;
+import com.mimi.Dto.PartyRequest;
 
 public interface PartyService {
 	// 모임 업데이트
 	public Party save(Party party);
+
 	// 모임 생성
-	public Party createParty(Party party);
+	public Party createParty(PartyRequest party);
 
 	// 모임 삭제
 	public void deleteParty(Party party);

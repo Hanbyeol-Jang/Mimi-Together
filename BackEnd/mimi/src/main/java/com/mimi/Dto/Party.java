@@ -15,10 +15,11 @@ public class Party {
 	@Id
 	private String id;
 
-	private List<Integer> userList;
-	private String pName;
+	private List<String> userList;
+	private String ptName;
 	private List<Integer> recoList;
-	//약속 정보
+	// 약속 정보
 	private Store promiseStore;
 	private Date promiseTime;
+
 }
