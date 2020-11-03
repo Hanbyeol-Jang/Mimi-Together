@@ -85,15 +85,16 @@ public class BossController {
 		}
 	}
 
-	@GetMapping(value = "/{addr}")
+	@GetMapping(value = "/{addr}/{status}")
 	@ApiOperation(value = "주소 경매 리스트 확인")
-	public ResponseEntity<List<Dining>> getAllAuction(@PathVariable("addr") String addr) {
+	public ResponseEntity<List<Dining>> getAllAuction(@PathVariable("addr") String addr,
+			@PathVariable("status") int status) {
 		System.out.println("getAllAuction Controller");
 
 		try {
 			HashMap<String, Object> map = new HashMap<>();
 
-			List<Dining> list = bossService.getAllAuction(addr);
+			List<Dining> list = bossService.getAllAuction(addr, status);
 
 			for (int i = 0; i < list.size(); i++) {
 				System.out.println(list.get(i).getDnLocation() + " " + list.get(i).getDnName());

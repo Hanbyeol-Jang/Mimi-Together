@@ -17,6 +17,6 @@ public interface BossService {
 	public Optional<Boss> getBoss(String id);
 
 	// 주소 경매 리스트 확인
-	public List<Dining> getAllAuction(String addr);
+	public List<Dining> getAllAuction(String addr, int status);
 
 }

@@ -36,10 +36,10 @@ public class BossServiceImpl implements BossService {
 	}
 
 	@Override
-	public List<Dining> getAllAuction(String addr) {
+	public List<Dining> getAllAuction(String addr, int status) {
 		System.out.println("getAllAuction Service");
 
-		List<Dining> list = diningDao.findByDnLocationContaining(addr);
+		List<Dining> list = diningDao.findByDnLocationContainingAndDnStatus(addr, status);
 
 		return list;
 	}

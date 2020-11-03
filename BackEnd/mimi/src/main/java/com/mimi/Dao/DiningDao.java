@@ -10,6 +10,6 @@ import com.mimi.Dto.Dining;
 @Repository
 public interface DiningDao extends MongoRepository<Dining, Object> {
 
-	List<Dining> findByDnLocationContaining(String address);
+	List<Dining> findByDnLocationContainingAndDnStatus(String address, int status);
 
 }
