@@ -2,9 +2,9 @@ package com.chd.mimitogether.dto
 
 data class UserRequest(
     val id: String,
-    val uname: String,
+    val uiname: String,
     val isSurvey: String,
-    val uprofile: String,
-    val uthumb: String,
-    val utoken: String
+    val uiprofile: String,
+    val uithumb: String,
+    val uitoken: String
 )

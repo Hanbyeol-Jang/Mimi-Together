@@ -56,11 +56,11 @@ class LoginActivity : AppCompatActivity() {
 
                                 val userRequest = UserRequest(
                                     id = user.id.toString(),
-                                    uname = user.kakaoAccount?.profile?.nickname!!,
+                                    uiname = user.kakaoAccount?.profile?.nickname!!,
                                     isSurvey = "false",
-                                    uprofile = "https://cdn.pixabay.com/photo/2020/10/28/11/08/castle-5693094_960_720.jpg",
-                                    uthumb = "https://cdn.pixabay.com/photo/2020/10/28/11/08/castle-5693094_960_720.jpg",
-                                    utoken = token.accessToken
+                                    uiprofile = "https://cdn.pixabay.com/photo/2020/10/28/11/08/castle-5693094_960_720.jpg",
+                                    uithumb = "https://cdn.pixabay.com/photo/2020/10/28/11/08/castle-5693094_960_720.jpg",
+                                    uitoken = token.accessToken
                                 )
 
                                 val retrofit =
