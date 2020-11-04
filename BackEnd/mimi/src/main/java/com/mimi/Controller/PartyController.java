@@ -86,9 +86,9 @@ public class PartyController {
 		System.out.println("joinParty Controller");
 
 		try {
-			partyService.joinParty(userId, partyId);
+			Party party = partyService.joinParty(userId, partyId);
 
-			return new ResponseEntity<>("모임 참여 완료", HttpStatus.OK);
+			return new ResponseEntity<>(party, HttpStatus.OK);
 		} catch (Exception e) {
 			System.out.println(e);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
