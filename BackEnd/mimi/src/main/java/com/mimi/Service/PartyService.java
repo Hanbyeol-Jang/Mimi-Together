@@ -20,7 +20,6 @@ public interface PartyService {
 
 	// 모임 삭제
 	public void deleteParty(Party party);
-
-	// 모임 가져오기
+	// 위치 업데이트
 	public Party getParty(String id);
 }
