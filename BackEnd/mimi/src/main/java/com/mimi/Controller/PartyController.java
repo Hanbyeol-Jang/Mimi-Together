@@ -132,19 +132,20 @@ public class PartyController {
 		try {
 			// party id 만 가져옴 -> party 모든 정보 가져와야함
 			List<String> list = partyService.partyList(id);
-
+			System.out.println("partyList_test");
 			List<Party> partyList = new ArrayList<>();
-
+			System.out.println(list);
 			Party partyInfo = new Party();
 
 			for (int i = 0; i < list.size(); i++) {
 				partyInfo = partyService.getParty(list.get(i));
 				partyList.add(partyInfo);
 			}
+			System.out.println("partygetParty_test");
 
 			return new ResponseEntity<List<Party>>(partyList, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
