@@ -60,7 +60,7 @@ public class PartyController {
 	}
 
 	@GetMapping(value = "/{id}")
-	@ApiOperation(value = "id로 모임 가져오기")
+	@ApiOperation(value = "party id로 상세정보 가져오기")
 	public ResponseEntity<HashMap<String, Object>> getParty(@PathVariable("id") String id) {
 		System.out.println("getParty Controller");
 		try {
@@ -125,14 +125,24 @@ public class PartyController {
 //	}
 
 	@GetMapping(value = "/list/{id}")
-	@ApiOperation(value = "유저 id로 모임 목록 가져오기")
+	@ApiOperation(value = "유저 id로 party 정보 목록 가져오기")
 	public ResponseEntity<?> getPartylist(@PathVariable("id") String id) {
 		System.out.println("getPartylist Controller");
 
 		try {
+			// party id 만 가져옴 -> party 모든 정보 가져와야함
 			List<String> list = partyService.partyList(id);
 
-			return new ResponseEntity<List<String>>(list, HttpStatus.OK);
+			List<Party> partyList = new ArrayList<>();
+
+			Party partyInfo = new Party();
+
+			for (int i = 0; i < list.size(); i++) {
+				partyInfo = partyService.getParty(list.get(i));
+				partyList.add(partyInfo);
+			}
+
+			return new ResponseEntity<List<Party>>(partyList, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}

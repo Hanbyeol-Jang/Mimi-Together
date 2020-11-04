@@ -74,13 +74,11 @@ public class PartyServiceImpl implements PartyService {
 
 	@Override
 	public Party save(Party party) {
-
 		return partyDao.save(party);
 	}
 
 	@Override
 	public Party getParty(String id) {
-		return null;
-//		return partyDao.findById(id);
+		return partyDao.findById(id).get();
 	}
 }
