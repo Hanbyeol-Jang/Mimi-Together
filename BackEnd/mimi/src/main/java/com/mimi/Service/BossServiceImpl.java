@@ -33,8 +33,9 @@ public class BossServiceImpl implements BossService {
 	}
 
 	@Override
-	public Optional<Boss> getBoss(String id) {
-		return bossDao.findById(id);
+	public Boss getBoss(String id) {
+		System.out.println("getBoss Service");
+		return bossDao.findById(id).get();
 	}
 
 	@Override
@@ -55,6 +56,7 @@ public class BossServiceImpl implements BossService {
 		System.out.println(dining.toString());
 		// dining 에 입찰 추가
 		TenderInfo tenderInfo = new TenderInfo();
+		tenderInfo.setDnID(dnID);
 		tenderInfo.setBoID(boID);
 		tenderInfo.setPrice(price);
 		tenderInfo.setMemo(memo);
@@ -70,9 +72,9 @@ public class BossServiceImpl implements BossService {
 		// 사장님 자신의 입찰 추가
 		Boss boss = bossDao.findById(boID).get();
 
-		List<String> dnList = boss.getDiningList();
+		List<TenderInfo> dnList = boss.getDiningList();
 
-		dnList.add(dnID);
+		dnList.add(tenderInfo);
 
 		boss.setDiningList(dnList);
 
