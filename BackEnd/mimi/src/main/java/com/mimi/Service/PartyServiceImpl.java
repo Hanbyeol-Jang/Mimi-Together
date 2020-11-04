@@ -36,7 +36,7 @@ public class PartyServiceImpl implements PartyService {
 	}
 
 	@Override
-	public void joinParty(String userId, String partyId) {
+	public Party joinParty(String userId, String partyId) {
 		// 모임에 초대 됨
 		Party party = partyDao.findById(partyId).get();
 
@@ -56,6 +56,7 @@ public class PartyServiceImpl implements PartyService {
 		user.setPartyList(userList);
 
 		userDao.save(user);
+		return party; 
 	}
 
 	@Override

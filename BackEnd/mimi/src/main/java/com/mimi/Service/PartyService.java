@@ -13,7 +13,7 @@ public interface PartyService {
 	public Party createParty(PartyRequest party);
 
 	// 모임 초대
-	public void joinParty(String userId, String partyId);
+	public Party joinParty(String userId, String partyId);
 
 	// 가입된 모임 목록
 	public List<String> partyList(String userId);
