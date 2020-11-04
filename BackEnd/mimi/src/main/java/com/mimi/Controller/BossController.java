@@ -113,7 +113,7 @@ public class BossController {
 
 	}
 
-	@PostMapping("/tender/{id}")
+	@PostMapping("/tender")
 	@ApiOperation(value = "사장님 입찰")
 	public ResponseEntity<?> tender(@RequestParam String boID, @RequestParam int price, @RequestParam String memo,
 			@RequestParam String id) {
