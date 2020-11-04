@@ -6,7 +6,7 @@ import lombok.Data;
 public class TenderInfo {
 
 	private String boID;
-	private int stID;
+	private String dnID;
 	private int price;
 	private String memo;
 

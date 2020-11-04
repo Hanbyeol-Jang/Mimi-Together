@@ -79,4 +79,19 @@ public class DiningController {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 	}
+	
+	@PostMapping("/select")
+	@ApiOperation(value = "해당 경매 낙찰")
+	public ResponseEntity<HashMap<String, Object>> select(@RequestBody Dining dining) {
+		System.out.println("select Controller");
+		try {
+			HashMap<String, Object> map = new HashMap<>();
+			diningService.remove(dining);
+			map.put("dining", "removed");
+
+			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+	}
 }

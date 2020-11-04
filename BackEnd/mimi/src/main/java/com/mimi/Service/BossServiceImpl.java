@@ -75,11 +75,8 @@ public class BossServiceImpl implements BossService {
 		dnList.add(dnID);
 
 		boss.setDiningList(dnList);
-		System.out.println("222");
 
 		bossDao.save(boss);
-
-		System.out.println("333");
 
 		return dining;
 	}

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mimi.Dto.Boss;
 import com.mimi.Dto.Dining;
+import com.mimi.Dto.TenderInfo;
 import com.mimi.Service.BossService;
 import com.mimi.Service.DiningService;
 
@@ -115,12 +116,13 @@ public class BossController {
 
 	@PostMapping("/tender")
 	@ApiOperation(value = "사장님 입찰")
-	public ResponseEntity<?> tender(@RequestParam String boID, @RequestParam int price, @RequestParam String memo,
-			@RequestParam String id) {
+	public ResponseEntity<?> tender(@RequestBody TenderInfo tenderInfo) {
 		System.out.println("tender Controller");
 
 		try {
-			Dining dining = bossService.tender(id, boID, price, memo);
+
+			Dining dining = bossService.tender(tenderInfo.getDnID(), tenderInfo.getBoID(), tenderInfo.getPrice(),
+					tenderInfo.getMemo());
 
 			return new ResponseEntity<Dining>(dining, HttpStatus.OK);
 		} catch (Exception e) {
