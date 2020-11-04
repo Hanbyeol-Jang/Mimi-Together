@@ -17,7 +17,8 @@ public class Party {
 
 	private List<String> userList;
 	private String ptName;
-	private List<Integer> recoList;
+	private String promiseLocation;
+	
 	// 약속 정보
 	private Store promiseStore;
 	private Date promiseTime;

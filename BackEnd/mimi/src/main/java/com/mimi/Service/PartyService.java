@@ -14,13 +14,12 @@ public interface PartyService {
 
 	// 모임 초대
 	public void joinParty(String userId, String partyId);
-
+	
 	// 가입된 모임 목록
 	public List<String> partyList(String userId);
 
 	// 모임 삭제
 	public void deleteParty(Party party);
-
-	// 모임 가져오기
+	// 위치 업데이트
 	public Party getParty(String id);
 }

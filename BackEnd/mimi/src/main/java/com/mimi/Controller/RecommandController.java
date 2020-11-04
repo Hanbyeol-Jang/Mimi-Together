@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mimi.Dto.Party;
 import com.mimi.Dto.Recommand;
 import com.mimi.Dto.RecommandRequest;
 import com.mimi.Dto.RecommandRequest.Survey;
@@ -53,14 +54,15 @@ public class RecommandController {
 	}
 
 	@GetMapping("/multi")
-	public ResponseEntity<?> recommand_save(@RequestParam final String PartyId, @RequestParam final String location)
+	public ResponseEntity<?> recommand_save(@RequestParam final String PartyId)
 			throws InterruptedException, IOException {
-		List<String> user_list = partyService.getParty(PartyId).getUserList();
+		Party party = partyService.getParty(PartyId);
+		List<String> user_list = party.getUserList();
 		List<List<Recommand>> ls = new LinkedList<List<Recommand>>();
 		List<Recommand> ret = new LinkedList<Recommand>();
 
 		for (int i = 0; i < user_list.size(); i++) {
-			ls.add(recommandService.recom(user_list.get(i), location));
+			ls.add(recommandService.recom(user_list.get(i), party.getPromiseLocation()));
 		}
 
 		for (int i = 0; i < ls.get(0).size() - 3; i++) {
