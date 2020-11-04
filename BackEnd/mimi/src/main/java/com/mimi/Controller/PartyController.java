@@ -52,7 +52,7 @@ public class PartyController {
 			User user = userService.getUserinfo(partyReq.getUserID()).get();
 			Party party = partyService.createParty(partyReq);
 			List<String> list= user.getPartyList();
-			list.add(partyReq.getPtName());
+			list.add(party.getId());
 			user.setPartyList(list);
 			userService.update(user);
 			
