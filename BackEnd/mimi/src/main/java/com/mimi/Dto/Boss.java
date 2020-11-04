@@ -15,7 +15,7 @@ public class Boss {
 	private String id;
 
 	private String boPW;
-	private List<String> diningList;
+	private List<TenderInfo> diningList;
 	private String boAddress;
 	private List<String> storeList;
 
