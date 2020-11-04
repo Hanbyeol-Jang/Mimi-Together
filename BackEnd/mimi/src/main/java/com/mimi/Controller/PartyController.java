@@ -49,9 +49,13 @@ public class PartyController {
 
 		try {
 			HashMap<String, Object> map = new HashMap<>();
-
+			User user = userService.getUserinfo(partyReq.getUserID()).get();
 			Party party = partyService.createParty(partyReq);
-
+			List<String> list= user.getPartyList();
+			list.add(partyReq.getPtName());
+			user.setPartyList(list);
+			userService.update(user);
+			
 			return new ResponseEntity<Party>(party, HttpStatus.OK);
 		} catch (Exception e) {
 			System.out.println(e);
