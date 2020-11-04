@@ -31,10 +31,10 @@ public class PartyServiceImpl implements PartyService {
 
 		party.setUserList(list);
 		party.setPtName(partyReq.getPtName());
-
+		party.setPromiseLocation(partyReq.getPromiseLocation());
 		return partyDao.save(party);
 	}
-
+	
 	@Override
 	public void joinParty(String userId, String partyId) {
 		// 모임에 초대 됨
@@ -81,4 +81,5 @@ public class PartyServiceImpl implements PartyService {
 	public Party getParty(String id) {
 		return partyDao.findById(id).get();
 	}
+
 }

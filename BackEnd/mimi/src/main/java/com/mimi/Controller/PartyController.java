@@ -60,7 +60,7 @@ public class PartyController {
 			return new ResponseEntity<Party>(party, HttpStatus.OK);
 		} catch (Exception e) {
 			System.out.println(e);
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
@@ -76,7 +76,7 @@ public class PartyController {
 
 			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
@@ -91,10 +91,25 @@ public class PartyController {
 			return new ResponseEntity<>("모임 참여 완료", HttpStatus.OK);
 		} catch (Exception e) {
 			System.out.println(e);
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	@PostMapping(value = "/location")
+	@ApiOperation(value = "모임 위치 수정하기")
+	public ResponseEntity<?> updateLocation(@RequestParam String partyId, @RequestParam String location) {
+		System.out.println("joinParty Controller");
 
+		try {
+			Party party = partyService.getParty(partyId);
+			party.setPromiseLocation(location);
+			return new ResponseEntity<>(party, HttpStatus.OK);
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 //	@PostMapping(value = "/out")
 //	@ApiOperation(value = "모임 탈퇴하기")
 //	public ResponseEntity<?> outParty(@RequestParam String uid, @RequestParam String pid) {
@@ -165,7 +180,7 @@ public class PartyController {
 
 			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
@@ -183,7 +198,7 @@ public class PartyController {
 			partyService.save(party);
 			return new ResponseEntity<>(party, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
@@ -197,7 +212,7 @@ public class PartyController {
 			partyService.save(party);
 			return new ResponseEntity<>(party, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

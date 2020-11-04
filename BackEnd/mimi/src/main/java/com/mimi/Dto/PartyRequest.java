@@ -12,5 +12,6 @@ public class PartyRequest {
 	@Id
 	private String userID;
 	private String ptName;
+	private String promiseLocation;
 
 }
