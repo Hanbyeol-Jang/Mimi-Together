@@ -50,6 +50,7 @@ public class BossController {
 		try {
 			HashMap<String, Object> map = new HashMap<>();
 			boss.setDiningList(new LinkedList<TenderInfo>());
+			
 			Boss bossCreated = bossService.createBoss(boss);
 
 			if (boss == null) {
@@ -152,7 +153,7 @@ public class BossController {
 			return new ResponseEntity<Dining>(dining, HttpStatus.OK);
 		} catch (Exception e) {
 			System.out.println(e);
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

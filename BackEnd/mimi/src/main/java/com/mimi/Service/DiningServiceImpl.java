@@ -33,22 +33,28 @@ public class DiningServiceImpl implements DiningService {
 	}
 
 	@Override
-	public List<TenderInfo> getDiningByBoss(String id, String boID) {
+	public List<Dining> getDiningByBoss(String boID) {
 
-		ArrayList<TenderInfo> diningList = diningDao.findById(id).get().getStoreList();
-
-		List<TenderInfo> list = new ArrayList<>();
+		
+		List<Dining> diningList = diningDao.findAll();
+		System.out.println(diningList);
+		List<Dining> list = new ArrayList<>();
 
 		for (int i = 0; i < diningList.size(); i++) {
-			String temp = diningList.get(i).getBoID();
-			if (temp.equals(null)) {
-				continue;
-			}
+			System.out.println(i);
+			for(int j = 0;j<diningList.get(i).getStoreList().size();j++) {
+				System.out.println(i+","+j);
+				String temp = diningList.get(i).getStoreList().get(j).getBoID();
+				System.out.println(temp);
+				if (temp.equals(null)) {
+					continue;
+				}
 
-			if (diningList.get(i).getBoID().equals(boID)) {
-				diningList.get(i).setDnID(id);
-				list.add(diningList.get(i));
+				if (diningList.get(i).getStoreList().get(j).getBoID().equals(boID)) {
+					list.add(diningList.get(i));
+				}
 			}
+			
 		}
 
 		return list;
