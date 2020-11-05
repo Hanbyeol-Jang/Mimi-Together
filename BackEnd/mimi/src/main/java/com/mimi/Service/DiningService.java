@@ -19,6 +19,6 @@ public interface DiningService {
 	public Optional<Dining> getDining(String id);
 
 	// 사장님 자신이 입찰한 경매정보 확인
-	public List<TenderInfo> getDiningByBoss(String id, String boID);
+	public List<Dining> getDiningByBoss(String boID);
 
 }

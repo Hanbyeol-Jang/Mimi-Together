@@ -53,27 +53,28 @@ public class BossServiceImpl implements BossService {
 
 		Dining dining = diningDao.findById(dnID).get();
 
-		System.out.println(dining.toString());
 		// dining 에 입찰 추가
 		TenderInfo tenderInfo = new TenderInfo();
 		tenderInfo.setDnID(dnID);
 		tenderInfo.setBoID(boID);
 		tenderInfo.setPrice(price);
 		tenderInfo.setMemo(memo);
+		System.out.println(dining.toString());
 
 		ArrayList<TenderInfo> list = dining.getStoreList();
-
+		
 		list.add(tenderInfo);
 
 		dining.setStoreList(list);
-
+		System.out.println(boID);
 		diningDao.save(dining);
-
+		System.out.println(boID);
 		// 사장님 자신의 입찰 추가
 		Boss boss = bossDao.findById(boID).get();
-
+		System.out.println(dining.toString());	
 		List<TenderInfo> dnList = boss.getDiningList();
 
+		System.out.println(dining.toString());	
 		dnList.add(tenderInfo);
 
 		boss.setDiningList(dnList);
