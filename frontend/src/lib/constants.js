@@ -2,8 +2,8 @@ export default {
   TITLE: "미미 투게더",
   // baseUrl:
   //   "http://ec2-54-180-116-157.ap-northeast-2.compute.amazonaws.com:8888",
-  //  ServerUrl: "http://i3b205.p.ssafy.io:8080",
-   ServerUrl: "http://localhost:9999",
+   ServerUrl: "https://k3b106.p.ssafy.io",
+  //  ServerUrl: "http://localhost:9999",
   ERROR: {
     FRONT_ERROR: "FE00",
   },
