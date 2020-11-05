@@ -11,6 +11,7 @@ import com.chd.mimitogether.ui.dashboard.DashboardFragment
 import com.chd.mimitogether.ui.party.PartyListFragment
 import com.chd.mimitogether.ui.notifications.NotificationsFragment
 import com.chd.mimitogether.ui.party.PartyJoin
+import com.chd.mimitogether.ui.party.PartyStoreListFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -53,7 +54,8 @@ class MainActivity : AppCompatActivity() {
                 replaceFragment(f)
         }else{
             val transaction: FragmentTransaction = fragmentManager.beginTransaction()
-            transaction.replace(R.id.frame_layout, PartyListFragment()).commitAllowingStateLoss()
+//            transaction.replace(R.id.frame_layout, PartyListFragment()).commitAllowingStateLoss()
+            transaction.replace(R.id.frame_layout, PartyStoreListFragment()).commitAllowingStateLoss()
         }
 
 

@@ -22,4 +22,5 @@ interface PartyService {
 
     @GET("party/{id}")
     fun getPartyDetail(@Path("id") id : String): Call<Party>
+
 }

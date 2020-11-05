@@ -12,20 +12,20 @@
         android:layout_height="321dp"
         app:layout_constraintBottom_toTopOf="@+id/btn01"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
-        app:layout_constraintHorizontal_weight="90"
+        app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:layout_constraintVertical_weight="70" />
+        app:layout_constraintVertical_weight="1" />
 
     <Button
         android:id="@+id/btn01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="Fragment02 로 이동"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/party_list_recycler_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
