@@ -48,7 +48,6 @@ public class PartyController {
 		System.out.println("createParty Controller");
 
 		try {
-			HashMap<String, Object> map = new HashMap<>();
 			User user = userService.getUserinfo(partyReq.getUserID()).get();
 			Party party = partyService.createParty(partyReq);
 			List<String> list= user.getPartyList();
@@ -66,15 +65,12 @@ public class PartyController {
 
 	@GetMapping(value = "/{id}")
 	@ApiOperation(value = "party id로 상세정보 가져오기")
-	public ResponseEntity<HashMap<String, Object>> getParty(@PathVariable("id") String id) {
+	public ResponseEntity<Party> getParty(@PathVariable("id") String id) {
 		System.out.println("getParty Controller");
 		try {
-			HashMap<String, Object> map = new HashMap<>();
-
 			Party partyInfo = partyService.getParty(id);
-			map.put("Party", partyInfo);
 
-			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
+			return new ResponseEntity<Party>(partyInfo, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
