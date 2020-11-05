@@ -1,5 +1,7 @@
 package com.mimi.Dto;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,8 +15,8 @@ public class Boss {
 	private String id;
 
 	private String boPW;
-	private int[] diningList;
+	private List<TenderInfo> diningList;
 	private String boAddress;
-	private int[] storeList;
+	private List<String> storeList;
 
 }

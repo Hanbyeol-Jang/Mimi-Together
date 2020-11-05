@@ -14,11 +14,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mimi.Dto.Party;
 import com.mimi.Dto.Recommand;
 import com.mimi.Dto.RecommandRequest;
 import com.mimi.Dto.RecommandRequest.Survey;
+import com.mimi.Dto.User;
+import com.mimi.Service.PartyService;
 import com.mimi.Service.RecommandService;
 import com.mimi.Service.UserService;
 
@@ -31,6 +35,8 @@ public class RecommandController {
 	@Autowired
 	private RecommandService recommandService;
 
+	@Autowired
+	private PartyService partyService;
 	@Autowired
 	private UserService userService;
 
@@ -48,21 +54,23 @@ public class RecommandController {
 		return new ResponseEntity<>(id, HttpStatus.OK);
 	}
 
-	@PostMapping("/multi")
-	public ResponseEntity<?> recommand_save(@RequestBody final RecommandRequest request)
+	@GetMapping("/multi")
+	public ResponseEntity<?> recommand_save(@RequestParam final String PartyId)
 			throws InterruptedException, IOException {
+		Party party = partyService.getParty(PartyId);
+		List<User> user_list = party.getUserList();
 		List<List<Recommand>> ls = new LinkedList<List<Recommand>>();
 		List<Recommand> ret = new LinkedList<Recommand>();
 
-		for (int i = 0; i < request.getUser_list().size(); i++) {
-			ls.add(recommandService.recom(request.getUser_list().get(i), request.getTarget_location()));
+		for (int i = 0; i < user_list.size(); i++) {
+			ls.add(recommandService.recom(user_list.get(i).getId(), party.getPromiseLocation()));
 		}
 
 		for (int i = 0; i < ls.get(0).size() - 3; i++) {
 			boolean plag = true;
 			double avr_rating = 0;
 
-			for (int j = 0; j < request.getUser_list().size(); j++) {
+			for (int j = 0; j < user_list.size(); j++) {
 				avr_rating += ls.get(j).get(i).getRating();
 				if (ls.get(j).get(i).getRating() < 3) {
 					plag = false;
@@ -71,7 +79,7 @@ public class RecommandController {
 			}
 
 			if (plag) {
-				ls.get(0).get(i).setRating(avr_rating / request.getUser_list().size());
+				ls.get(0).get(i).setRating(avr_rating / user_list.size());
 				ret.add(ls.get(0).get(i));
 			}
 			ret.sort(null);
