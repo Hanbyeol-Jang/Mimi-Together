@@ -65,43 +65,43 @@ public class BossController {
 		}
 	}
 
-	@GetMapping(value = "/check/{id}")
-	@ApiOperation(value = "사장님 id 로 확인")
-	public ResponseEntity<?> getBoss(@PathVariable("id") String id) {
-		System.out.println("getBoss Controller");
-		try {
-
-			System.out.println(id);
-			Boss bossInfo = bossService.getBoss(id);
-
-			// 해당 사장님의 입찰 목록
-			List<TenderInfo> list = bossInfo.getDiningList();
-
-			// 입찰 한 dining 중 상세 정보 가져오기
-			List<TenderInfo> tenderList = new ArrayList<>();
-
-			int size = list.size();
-			
-			for (int i = 0; i < size; i++) {
-				// 같은 dining 에 여러번 입찰 가능해서 list임
-				List<TenderInfo> temp = diningService.getDiningByBoss(list.get(i).getDnID(), id);
-
-				// 같은 dining 에서 list 가져와서 그만큼 건너뛰어야함 
-				int cal = temp.size() - 1;
-				i += cal;
-				
-				tenderList.addAll(temp);
-			}
-
-			bossInfo.setDiningList(tenderList);
-
-			return new ResponseEntity<Boss>(bossInfo, HttpStatus.OK);
-		} catch (Exception e) {
-			System.out.println(e);
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-		}
-
-	}
+//	@GetMapping(value = "/check/{id}")
+//	@ApiOperation(value = "사장님 id 로 확인")
+//	public ResponseEntity<?> getBoss(@PathVariable("id") String id) {
+//		System.out.println("getBoss Controller");
+//		try {
+//
+//			System.out.println(id);
+//			Boss bossInfo = bossService.getBoss(id);
+//
+//			// 해당 사장님의 입찰 목록
+//			List<TenderInfo> list = bossInfo.getDiningList();
+//
+//			// 입찰 한 dining 중 상세 정보 가져오기
+//			List<TenderInfo> tenderList = new ArrayList<>();
+//
+//			int size = list.size();
+//			
+//			for (int i = 0; i < size; i++) {
+//				// 같은 dining 에 여러번 입찰 가능해서 list임
+//				List<Dining> temp = diningService.getDiningByBoss(id);
+//
+//				// 같은 dining 에서 list 가져와서 그만큼 건너뛰어야함 
+//				int cal = temp.size() - 1;
+//				i += cal;
+//				
+//				tenderList.addAll(temp);
+//			}
+//
+//			bossInfo.setDiningList(tenderList);
+//
+//			return new ResponseEntity<Boss>(bossInfo, HttpStatus.OK);
+//		} catch (Exception e) {
+//			System.out.println(e);
+//			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+//		}
+//
+//	}
 
 	@PostMapping("/delete")
 	@ApiOperation(value = "사장님 탈퇴")
