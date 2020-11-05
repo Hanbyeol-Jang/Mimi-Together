@@ -15,7 +15,7 @@ public class Party {
 	@Id
 	private String id;
 
-	private List<String> userList;
+	private List<User> userList;
 	private String ptName;
 	private String promiseLocation;
 	
