@@ -3,6 +3,7 @@ package com.chd.mimitogether
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.chd.mimitogether.dto.UserRequest
@@ -12,11 +13,14 @@ import com.kakao.sdk.auth.LoginClient
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import kotlinx.android.synthetic.main.activity_login.*
+import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.net.HttpURLConnection
+import java.util.concurrent.TimeUnit
 
 class LoginActivity : AppCompatActivity() {
 
@@ -34,7 +38,9 @@ class LoginActivity : AppCompatActivity() {
             setContentView(R.layout.activity_login)
             Log.d("myLog", "LoginActivity")
 
-            login_button.setOnClickListener {
+            val login_btn : Button = findViewById(R.id.login_button)
+
+            login_btn.setOnClickListener {
                 // 로그인 공통 callback 구성
                 val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
                     if (error != null) {
@@ -70,6 +76,8 @@ class LoginActivity : AppCompatActivity() {
                                     uiToken = token.accessToken
                                 )
 
+
+
                                 val retrofit =
                                     Retrofit.Builder().baseUrl(getString(R.string.base_url))
                                         .addConverterFactory(
@@ -97,6 +105,7 @@ class LoginActivity : AppCompatActivity() {
                                             edit.putBoolean("isLogin", true)
                                             edit.putBoolean("isSurvey", response.body()?.survey!!)
                                             edit.putLong("uid", user.id)
+                                            edit.putString("uname",user.kakaoAccount?.profile?.nickname)
                                             edit.putString(
                                                 "unickname",
                                                 user.kakaoAccount?.profile?.nickname
