@@ -1,6 +1,7 @@
 package com.mimi.Controller;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,8 @@ public class UserController {
 				// db에 없으면 회원 가입
 				user.setIsSurvey("false");
 				System.out.println(user.toString());
-
+				user.setDiningList(new LinkedList<String>());
+				user.setPartyList(new LinkedList<String>());
 				userService.join(user);
 
 				map.put("survey", false);

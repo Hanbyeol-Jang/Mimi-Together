@@ -15,12 +15,11 @@ public class User {
 	private String id;
 
 	private String uiName;
-	private String uiEmail;
 	private String uiProfile;
 	private String uiThumb;
 	private String uiToken;
-	private List<Integer> diningList;
-	private List<Integer> partyList;
+	private List<String> diningList;
+	private List<String> partyList;
 	private String device;
 	private String isSurvey;
 

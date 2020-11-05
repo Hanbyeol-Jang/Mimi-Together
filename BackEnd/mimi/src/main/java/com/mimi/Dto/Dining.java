@@ -1,6 +1,8 @@
 package com.mimi.Dto;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -20,21 +22,14 @@ public class Dining {
 	private Date dnDate;
 	private int dnPeople;
 	private int dnPrice;
-	private String[] dnMenu;
-	private int uiID;
+	private List<String> dnMenu;
+	private String uiID;
 	private String uiName;
 	private String uiEmail;
 	private String uiProfile;
 	private String uiThumb;
 	private String uiToken;
-	private int[] storeList;
+	private ArrayList<TenderInfo> storeList;
 	private String soldID;
-
-	@Data
-	private static class TenderInfo {
-		private String boID;
-		private int tiPrice;
-		private String tiInfo;
-	}
 
 }

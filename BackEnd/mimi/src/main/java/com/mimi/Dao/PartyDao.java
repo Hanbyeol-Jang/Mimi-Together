@@ -6,5 +6,5 @@ import com.mimi.Dto.Party;
 import java.util.List;
 
 public interface PartyDao extends MongoRepository<Party, Object> {
-	Party findById(String id); 
+
 }

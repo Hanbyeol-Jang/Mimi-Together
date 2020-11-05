@@ -1,6 +1,8 @@
 package com.mimi.Controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mimi.Dto.Dining;
+import com.mimi.Dto.TenderInfo;
 import com.mimi.Service.DiningService;
 
 import io.swagger.annotations.ApiOperation;
@@ -35,8 +38,9 @@ public class DiningController {
 
 		try {
 			HashMap<String, Object> map = new HashMap<>();
-			Dining diningTender = diningService.upload(dining);
 
+			dining.setStoreList(new ArrayList<TenderInfo>());
+			Dining diningTender = diningService.upload(dining);
 			if (dining == null) {
 				map.put("dining", "fail");
 			} else {
@@ -45,7 +49,7 @@ public class DiningController {
 
 			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
@@ -60,7 +64,21 @@ public class DiningController {
 
 			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+	}
+	@GetMapping(value = "getboss/{id}")
+	@ApiOperation(value = "보스 id로 경매 정보 가져오기")
+	public ResponseEntity<?> getBossDining(@PathVariable("id") String boID) {
+		System.out.println("dining Controller");
+		try {
+			List<Dining> diningInfo = diningService.getDiningByBoss(boID);
+
+			return new ResponseEntity<>(diningInfo, HttpStatus.OK);
+		} catch (Exception e) {
+			System.out.println(e);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 	}
@@ -76,7 +94,22 @@ public class DiningController {
 
 			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@PostMapping("/select")
+	@ApiOperation(value = "해당 경매 낙찰")
+	public ResponseEntity<HashMap<String, Object>> select(@RequestBody Dining dining) {
+		System.out.println("select Controller");
+		try {
+			HashMap<String, Object> map = new HashMap<>();
+			diningService.remove(dining);
+			map.put("dining", "removed");
+
+			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }
