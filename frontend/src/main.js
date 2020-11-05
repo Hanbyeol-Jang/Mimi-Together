@@ -97,7 +97,6 @@ const options = {
   cancelButtonColor: "lightgray",
 };
 
-Kakao.init("d5e6e1f1140f3ded1483ff360cb5a153");
 Vue.use(VueSweetalert2,options)
 Vue.use(VueSweetalert2)
 

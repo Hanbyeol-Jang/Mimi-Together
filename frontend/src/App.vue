@@ -3,7 +3,6 @@
     <Header :isHeader="isHeader" />
 
     <router-view />
-    <!-- <Footer :isFooter="isFooter" /> -->
   
     <button class="" onclick="history.back()" >
       <b-icon class="backButton rounded-circle p-1 font-weight-bold" style="border:2px solid orange;" icon="reply-fill" flip-h></b-icon>
