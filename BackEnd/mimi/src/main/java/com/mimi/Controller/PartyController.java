@@ -50,6 +50,7 @@ public class PartyController {
 		try {
 			User user = userService.getUserinfo(partyReq.getUserID()).get();
 			Party party = partyService.createParty(partyReq);
+
 			List<String> list= user.getPartyList();
 			
 			list.add(party.getId());

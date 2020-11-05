@@ -26,8 +26,8 @@ public class PartyServiceImpl implements PartyService {
 
 		Party party = new Party();
 
-		List<String> list = new ArrayList<>();
-		list.add(partyReq.getUserID());
+		List<User> list = new ArrayList<>();
+		list.add(userDao.findById(partyReq.getUserID()).get());
 
 		party.setUserList(list);
 		party.setPtName(partyReq.getPtName());
@@ -40,8 +40,8 @@ public class PartyServiceImpl implements PartyService {
 		// 모임에 초대 됨
 		Party party = partyDao.findById(partyId).get();
 
-		List<String> list = party.getUserList();
-		list.add(userId);
+		List<User> list = party.getUserList();
+		list.add(userDao.findById(userId).get());
 
 		party.setUserList(list);
 
