@@ -21,6 +21,7 @@ import com.mimi.Dto.Party;
 import com.mimi.Dto.Recommand;
 import com.mimi.Dto.RecommandRequest;
 import com.mimi.Dto.RecommandRequest.Survey;
+import com.mimi.Dto.User;
 import com.mimi.Service.PartyService;
 import com.mimi.Service.RecommandService;
 import com.mimi.Service.UserService;
@@ -57,12 +58,12 @@ public class RecommandController {
 	public ResponseEntity<?> recommand_save(@RequestParam final String PartyId)
 			throws InterruptedException, IOException {
 		Party party = partyService.getParty(PartyId);
-		List<String> user_list = party.getUserList();
+		List<User> user_list = party.getUserList();
 		List<List<Recommand>> ls = new LinkedList<List<Recommand>>();
 		List<Recommand> ret = new LinkedList<Recommand>();
 
 		for (int i = 0; i < user_list.size(); i++) {
-			ls.add(recommandService.recom(user_list.get(i), party.getPromiseLocation()));
+			ls.add(recommandService.recom(user_list.get(i).getId(), party.getPromiseLocation()));
 		}
 
 		for (int i = 0; i < ls.get(0).size() - 3; i++) {
