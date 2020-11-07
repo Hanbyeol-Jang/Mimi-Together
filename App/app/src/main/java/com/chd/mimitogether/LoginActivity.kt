@@ -108,6 +108,7 @@ class LoginActivity : AppCompatActivity() {
                                             edit.putString("uname",user.kakaoAccount?.profile?.nickname)
                                             edit.putString(
                                                 "unickname",
+
                                                 user.kakaoAccount?.profile?.nickname
                                             )
                                             edit.apply()

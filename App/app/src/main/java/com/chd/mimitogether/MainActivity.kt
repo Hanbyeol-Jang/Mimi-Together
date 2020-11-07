@@ -9,10 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.chd.mimitogether.ui.dashboard.DashboardFragment
-import com.chd.mimitogether.ui.party.PartyListFragment
 import com.chd.mimitogether.ui.notifications.NotificationsFragment
-import com.chd.mimitogether.ui.party.PartyJoin
-import com.chd.mimitogether.ui.party.PartyStoreListFragment
+import com.chd.mimitogether.ui.party.*
 import com.chd.mimitogether.ui.party.dto.Store
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
@@ -58,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         }else{
             val transaction: FragmentTransaction = fragmentManager.beginTransaction()
 //            transaction.replace(R.id.frame_layout, PartyListFragment()).commitAllowingStateLoss()
-            transaction.replace(R.id.frame_layout, PartyStoreListFragment()).commitAllowingStateLoss()
+            transaction.replace(R.id.frame_layout, PartyCreateFragment()).commitAllowingStateLoss()
         }
 
     }
@@ -70,7 +68,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun callFragment(fragment : Fragment, index : Int){
-
         val transaction: FragmentTransaction = fragmentManager.beginTransaction()
         if(index != 0){
             transaction.add(R.id.storedetail_layout, fragment).addToBackStack(null).commit()
