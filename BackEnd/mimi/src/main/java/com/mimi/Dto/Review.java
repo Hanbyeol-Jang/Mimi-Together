@@ -11,7 +11,7 @@ import lombok.ToString;
 @Document(collection="review")
 public class Review {
 	@Id
-	private int id;
+	private String id;
 	private int resId;
 	private String resName;
 	private String userName;
