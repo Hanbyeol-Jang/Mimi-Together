@@ -1,5 +1,7 @@
 package com.chd.mimitogether.ui.party
 
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chd.mimitogether.MainActivity
 import com.chd.mimitogether.R
+import com.chd.mimitogether.ui.party.adapter.PartyListAdapter
 import com.chd.mimitogether.ui.party.adapter.StoreGridListAdapter
 import com.chd.mimitogether.ui.party.dto.Store
 import com.chd.mimitogether.ui.party.dto.StorePageDto
@@ -95,6 +98,20 @@ class PartyStoreListFragment : Fragment() {
                             }
                         })
                 }
+            }
+        })
+
+        adapter.setItemClickListener( object : StoreGridListAdapter.ItemClickListener{
+            override fun onClick(view: View, position: Int) {
+
+                mainActivity.saveStore(adapter.storeList[position])
+//
+//                val f = StoreDetail()
+//                val bundle = Bundle()
+//                bundle.putSerializable("store_detail", adapter.storeList[position])
+//                f.arguments = bundle
+
+                mainActivity.replaceFragment(StoreDetail())
             }
         })
 

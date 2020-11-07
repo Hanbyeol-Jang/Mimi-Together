@@ -1,5 +1,7 @@
 package com.chd.mimitogether.ui.party.dto
 
+import java.io.Serializable
+
 data class Store(
     val id: Int,
     val boID: String,
@@ -14,4 +16,4 @@ data class Store(
     val rvwCnt: Int,
     val img: String,
     val tags: String
-)
+): Serializable

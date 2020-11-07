@@ -22,10 +22,26 @@ class StoreGridListAdapter : RecyclerView.Adapter<Holder3>(){
     override fun onBindViewHolder(holder: Holder3, position: Int) {
         val store = storeList.get(position)
         holder.setStore(store)
+        holder.itemView.setOnClickListener {
+            itemClickListner.onClick(it,position)
+        }
     }
 
     override fun getItemCount(): Int {
         return storeList.size
+    }
+
+    //클릭 인터페이스 정의
+    interface ItemClickListener {
+        fun onClick(view: View, position: Int)
+    }
+
+    //클릭리스너 선언
+    private lateinit var itemClickListner: ItemClickListener
+
+    //클릭리스너 등록 매소드
+    fun setItemClickListener(itemClickListener: ItemClickListener) {
+        this.itemClickListner = itemClickListener
     }
 }
 

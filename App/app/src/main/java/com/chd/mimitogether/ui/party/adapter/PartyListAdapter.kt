@@ -27,6 +27,10 @@ class PartyListAdapter : RecyclerView.Adapter<Holder2>() {
         }
     }
 
+    override fun getItemCount(): Int {
+        return partyList.size
+    }
+
     //클릭 인터페이스 정의
     interface ItemClickListener {
         fun onClick(view: View, position: Int)
@@ -34,10 +38,6 @@ class PartyListAdapter : RecyclerView.Adapter<Holder2>() {
 
     //클릭리스너 선언
     private lateinit var itemClickListner: ItemClickListener
-
-    override fun getItemCount(): Int {
-        return partyList.size
-    }
 
     //클릭리스너 등록 매소드
     fun setItemClickListener(itemClickListener: ItemClickListener) {

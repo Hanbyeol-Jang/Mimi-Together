@@ -1,5 +1,6 @@
 package com.chd.mimitogether
 
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +13,9 @@ import com.chd.mimitogether.ui.party.PartyListFragment
 import com.chd.mimitogether.ui.notifications.NotificationsFragment
 import com.chd.mimitogether.ui.party.PartyJoin
 import com.chd.mimitogether.ui.party.PartyStoreListFragment
+import com.chd.mimitogether.ui.party.dto.Store
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.gson.Gson
 
 class MainActivity : AppCompatActivity() {
 
@@ -58,16 +61,22 @@ class MainActivity : AppCompatActivity() {
             transaction.replace(R.id.frame_layout, PartyStoreListFragment()).commitAllowingStateLoss()
         }
 
-
-
-
-
     }
 
     fun replaceFragment(fragment: Fragment){
         Log.e("mylog", "전환!")
         val transaction: FragmentTransaction = fragmentManager.beginTransaction()
         transaction.replace(R.id.frame_layout, fragment).commit()
+    }
+
+    fun callFragment(fragment : Fragment, index : Int){
+
+        val transaction: FragmentTransaction = fragmentManager.beginTransaction()
+        if(index != 0){
+            transaction.add(R.id.storedetail_layout, fragment).addToBackStack(null).commit()
+        }else{
+            transaction.replace(R.id.storedetail_layout, fragment).commit()
+        }
     }
 
     fun loadData(key: String) : String{
@@ -82,7 +91,23 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun saveStore(store : Store){
+        val mPref : SharedPreferences = getPreferences(MODE_PRIVATE)
 
+        val prefsEditor : SharedPreferences.Editor = mPref.edit()
+        val gson : Gson = Gson()
+        val json : String = gson.toJson(store)
+
+        prefsEditor.putString("store", json)
+        prefsEditor.commit()
+    }
+
+    fun loadStore() : Store{
+        val mPref : SharedPreferences = getPreferences(MODE_PRIVATE)
+        val gson : Gson = Gson()
+        val json : String? = mPref.getString("store","")
+        return gson.fromJson(json, Store::class.java)
+    }
 
 }
 
