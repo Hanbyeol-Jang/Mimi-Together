@@ -24,7 +24,7 @@ public class RecommandService {
 		int index = (int) reviewDao.count();
 		for (int i = 0; i < list.length; i++) {
 			Review temp = new Review();
-			temp.setId(index+1+i);
+			temp.setId(String.valueOf(index+1+i));
 			temp.setRating(list[i].getRating());
 			temp.setResId(list[i].getRid());
 			temp.setUserName("" + list[i].getUid());
