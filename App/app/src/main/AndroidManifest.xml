@@ -67,6 +67,10 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/party_notification_channel_id" />
+
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="fgigu61u39" />
     </application>
 
 </manifest>
