@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,7 +31,7 @@ class PartyListFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_party, container, false)
         val mainActivity : MainActivity = activity as MainActivity
-        val btn : Button = root.findViewById(R.id.btn01)
+        val btn : ImageButton = root.findViewById(R.id.party_create_btn01)
 
         val adapter = PartyListAdapter()
         val recyclerView : RecyclerView = root.findViewById(R.id.party_list_recycler_view)
@@ -60,6 +61,7 @@ class PartyListFragment : Fragment() {
                     call: Call<List<Party>>,
                     response: Response<List<Party>>
                 ) {
+                    Log.d("mylog2",response.body().toString())
                     adapter.partyList.addAll(response.body() as List<Party>)
                     adapter.notifyDataSetChanged()
                 }
@@ -73,6 +75,8 @@ class PartyListFragment : Fragment() {
                 val bundle = Bundle()
                 bundle.putSerializable("party_detail", adapter.partyList[position])
                 f.arguments = bundle
+
+                mainActivity.selectParty = adapter.partyList[position]
 
                 mainActivity.replaceFragment(f)
             }

@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.chd.mimitogether.ui.dashboard.DashboardFragment
 import com.chd.mimitogether.ui.notifications.NotificationsFragment
 import com.chd.mimitogether.ui.party.*
+import com.chd.mimitogether.ui.party.dto.Party
 import com.chd.mimitogether.ui.party.dto.Store
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
@@ -21,8 +22,10 @@ class MainActivity : AppCompatActivity() {
     private val dashboardFragment: DashboardFragment = DashboardFragment()
     private val partyListFragment: PartyListFragment = PartyListFragment()
     private val notificationsFragment: NotificationsFragment = NotificationsFragment()
+    var selectParty : Party? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -55,8 +58,8 @@ class MainActivity : AppCompatActivity() {
                 replaceFragment(f)
         }else{
             val transaction: FragmentTransaction = fragmentManager.beginTransaction()
-//            transaction.replace(R.id.frame_layout, PartyListFragment()).commitAllowingStateLoss()
-            transaction.replace(R.id.frame_layout, PartyCreateFragment()).commitAllowingStateLoss()
+            transaction.replace(R.id.frame_layout, PartyListFragment()).commitAllowingStateLoss()
+//            transaction.replace(R.id.frame_layout, PartyPromiseCreate()).commitAllowingStateLoss()
         }
 
     }
@@ -67,14 +70,6 @@ class MainActivity : AppCompatActivity() {
         transaction.replace(R.id.frame_layout, fragment).commit()
     }
 
-    fun callFragment(fragment : Fragment, index : Int){
-        val transaction: FragmentTransaction = fragmentManager.beginTransaction()
-        if(index != 0){
-            transaction.add(R.id.storedetail_layout, fragment).addToBackStack(null).commit()
-        }else{
-            transaction.replace(R.id.storedetail_layout, fragment).commit()
-        }
-    }
 
     fun loadData(key: String) : String{
         val pref = getSharedPreferences("user", 0)

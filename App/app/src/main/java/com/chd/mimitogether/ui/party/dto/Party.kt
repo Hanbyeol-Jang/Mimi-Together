@@ -9,6 +9,7 @@ data class Party (
     var userList: MutableList<UserRequest>,
     var ptName: String,
     var recoList: List<Int>,
+    var promiseLocation: String,
     var promiseStore: Store,
     var promiseTime: Date
 ): Serializable

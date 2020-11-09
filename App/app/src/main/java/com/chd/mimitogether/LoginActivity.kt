@@ -3,7 +3,9 @@ package com.chd.mimitogether
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Window
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.chd.mimitogether.dto.UserRequest
@@ -38,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
             setContentView(R.layout.activity_login)
             Log.d("myLog", "LoginActivity")
 
-            val login_btn : Button = findViewById(R.id.login_button)
+            val login_btn : ImageButton = findViewById(R.id.login_button)
 
             login_btn.setOnClickListener {
                 // 로그인 공통 callback 구성

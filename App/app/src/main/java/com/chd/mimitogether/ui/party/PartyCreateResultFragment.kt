@@ -70,6 +70,7 @@ class PartyCreateResultFragment : Fragment() {
                         val bundle = Bundle()
                         bundle.putSerializable("party_detail", response.body())
                         f.arguments = bundle
+                        mainActivity.selectParty = response.body()
 
                         mainActivity.replaceFragment(f)
                     }

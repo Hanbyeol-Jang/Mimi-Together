@@ -1,9 +1,11 @@
 package com.chd.mimitogether.ui.party.service
 
+import com.chd.mimitogether.ui.party.dto.DateReq
 import com.chd.mimitogether.ui.party.dto.Party
 import com.chd.mimitogether.ui.party.dto.PartyCreate
 import retrofit2.Call
 import retrofit2.http.*
+import java.util.*
 
 
 interface PartyService {
@@ -22,5 +24,9 @@ interface PartyService {
 
     @GET("party/{id}")
     fun getPartyDetail(@Path("id") id : String): Call<Party>
+
+    @POST("party/promiseUpdate")
+    fun createPromise(@Body date: DateReq) : Call<Party>
+
 
 }
