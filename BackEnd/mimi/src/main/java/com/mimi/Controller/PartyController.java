@@ -1,11 +1,15 @@
 package com.mimi.Controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,10 +25,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mimi.Dto.Party;
 import com.mimi.Dto.PartyRequest;
+import com.mimi.Dto.PromiseRequest;
 import com.mimi.Dto.Store;
 import com.mimi.Dto.TenderInfo;
 import com.mimi.Dto.User;
 import com.mimi.Service.PartyService;
+import com.mimi.Service.StoreService;
 import com.mimi.Service.UserService;
 
 import io.swagger.annotations.ApiOperation;
@@ -39,6 +45,9 @@ public class PartyController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private StoreService storeService;
 
 	@PostMapping("/create")
 	@ApiOperation(value = "모임 생성")
@@ -185,18 +194,31 @@ public class PartyController {
 
 	@PostMapping(value = "/promiseUpdate")
 	@ApiOperation(value = "약속 생성 및 수정")
-	public ResponseEntity<?> promiseUpdate(@RequestParam Store store, @RequestParam String pid,
-			@RequestParam Date date) {
+	public ResponseEntity<?> promiseUpdate(@Valid @RequestBody PromiseRequest promiseReq) {
 		System.out.println("약속 생성 및 수정");
 		try {
-			Party party = partyService.getParty(pid);
-			party.setPromiseStore(store);
+			Party party = partyService.getParty(promiseReq.getPid());
+			party.setPromiseStore(storeService.getStore(promiseReq.getStoreid()));
+			SimpleDateFormat fm = new SimpleDateFormat("yyyyMMdd HHmm");
+			String dateString = String.valueOf(promiseReq.getYear()) + exchange(promiseReq.getMonth()) + exchange(promiseReq.getDay()) + " "+ exchange(promiseReq.getHour()) + exchange(promiseReq.getMin());
+			Date date = fm.parse(dateString);
 			party.setPromiseTime(date);
+			System.out.println(dateString);
+			System.out.println(date.toString());
 			partyService.save(party);
 			return new ResponseEntity<>(party, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	private String exchange(int num) {
+		String temp = "";
+		if(num < 10) {
+			temp = "0";
+		}
+		temp += num;
+		return temp;
 	}
 
 	@PostMapping(value = "/promiseDelete")
@@ -206,6 +228,7 @@ public class PartyController {
 		try {
 			Party party = partyService.getParty(pid);
 			party.setPromiseStore(null);
+			party.setPromiseTime(null);
 			partyService.save(party);
 			return new ResponseEntity<>(party, HttpStatus.OK);
 		} catch (Exception e) {
