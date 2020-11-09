@@ -56,7 +56,8 @@ class MainActivity : AppCompatActivity() {
         }else{
             val transaction: FragmentTransaction = fragmentManager.beginTransaction()
 //            transaction.replace(R.id.frame_layout, PartyListFragment()).commitAllowingStateLoss()
-            transaction.replace(R.id.frame_layout, PartyCreateFragment()).commitAllowingStateLoss()
+//            transaction.replace(R.id.frame_layout, PartyCreateFragment()).commitAllowingStateLoss()
+            transaction.replace(R.id.frame_layout, PartyStoreListFragment()).commitAllowingStateLoss()
         }
 
     }
