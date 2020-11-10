@@ -28,5 +28,8 @@ public class ReviewService {
 		return reviewDao.findByResId(id, pageable);
 	}
 	
+	public List<Review> findByUserId(String id){
+		return reviewDao.findByUserIdOrderByIdDesc(id);
+	}
 	
 }
