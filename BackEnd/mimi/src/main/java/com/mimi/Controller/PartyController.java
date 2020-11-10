@@ -95,6 +95,9 @@ public class PartyController {
 		partyres.setPtName(partyInfo.getPtName());
 		partyres.setUserList(partyInfo.getUserList());
 		
+		if(partyInfo.getPromiseTime()==null) {
+			return partyres;
+		}
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분");
 		String dateString = transFormat.format(partyInfo.getPromiseTime());
 		partyres.setPromiseTime(dateString);
