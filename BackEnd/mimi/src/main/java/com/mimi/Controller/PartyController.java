@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mimi.Dto.Party;
 import com.mimi.Dto.PartyRequest;
+import com.mimi.Dto.PartyResponse;
 import com.mimi.Dto.PromiseRequest;
 import com.mimi.Dto.Store;
 import com.mimi.Dto.TenderInfo;
@@ -75,12 +76,21 @@ public class PartyController {
 
 	@GetMapping(value = "/{id}")
 	@ApiOperation(value = "party id로 상세정보 가져오기")
-	public ResponseEntity<Party> getParty(@PathVariable("id") String id) {
+	public ResponseEntity<PartyResponse> getParty(@PathVariable("id") String id) {
 		System.out.println("getParty Controller");
 		try {
 			Party partyInfo = partyService.getParty(id);
-
-			return new ResponseEntity<Party>(partyInfo, HttpStatus.OK);
+			PartyResponse partyres = new PartyResponse();
+			partyres.setId(partyInfo.getId());
+			partyres.setPromiseLocation(partyInfo.getPromiseLocation());
+			partyres.setPromiseStore(partyInfo.getPromiseStore());
+			partyres.setPtName(partyInfo.getPtName());
+			partyres.setUserList(partyInfo.getUserList());
+			
+			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분");
+			String dateString = transFormat.format(partyInfo.getPromiseTime());
+			partyres.setPromiseTime(dateString);
+			return new ResponseEntity<PartyResponse>(partyres, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -203,8 +213,6 @@ public class PartyController {
 			String dateString = String.valueOf(promiseReq.getYear()) + exchange(promiseReq.getMonth()) + exchange(promiseReq.getDay()) + " "+ exchange(promiseReq.getHour()) + exchange(promiseReq.getMin());
 			Date date = fm.parse(dateString);
 			party.setPromiseTime(date);
-			System.out.println(dateString);
-			System.out.println(date.toString());
 			partyService.save(party);
 			return new ResponseEntity<>(party, HttpStatus.OK);
 		} catch (Exception e) {
