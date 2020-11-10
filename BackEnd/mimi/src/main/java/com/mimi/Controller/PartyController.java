@@ -80,20 +80,25 @@ public class PartyController {
 		System.out.println("getParty Controller");
 		try {
 			Party partyInfo = partyService.getParty(id);
-			PartyResponse partyres = new PartyResponse();
-			partyres.setId(partyInfo.getId());
-			partyres.setPromiseLocation(partyInfo.getPromiseLocation());
-			partyres.setPromiseStore(partyInfo.getPromiseStore());
-			partyres.setPtName(partyInfo.getPtName());
-			partyres.setUserList(partyInfo.getUserList());
-			
-			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분");
-			String dateString = transFormat.format(partyInfo.getPromiseTime());
-			partyres.setPromiseTime(dateString);
+			PartyResponse partyres = makePartyRes(partyInfo);
 			return new ResponseEntity<PartyResponse>(partyres, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	private PartyResponse makePartyRes(Party partyInfo) {
+		PartyResponse partyres = new PartyResponse();
+		partyres.setId(partyInfo.getId());
+		partyres.setPromiseLocation(partyInfo.getPromiseLocation());
+		partyres.setPromiseStore(partyInfo.getPromiseStore());
+		partyres.setPtName(partyInfo.getPtName());
+		partyres.setUserList(partyInfo.getUserList());
+		
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분");
+		String dateString = transFormat.format(partyInfo.getPromiseTime());
+		partyres.setPromiseTime(dateString);
+		return partyres;
 	}
 
 	@PostMapping(value = "/join")
@@ -103,7 +108,7 @@ public class PartyController {
 
 		try {
 			Party party = partyService.joinParty(userId, partyId);
-
+			PartyResponse partyres = makePartyRes(party);
 			return new ResponseEntity<>(party, HttpStatus.OK);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -169,17 +174,17 @@ public class PartyController {
 			// party id 만 가져옴 -> party 모든 정보 가져와야함
 			List<String> list = partyService.partyList(id);
 			System.out.println("partyList_test");
-			List<Party> partyList = new ArrayList<>();
 			System.out.println(list);
-			Party partyInfo = new Party();
 
-			for (int i = 0; i < list.size(); i++) {
-				partyInfo = partyService.getParty(list.get(i));
-				partyList.add(partyInfo);
+			List<PartyResponse> partyList = new ArrayList<>();
+			for (int i = list.size()-1; i > 0; i--) {
+				Party partyInfo = partyService.getParty(list.get(i));
+				PartyResponse partyres = makePartyRes(partyInfo);
+				partyList.add(partyres);
 			}
 			System.out.println("partygetParty_test");
 
-			return new ResponseEntity<List<Party>>(partyList, HttpStatus.OK);
+			return new ResponseEntity<List<PartyResponse>>(partyList, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
