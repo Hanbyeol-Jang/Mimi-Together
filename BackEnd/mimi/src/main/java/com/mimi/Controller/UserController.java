@@ -95,15 +95,12 @@ public class UserController {
 
 	@GetMapping(value = "/user/{id}")
 	@ApiOperation(value = "id로 회원 정보 가져오기")
-	public ResponseEntity<HashMap<String, Object>> getUserinfo(@PathVariable("id") String id) {
+	public ResponseEntity<?> getUserinfo(@PathVariable("id") String id) {
 		System.out.println("getUserinfo Controller");
 		try {
-			HashMap<String, Object> map = new HashMap<>();
+			User userinfo = userService.getUserinfo(id).get();
 
-			Optional<User> userinfo = userService.getUserinfo(id);
-			map.put("User", userinfo.get());
-
-			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
+			return new ResponseEntity<User>(userinfo, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
