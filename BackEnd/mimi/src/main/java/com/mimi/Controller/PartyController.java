@@ -3,6 +3,8 @@ package com.mimi.Controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -177,14 +179,44 @@ public class PartyController {
 			// party id 만 가져옴 -> party 모든 정보 가져와야함
 			List<String> list = partyService.partyList(id);
 			System.out.println("partyList_test");
-			System.out.println(list);
+//			System.out.println(list);
 
 			List<PartyResponse> partyList = new ArrayList<>();
-			for (int i = list.size()-1; i > 0; i--) {
+			for (int i = list.size()-1; i > 0 ; i--) {
 				Party partyInfo = partyService.getParty(list.get(i));
 				PartyResponse partyres = makePartyRes(partyInfo);
 				partyList.add(partyres);
 			}
+			
+			SimpleDateFormat fm = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분");
+			
+			Collections.sort(partyList, new Comparator<PartyResponse>() {
+				@Override
+				public int compare(PartyResponse p1, PartyResponse p2) {
+					if(p1.getPromiseTime()==null && p2.getPromiseTime()==null) {
+						return 0;
+					}
+					else if(p1.getPromiseTime() == null && p2.getPromiseTime() != null) {
+						return 1;
+					}
+					else if(p1.getPromiseTime() != null && p2.getPromiseTime() == null) {
+						return -1;
+					}
+					else {
+						Date date1 = null;
+						Date date2 = null;
+						try {
+							date1 = fm.parse(p1.getPromiseTime());
+							date2 = fm.parse(p2.getPromiseTime());
+						} catch (ParseException e) {
+							e.printStackTrace();
+						}
+						return date1.compareTo(date2);
+					}
+				}
+			});
+			
+
 			System.out.println("partygetParty_test");
 
 			return new ResponseEntity<List<PartyResponse>>(partyList, HttpStatus.OK);

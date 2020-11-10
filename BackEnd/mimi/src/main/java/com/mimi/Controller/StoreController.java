@@ -42,15 +42,12 @@ public class StoreController {
 	}
 	@GetMapping(value = "/{id}")
 	@ApiOperation(value = "id로 가게 가져오기")
-	public ResponseEntity<HashMap<String, Object>> getStore(@PathVariable("id") String id) {
+	public ResponseEntity<?> getStore(@PathVariable("id") String id) {
 		System.out.println("getStore Controller");
 		try {
-			HashMap<String, Object> map = new HashMap<>();
-
 			Store store = storeService.getStore(id);
-			map.put("Store", store);
 
-			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
+			return new ResponseEntity<Store>(store, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
