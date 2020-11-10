@@ -16,5 +16,4 @@ public class Reviewdata {
 	private String resName;
 	private String userId;
 	private double rating;
-	private String review;
 }
