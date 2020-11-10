@@ -11,5 +11,5 @@ data class Party (
     var recoList: List<Int>,
     var promiseLocation: String,
     var promiseStore: Store,
-    var promiseTime: Date
+    var promiseTime: String
 ): Serializable

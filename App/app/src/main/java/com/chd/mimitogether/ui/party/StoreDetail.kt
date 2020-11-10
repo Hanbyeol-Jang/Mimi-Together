@@ -31,7 +31,7 @@ class StoreDetail : Fragment() {
         val root = inflater.inflate(R.layout.fragment_storedetail, container, false)
         val mainActivity : MainActivity = activity as MainActivity
         val store = mainActivity.loadStore()
-        val party : Party = mainActivity.selectParty!!
+        val party : Party? = mainActivity.selectParty
 
         val stName : TextView = root.findViewById(R.id.storedetail_name)
         val stStar : RatingBar = root.findViewById(R.id.store_rating_star)
@@ -49,7 +49,6 @@ class StoreDetail : Fragment() {
         val adapter = ViewPagerAdapter(requireActivity())
         val fragments = listOf<Fragment>( StoreMenuFragment(), StoreInformationFragment(), StoreMapFragment(),ReviewFragment())
         adapter.fragments.addAll(fragments)
-
         viewpager.adapter = adapter
 
         TabLayoutMediator(tablayout,viewpager){tab,position->
@@ -64,7 +63,7 @@ class StoreDetail : Fragment() {
         val uid = mainActivity.loadData("uid")
 
         promisebtn.setOnClickListener {
-            if(party.userList[0].id == uid){
+            if(party !=null && party.userList[0].id == uid){
                 mainActivity.replaceFragment(PartyPromiseCreate())
             }else{
                 Toast.makeText(requireContext(), "파티를 만든 사람만 이용가능합니다.", Toast.LENGTH_LONG).show()

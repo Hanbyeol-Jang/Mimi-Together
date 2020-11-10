@@ -12,9 +12,10 @@ interface ReviewService {
     fun getStoreview(@Path("id") id: Int,
                      @Query("pageno") pageno: Int): Call<ReviewList>
 
-
     @POST("review/write")
     fun writeReview(@Body reviewreq : ReviewRequest): Call<Void>
 
+    @GET("user/review/{id}")
+    fun getUserReview(@Path("id") id: String) : Call<List<ReviewRequest>>
 
 }

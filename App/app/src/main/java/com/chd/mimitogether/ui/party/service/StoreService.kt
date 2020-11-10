@@ -12,5 +12,7 @@ interface StoreService {
     @GET("store")
     fun getStoreList(@Query("pageno") pageno: Int): Call<StorePageDto>
 
+    @GET("store/{id}")
+    fun getStoreDetail(@Path("id") id: String): Call<Store>
 
 }

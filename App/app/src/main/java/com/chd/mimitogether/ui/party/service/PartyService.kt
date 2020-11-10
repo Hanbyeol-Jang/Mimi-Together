@@ -18,6 +18,7 @@ interface PartyService {
     @GET("party/list/{id}")
     fun getPartyList(@Path("id") id: String): Call<List<Party>>
 
+
     @POST("party/join")
     fun joinParty(@Query("partyId") partyId: String,
                   @Query("userId") userId: String): Call<Party>

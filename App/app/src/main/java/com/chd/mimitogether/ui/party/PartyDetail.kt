@@ -124,44 +124,10 @@ class PartyDetail : Fragment() {
         }))
 
 
-//        gridview.addOnScrollListener( object : RecyclerView.OnScrollListener() {
-//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                super.onScrolled(recyclerView, dx, dy)
-//
-//                if(!recyclerView.canScrollVertically(1)){
-//
-//                    storeService.getStoreList(pageno = pageno)
-//                        .enqueue(object : Callback<StorePageDto> {
-//                            override fun onFailure(
-//                                call: Call<StorePageDto>,
-//                                t: Throwable
-//                            ) {
-//                                Log.i("storeService", t.toString())
-//                            }
-//
-//                            override fun onResponse(
-//                                call: Call<StorePageDto>,
-//                                response: Response<StorePageDto>
-//                            ) {
-//                                Log.e("pageload", "here")
-//                                adapter.storeList.addAll(response.body()?.content as List<Store>)
-//                                adapter.notifyDataSetChanged()
-//                                pageno++
-//                            }
-//                        })
-//                }
-//            }
-//        })
-
         adapter.setItemClickListener( object : StoreGridListAdapter.ItemClickListener{
             override fun onClick(view: View, position: Int) {
 
                 mainActivity.saveStore(adapter.storeList[position])
-//
-//                val f = StoreDetail()
-//                val bundle = Bundle()
-//                bundle.putSerializable("store_detail", adapter.storeList[position])
-//                f.arguments = bundle
 
                 mainActivity.replaceFragment(StoreDetail())
             }

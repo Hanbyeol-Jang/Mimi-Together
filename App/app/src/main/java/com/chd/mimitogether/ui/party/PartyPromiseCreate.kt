@@ -119,7 +119,6 @@ class PartyPromiseCreate : Fragment(), TimePickerDialog.OnTimeSetListener,
         time_text!!.text = String.format("%02d : %02d", hourOfDay, minute)
         date.hour = hourOfDay
         date.min = minute
-
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {

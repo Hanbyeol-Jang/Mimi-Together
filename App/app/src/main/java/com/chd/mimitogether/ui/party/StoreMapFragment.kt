@@ -16,6 +16,7 @@ import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
+import kotlinx.android.synthetic.main.fragment_storemap.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,13 +32,19 @@ class StoreMapFragment : Fragment(), OnMapReadyCallback {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d("myLog", "etstetset")
         val root = inflater.inflate(R.layout.fragment_storemap, container, false)
+        return root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("myLog", "onResume!!!!!!!!")
+
         mainActivity = activity as MainActivity
 
         val naverMap = childFragmentManager.findFragmentById(R.id.naver_map) as MapFragment
         naverMap.getMapAsync(this)
-
-        return root
     }
 
     override fun onMapReady(naverMap: NaverMap) {

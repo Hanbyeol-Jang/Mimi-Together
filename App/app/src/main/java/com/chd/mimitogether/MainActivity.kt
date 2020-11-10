@@ -1,5 +1,6 @@
 package com.chd.mimitogether
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
@@ -9,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.chd.mimitogether.ui.dashboard.DashboardFragment
-import com.chd.mimitogether.ui.notifications.NotificationsFragment
+import com.chd.mimitogether.ui.profile.ProfileFragment
 import com.chd.mimitogether.ui.party.*
 import com.chd.mimitogether.ui.party.dto.Party
 import com.chd.mimitogether.ui.party.dto.Store
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     private val fragmentManager: FragmentManager = supportFragmentManager
     private val dashboardFragment: DashboardFragment = DashboardFragment()
     private val partyListFragment: PartyListFragment = PartyListFragment()
-    private val notificationsFragment: NotificationsFragment = NotificationsFragment()
+    private val profileFragment: ProfileFragment = ProfileFragment()
     var selectParty : Party? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,9 +41,9 @@ class MainActivity : AppCompatActivity() {
                     R.id.frame_layout,
                     dashboardFragment
                 ).commitAllowingStateLoss()
-                R.id.navigation_notifications -> transaction.replace(
+                R.id.navigation_profile -> transaction.replace(
                     R.id.frame_layout,
-                    notificationsFragment
+                    profileFragment
                 ).commitAllowingStateLoss()
             }
             return@setOnNavigationItemSelectedListener true
@@ -85,7 +86,6 @@ class MainActivity : AppCompatActivity() {
 
     fun saveStore(store : Store){
         val mPref : SharedPreferences = getPreferences(MODE_PRIVATE)
-
         val prefsEditor : SharedPreferences.Editor = mPref.edit()
         val gson : Gson = Gson()
         val json : String = gson.toJson(store)
@@ -99,6 +99,18 @@ class MainActivity : AppCompatActivity() {
         val gson : Gson = Gson()
         val json : String? = mPref.getString("store","")
         return gson.fromJson(json, Store::class.java)
+    }
+
+
+    fun doLogout() {
+        val pref = getSharedPreferences("user",0)
+        val edit = pref.edit()
+        edit.clear()
+        edit.commit()
+
+        val intent = Intent(this, FirstActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
 }
