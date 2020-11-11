@@ -4,12 +4,21 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_profile">MyPage</string>
 
-    <string name="base_url">http://192.168.30.58:9999/</string>
-    <!--    <string name="base_url">https://k3b106.p.ssafy.io/</string>-->
+<!--    <string name="base_url">http://192.168.30.58:9999/</string>-->
+        <string name="base_url">https://k3b106.p.ssafy.io/</string>
 
     <string name="party_notification_channel_id">partyNotificationChannelID</string>
     <string name="party_notification_channel_name">partyNotificationChannelName</string>
     <string name="party_notification_channel_desc">partyNotificationChannelDesc</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_float">FloatActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>

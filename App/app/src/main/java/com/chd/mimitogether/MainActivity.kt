@@ -5,7 +5,9 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -29,6 +31,11 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        setSupportActionBar(findViewById(R.id.my_toolbar))
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        setToolbarTitle("아로새기다")
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         navView.setOnNavigationItemSelectedListener {
@@ -111,6 +118,12 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, FirstActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    fun setToolbarTitle(title: String) {
+        val toolbar = findViewById<Toolbar>(R.id.my_toolbar)
+        val toolbar_text = toolbar.findViewById<TextView>(R.id.textView14)
+        toolbar_text.text = title
     }
 
 }

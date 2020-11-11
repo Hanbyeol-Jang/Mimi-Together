@@ -37,7 +37,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/myreview_gostore"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/myreview_uname" />
+            app:layout_constraintStart_toEndOf="@+id/myreview_uname"
+            android:theme="@style/RatingBar"
+            />
 
         <ImageButton
             android:id="@+id/myreview_gostore"

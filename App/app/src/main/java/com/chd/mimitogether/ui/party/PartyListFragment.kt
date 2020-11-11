@@ -15,6 +15,7 @@ import com.chd.mimitogether.R
 import com.chd.mimitogether.ui.party.adapter.PartyListAdapter
 import com.chd.mimitogether.ui.party.dto.Party
 import com.chd.mimitogether.ui.party.service.PartyService
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,7 +32,8 @@ class PartyListFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_party, container, false)
         val mainActivity : MainActivity = activity as MainActivity
-        val btn : ImageButton = root.findViewById(R.id.party_create_btn01)
+//        val btn : ImageButton = root.findViewById(R.id.party_create_btn01)
+        val btn : FloatingActionButton = root.findViewById(R.id.f_a_b)
 
         val adapter = PartyListAdapter()
         val recyclerView : RecyclerView = root.findViewById(R.id.party_list_recycler_view)

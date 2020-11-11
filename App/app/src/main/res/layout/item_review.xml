@@ -35,7 +35,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/review_uname" />
+            app:layout_constraintStart_toEndOf="@+id/review_uname"
+            android:theme="@style/RatingBar"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

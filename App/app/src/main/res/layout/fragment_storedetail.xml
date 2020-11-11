@@ -76,7 +76,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
             android:layout_marginRight="5dp"
-            android:layout_marginBottom="32dp" />
+            android:layout_marginBottom="32dp"
+            android:theme="@style/RatingBar"/>
 
         <TextView
             android:id="@+id/store_rating_text"
