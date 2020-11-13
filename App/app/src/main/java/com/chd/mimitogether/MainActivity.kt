@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -20,6 +22,8 @@ import com.chd.mimitogether.ui.party.dto.Party
 import com.chd.mimitogether.ui.party.dto.Store
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
+import com.kakao.sdk.link.LinkClient
+import kotlinx.coroutines.selects.select
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,9 +31,11 @@ class MainActivity : AppCompatActivity() {
     private val dashboardFragment: DashboardFragment = DashboardFragment()
     private val partyListFragment: PartyListFragment = PartyListFragment()
     private val profileFragment: ProfileFragment = ProfileFragment()
+
     private val myListFragment: MyListFragment = MyListFragment()
     private val createFragment: CreateFragment = CreateFragment()
-    var selectParty: Party? = null
+    private val currentFragment: Fragment? = null
+    var selectParty : Party? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -40,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         setToolbarTitle("아로새기다")
+
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         navView.setOnNavigationItemSelectedListener {
@@ -71,9 +78,12 @@ class MainActivity : AppCompatActivity() {
 //            transaction.replace(R.id.frame_layout, PartyPromiseCreate()).commitAllowingStateLoss()
         }
 
-    }
 
-    fun replaceFragment(fragment: Fragment) {
+
+
+    }
+    
+    fun replaceFragment(fragment: Fragment){
         Log.e("mylog", "전환!")
         val transaction: FragmentTransaction = fragmentManager.beginTransaction()
         transaction.replace(R.id.frame_layout, fragment).commit()

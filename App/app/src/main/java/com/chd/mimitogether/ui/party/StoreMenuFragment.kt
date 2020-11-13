@@ -31,12 +31,11 @@ class StoreMenuFragment : Fragment() {
 
         val mmadapter = MenuListAdapter()
         val mainmenuView : RecyclerView = root.findViewById(R.id.recyclerview_mainmenu)
+
+
+
         mainmenuView?.adapter = mmadapter
-
         mainmenuView?.layoutManager = LinearLayoutManager(requireContext())
-
-
-
 
         val amadapter = MenuListAdapter()
         val allmenuView : RecyclerView = root.findViewById(R.id.recyclerview_allmenu)
