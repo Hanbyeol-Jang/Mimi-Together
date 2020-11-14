@@ -38,6 +38,8 @@ class PartyListFragment : Fragment() {
         val adapter = PartyListAdapter()
         val recyclerView : RecyclerView = root.findViewById(R.id.party_list_recycler_view)
 
+        mainActivity.setToolbarTitle("모임 리스트")
+
         recyclerView?.adapter = adapter
         recyclerView?.layoutManager = LinearLayoutManager(requireContext())
 
@@ -91,5 +93,4 @@ class PartyListFragment : Fragment() {
 
         return root
     }
-
 }

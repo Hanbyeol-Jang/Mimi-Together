@@ -3,6 +3,7 @@ package com.chd.mimitogether.ui.party
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,6 +44,8 @@ class StoreDetail : Fragment() {
         stStar.rating = store.rating.toFloat()
         stStarNum.text = "("+store.rating+")"
 
+        mainActivity.setToolbarTitle("${store.name}")
+
         val tablayout : TabLayout = root.findViewById(R.id.store_tabLayout)
         val viewpager : ViewPager2 = root.findViewById(R.id.store_viewpager)
 
@@ -72,6 +75,14 @@ class StoreDetail : Fragment() {
 
 
         return root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        val mainActivity : MainActivity = activity as MainActivity
+
+        val item: Party = mainActivity.selectParty!!
+        mainActivity.setToolbarTitle("${item.ptName} (${item.userList.size}명)")
     }
 
 }

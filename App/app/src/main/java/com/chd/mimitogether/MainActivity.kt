@@ -5,6 +5,9 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
@@ -35,7 +38,9 @@ class MainActivity : AppCompatActivity() {
     private val myListFragment: MyListFragment = MyListFragment()
     private val createFragment: CreateFragment = CreateFragment()
     private val currentFragment: Fragment? = null
-    var selectParty : Party? = null
+    var selectParty: Party? = null
+
+    lateinit var peopleItem: MenuItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -44,9 +49,6 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(findViewById(R.id.my_toolbar))
         supportActionBar?.setDisplayShowTitleEnabled(false)
-
-        setToolbarTitle("아로새기다")
-
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         navView.setOnNavigationItemSelectedListener {
@@ -79,14 +81,18 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
-
     }
-    
-    fun replaceFragment(fragment: Fragment){
+
+    fun replaceFragment(fragment: Fragment) {
         Log.e("mylog", "전환!")
         val transaction: FragmentTransaction = fragmentManager.beginTransaction()
-        transaction.replace(R.id.frame_layout, fragment).commit()
+        transaction.replace(R.id.frame_layout, fragment).addToBackStack(null).commit()
+    }
+
+    fun addFragment(fragment: Fragment) {
+        Log.e("mylog", "전환!")
+        val transaction: FragmentTransaction = fragmentManager.beginTransaction()
+        transaction.add(R.id.frame_layout, fragment).addToBackStack(null).commit()
     }
 
 
@@ -137,5 +143,55 @@ class MainActivity : AppCompatActivity() {
         toolbar_text.text = title
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            R.id.action_people -> {
+                Log.d("myLog", "MainActivity: action_people")
+
+                val templateId = 39892L
+                val templateArgs = HashMap<String, String>()
+                templateArgs["partyId"] = selectParty!!.id
+
+                val pref = getSharedPreferences("user", 0)
+                templateArgs["userName"] = pref.getString("uname", "")!!
+                templateArgs["partyName"] = selectParty!!.ptName
+
+                LinkClient.instance.customTemplate(
+                    this,
+                    templateId,
+                    templateArgs
+                ) { linkResult, error ->
+                    if (error != null) {
+                        Log.e("myLog", "카카오링크 보내기 실패", error)
+                    } else if (linkResult != null) {
+                        Log.d("myLog", "카카오링크 보내기 성공 ${linkResult.intent}")
+                        startActivity(linkResult.intent)
+
+                        // 카카오링크 보내기에 성공했지만 아래 경고 메시지가 존재할 경우 일부 컨텐츠가 정상 동작하지 않을 수 있습니다.
+                        Log.w("myLog", "Warning Msg: ${linkResult.warningMsg}")
+                        Log.w("myLog", "Argument Msg: ${linkResult.argumentMsg}")
+                    }
+                }
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val menuInflater = menuInflater
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+
+        peopleItem = menu?.findItem(R.id.action_people)!!
+        peopleItem.isVisible = false
+        return true
+//        return super.onCreateOptionsMenu(menu)
+    }
 }
 

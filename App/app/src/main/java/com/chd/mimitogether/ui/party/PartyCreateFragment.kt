@@ -25,6 +25,8 @@ class PartyCreateFragment : Fragment() {
 
         val btn : Button = root.findViewById(R.id.move_address_btn)
 
+        mainActivity.setToolbarTitle("모임 만들기")
+
         btn.setOnClickListener {
             val ptName = input_party_name.text.toString()
             if(ptName == ""){

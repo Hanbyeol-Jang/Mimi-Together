@@ -10,6 +10,7 @@ import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.bumptech.glide.Glide
 import com.chd.mimitogether.MainActivity
 import com.chd.mimitogether.R
@@ -30,7 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class PartyDetail : Fragment() {
 
     var pageno = 1
-    var shared_btn : ImageButton? = null
+    var shared_btn: ImageButton? = null
 
 
     override fun onCreateView(
@@ -43,16 +44,21 @@ class PartyDetail : Fragment() {
 
         val bundle = arguments
         val item: Party = bundle?.getSerializable("party_detail") as Party
-        val name: TextView = root.findViewById(R.id.party_detail_name)
+//        val name: TextView = root.findViewById(R.id.party_detail_name)
         val location: TextView = root.findViewById(R.id.partydetail_location)
-        val membercount: TextView = root.findViewById(R.id.partydetail_member_count)
-        val backbtn: ImageButton = root.findViewById(R.id.partydetail_backbtn)
+//        val membercount: TextView = root.findViewById(R.id.partydetail_member_count)
+//        val backbtn: ImageButton = root.findViewById(R.id.partydetail_backbtn)
         val scrollview: NestedScrollView = root.findViewById(R.id.partydetail_scrollview)
         val promise_time: TextView = root.findViewById(R.id.promise_time)
         val promise_location: TextView = root.findViewById(R.id.promise_location)
 
-        name.text = item.ptName
-        membercount.text = "(" + item.userList.size + ")"
+//        name.text = item.ptName
+//        membercount.text = "(" + item.userList.size + ")"
+
+        mainActivity.setToolbarTitle("${item.ptName} (${item.userList.size}명)")
+        mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        mainActivity.peopleItem.isVisible = true
+
         location.text = item.promiseLocation
         if (item.promiseTime != null) {
             promise_time.text = item.promiseTime.toString()
@@ -61,13 +67,16 @@ class PartyDetail : Fragment() {
             promise_location.text = item.promiseStore.name
         }
 
-
         val adapter = StoreGridListAdapter()
         val gridview: RecyclerView = root.findViewById(R.id.store_grid)
 
         gridview.adapter = adapter
         gridview.layoutManager = GridLayoutManager(requireContext(), 3)
 
+        val animator: RecyclerView.ItemAnimator? = gridview.itemAnimator
+        if (animator is SimpleItemAnimator) {
+            animator.supportsChangeAnimations = false
+        }
 
         val retrofit =
             Retrofit.Builder().baseUrl(getString(R.string.base_url))
@@ -127,16 +136,16 @@ class PartyDetail : Fragment() {
             override fun onClick(view: View, position: Int) {
                 val store = adapter.storeList[position]
 
-                val alertDialog : AlertDialog.Builder = AlertDialog.Builder(requireContext())
+                val alertDialog: AlertDialog.Builder = AlertDialog.Builder(requireContext())
 
                 val dialogView = layoutInflater.inflate(R.layout.store_dialog, null)
                 alertDialog.setView(dialogView)
-                val show : AlertDialog = alertDialog.show()
+                val show: AlertDialog = alertDialog.show()
 
                 val image: ImageView = dialogView.findViewById(R.id.store_dialog_image)
                 val name: TextView = dialogView.findViewById(R.id.store_dialog_name)
                 val rating: TextView = dialogView.findViewById(R.id.store_dialog_rating)
-                val btn : Button = dialogView.findViewById(R.id.store_dialog_btn)
+                val btn: Button = dialogView.findViewById(R.id.store_dialog_btn)
 
                 Glide.with(dialogView.context).load(store?.img).into(image)
                 name.text = store.name
@@ -146,36 +155,39 @@ class PartyDetail : Fragment() {
                 btn.setOnClickListener {
                     show.dismiss()
                     mainActivity.saveStore(adapter.storeList[position])
-                    mainActivity.replaceFragment(StoreDetail())
+//                    mainActivity.replaceFragment(StoreDetail())
+                    mainActivity.addFragment(StoreDetail())
                 }
 
             }
         })
 
-        shared_btn = mainActivity.findViewById(R.id.shared_btn)
-        shared_btn!!.visibility = View.VISIBLE
+//        shared_btn = mainActivity.findViewById(R.id.shared_btn)
+//        shared_btn!!.visibility = View.VISIBLE
 
-        shared_btn!!.setOnClickListener {
-            val templateId = 39892L
-            val templateArgs = HashMap<String, String>()
-            templateArgs["partyId"] = item.id
-            Log.e("partyId", item.id)
-
-            LinkClient.instance.customTemplate(requireContext(), templateId, templateArgs) { linkResult, error ->
-                if (error != null) {
-                    Log.e("myLog", "카카오링크 보내기 실패", error)
-                }
-                else if (linkResult != null) {
-                    Log.d("myLog", "카카오링크 보내기 성공 ${linkResult.intent}")
-                    startActivity(linkResult.intent)
-
-                    // 카카오링크 보내기에 성공했지만 아래 경고 메시지가 존재할 경우 일부 컨텐츠가 정상 동작하지 않을 수 있습니다.
-                    Log.w("myLog", "Warning Msg: ${linkResult.warningMsg}")
-                    Log.w("myLog", "Argument Msg: ${linkResult.argumentMsg}")
-                }
-            }
-
-        }
+//        shared_btn!!.setOnClickListener {
+//            val templateId = 39892L
+//            val templateArgs = HashMap<String, String>()
+//            templateArgs["partyId"] = item.id
+//            Log.e("partyId", item.id)
+//
+//            LinkClient.instance.customTemplate(
+//                requireContext(),
+//                templateId,
+//                templateArgs
+//            ) { linkResult, error ->
+//                if (error != null) {
+//                    Log.e("myLog", "카카오링크 보내기 실패", error)
+//                } else if (linkResult != null) {
+//                    Log.d("myLog", "카카오링크 보내기 성공 ${linkResult.intent}")
+//                    startActivity(linkResult.intent)
+//
+//                    // 카카오링크 보내기에 성공했지만 아래 경고 메시지가 존재할 경우 일부 컨텐츠가 정상 동작하지 않을 수 있습니다.
+//                    Log.w("myLog", "Warning Msg: ${linkResult.warningMsg}")
+//                    Log.w("myLog", "Argument Msg: ${linkResult.argumentMsg}")
+//                }
+//            }
+//        }
 
 //        val adapter = PartyMemberListAdapter()
 //        val recyclerView : RecyclerView = root.findViewById(R.id.party_member_list_view)
@@ -190,16 +202,24 @@ class PartyDetail : Fragment() {
 //
 
 
-        backbtn.setOnClickListener {
-            mainActivity.replaceFragment(PartyListFragment())
-        }
+//        backbtn.setOnClickListener {
+//            mainActivity.replaceFragment(PartyListFragment())
+//        }
         return root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        shared_btn!!.visibility = View.INVISIBLE
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        shared_btn!!.visibility = View.INVISIBLE
+//
+//    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        val mainActivity = activity as MainActivity
+        mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        mainActivity.peopleItem.isVisible = false
     }
 
 }

@@ -41,6 +41,8 @@ class ProfileFragment : Fragment() {
         val logout_btn: Button = root.findViewById(R.id.logout_btn)
         mainActivity.selectParty = null
 
+        mainActivity.setToolbarTitle("나의 리뷰")
+
         val nicname: TextView = root.findViewById(R.id.profile_name)
         nicname.text = mainActivity.loadData("uname") + " 님"
 
