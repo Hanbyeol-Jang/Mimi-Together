@@ -59,10 +59,11 @@ public class StoreController {
 		List<Store> list = storeService.findAll();
 
 		List<Store> ret = new LinkedList<Store>();
-		for (int i = 0; i < 5; i++) {
-			int ran = (int) (Math.random() * 9999999 % list.size());
-			ret.add(list.get(ran));
-		}
+		ret.add(list.get(1));
+		ret.add(list.get(9));
+		ret.add(list.get(14));
+		ret.add(list.get(22));
+		ret.add(list.get(24));
 		return new ResponseEntity<List<Store>>(ret, HttpStatus.OK);
 
 	}
