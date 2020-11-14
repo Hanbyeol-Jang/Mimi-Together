@@ -57,6 +57,7 @@ def testreview():
     
     # recom_qs = pd.DataFrame.my_client['mimi']['recommand'].find("Uid" : mid)
     my_client['mimi']['recommand'].remove()
+    
     x = my_client['mimi']['recommand'].insert_many(top_n)
     
 
