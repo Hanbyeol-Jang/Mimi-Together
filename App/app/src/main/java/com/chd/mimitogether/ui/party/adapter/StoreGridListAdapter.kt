@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.chd.mimitogether.R
+import com.chd.mimitogether.ui.party.dto.MultiStore
 import com.chd.mimitogether.ui.party.dto.Store
 import kotlinx.android.synthetic.main.item_storegrid.view.*
 

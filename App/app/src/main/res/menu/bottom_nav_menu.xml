@@ -7,9 +7,9 @@
         android:title="@string/title_party" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_auction"
         android:icon="@drawable/ic_dining"
-        android:title="@string/title_dashboard" />
+        android:title="@string/title_auction" />
 
     <item
         android:id="@+id/navigation_profile"

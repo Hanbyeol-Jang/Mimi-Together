@@ -18,7 +18,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.chd.mimitogether.ui.auction.CreateFragment
 import com.chd.mimitogether.ui.auction.MyListFragment
-import com.chd.mimitogether.ui.dashboard.DashboardFragment
 import com.chd.mimitogether.ui.profile.ProfileFragment
 import com.chd.mimitogether.ui.party.*
 import com.chd.mimitogether.ui.party.dto.Party
@@ -31,7 +30,6 @@ import kotlinx.coroutines.selects.select
 class MainActivity : AppCompatActivity() {
 
     private val fragmentManager: FragmentManager = supportFragmentManager
-    private val dashboardFragment: DashboardFragment = DashboardFragment()
     private val partyListFragment: PartyListFragment = PartyListFragment()
     private val profileFragment: ProfileFragment = ProfileFragment()
 
@@ -57,7 +55,7 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.navigation_party -> transaction.replace(R.id.frame_layout, partyListFragment)
                     .commitAllowingStateLoss()
-                R.id.navigation_dashboard -> transaction.replace(R.id.frame_layout, createFragment)
+                R.id.navigation_auction -> transaction.replace(R.id.frame_layout, createFragment)
 //                R.id.navigation_dashboard -> transaction.replace(R.id.frame_layout, myListFragment)
                     .commitAllowingStateLoss()
                 R.id.navigation_profile -> transaction.replace(R.id.frame_layout, profileFragment)

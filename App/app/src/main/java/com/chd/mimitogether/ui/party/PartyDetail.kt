@@ -15,11 +15,13 @@ import com.bumptech.glide.Glide
 import com.chd.mimitogether.MainActivity
 import com.chd.mimitogether.R
 import com.chd.mimitogether.ui.party.adapter.StoreGridListAdapter
+import com.chd.mimitogether.ui.party.dto.MultiStore
 import com.chd.mimitogether.ui.party.dto.Party
 import com.chd.mimitogether.ui.party.dto.Store
 import com.chd.mimitogether.ui.party.dto.StorePageDto
 import com.chd.mimitogether.ui.party.service.StoreService
 import com.kakao.sdk.link.LinkClient
+import kotlinx.android.synthetic.main.activity_survey.*
 import kotlinx.android.synthetic.main.item_storegrid.view.*
 import org.w3c.dom.Text
 import retrofit2.Call
@@ -27,6 +29,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.math.roundToInt
 
 class PartyDetail : Fragment() {
 
@@ -51,9 +54,6 @@ class PartyDetail : Fragment() {
         val scrollview: NestedScrollView = root.findViewById(R.id.partydetail_scrollview)
         val promise_time: TextView = root.findViewById(R.id.promise_time)
         val promise_location: TextView = root.findViewById(R.id.promise_location)
-
-//        name.text = item.ptName
-//        membercount.text = "(" + item.userList.size + ")"
 
         mainActivity.setToolbarTitle("${item.ptName} (${item.userList.size}명)")
         mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -85,52 +85,101 @@ class PartyDetail : Fragment() {
                 ).build()
         val storeService = retrofit.create(StoreService::class.java)
 
-        storeService.getStoreList(pageno = 0)
-            .enqueue(object : Callback<StorePageDto> {
-                override fun onFailure(
-                    call: Call<StorePageDto>,
-                    t: Throwable
-                ) {
-                    Log.i("storeService", t.toString())
+        val progressbar : ProgressBar = root.findViewById(R.id.progressBar)
+        progressbar.visibility = View.VISIBLE
+
+        storeService.getRecommandStoreList(PartyId = mainActivity.selectParty!!.id).enqueue(object : Callback<List<MultiStore>>{
+            override fun onResponse(
+                call: Call<List<MultiStore>>,
+                response: Response<List<MultiStore>>
+            ) {
+                Log.e("multistore", response.body().toString())
+                val multiStoreList = response.body() as List<MultiStore>
+                val storeList = mutableListOf<Store>()
+                multiStoreList.forEach{multiStore ->
+                    val store = Store(
+                        id = multiStore.rid,
+                        boID = "null",
+                        name = multiStore.name,
+                        address = multiStore.address,
+                        tel = multiStore.tel,
+                        category = multiStore.category,
+                        mainMn = multiStore.mainMn,
+                        price = multiStore.price,
+                        menu = multiStore.menu,
+                        rating = (multiStore.rating * 10).roundToInt() / 10.0,
+                        rvwCnt = 0,
+                        img = multiStore.img,
+                        tags = multiStore.tags
+                    )
+                    storeList.add(store)
                 }
-
-                override fun onResponse(
-                    call: Call<StorePageDto>,
-                    response: Response<StorePageDto>
-                ) {
-                    adapter.storeList.addAll(response.body()?.content as List<Store>)
-                    adapter.notifyDataSetChanged()
-                }
-            })
-
-        scrollview.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-            if (v.getChildAt(v.childCount - 1) != null) {
-                if ((scrollY >= (v.getChildAt(v.childCount - 1).measuredHeight - v.measuredHeight)) &&
-                    scrollY > oldScrollY
-                ) {
-
-                    storeService.getStoreList(pageno = pageno)
-                        .enqueue(object : Callback<StorePageDto> {
-                            override fun onFailure(
-                                call: Call<StorePageDto>,
-                                t: Throwable
-                            ) {
-                                Log.i("storeService", t.toString())
-                            }
-
-                            override fun onResponse(
-                                call: Call<StorePageDto>,
-                                response: Response<StorePageDto>
-                            ) {
-                                Log.e("pageload", "here")
-                                adapter.storeList.addAll(response.body()?.content as List<Store>)
-                                adapter.notifyDataSetChanged()
-                                pageno++
-                            }
-                        })
-                }
+                progressbar.visibility = View.GONE
+                adapter.storeList.addAll(storeList)
+                adapter.notifyDataSetChanged()
             }
-        }))
+
+            override fun onFailure(call: Call<List<MultiStore>>, t: Throwable) {
+                Log.e("storeService", t.toString())
+            }
+//            override fun onResponse(call: Call<MultiStore>, response: Response<MultiStore>) {
+//                Log.e("multistore", response.body().toString())
+//                adapter.storeList.addAll(response.body()?.content as List<Store>)
+//                adapter.notifyDataSetChanged()
+//            }
+//
+//            override fun onFailure(call: Call<MultiStore>, t: Throwable) {
+//                Log.e("storeService", t.toString())
+//            }
+
+        })
+
+//        storeService.getStoreList(pageno = 0)
+//            .enqueue(object : Callback<StorePageDto> {
+//                override fun onFailure(
+//                    call: Call<StorePageDto>,
+//                    t: Throwable
+//                ) {
+//                    Log.i("storeService", t.toString())
+//                }
+//
+//                override fun onResponse(
+//                    call: Call<StorePageDto>,
+//                    response: Response<StorePageDto>
+//                ) {
+//                    adapter.storeList.addAll(response.body()?.content as List<Store>)
+//                    adapter.notifyDataSetChanged()
+//                }
+//            })
+
+//        scrollview.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+//            if (v.getChildAt(v.childCount - 1) != null) {
+//                if ((scrollY >= (v.getChildAt(v.childCount - 1).measuredHeight - v.measuredHeight)) &&
+//                    scrollY > oldScrollY
+//                ) {
+//
+//                    storeService.getStoreList(pageno = pageno)
+//                        .enqueue(object : Callback<StorePageDto> {
+//                            override fun onFailure(
+//                                call: Call<StorePageDto>,
+//                                t: Throwable
+//                            ) {
+//                                Log.i("storeService", t.toString())
+//                            }
+//
+//                            override fun onResponse(
+//                                call: Call<StorePageDto>,
+//                                response: Response<StorePageDto>
+//                            ) {
+//                                Log.e("pageload", "here")
+//                                adapter.storeList.addAll(response.body()?.content as List<Store>)
+//                                adapter.notifyDataSetChanged()
+//                                pageno++
+//                            }
+//                        })
+//                }
+//            }
+//        }))
 
         adapter.setItemClickListener(object : StoreGridListAdapter.ItemClickListener {
             override fun onClick(view: View, position: Int) {

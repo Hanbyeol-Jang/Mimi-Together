@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_party" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.chd.mimitogether.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_auction"
+        android:name="com.chd.mimitogether.ui.auction.MyListFragment"
+        android:label="@string/title_auction"
+        tools:layout="@layout/auction_fragment_mylist" />
 
     <fragment
         android:id="@+id/navigation_profile"
