@@ -59,11 +59,11 @@ public class StoreController {
 		List<Store> list = storeService.findAll();
 
 		List<Store> ret = new LinkedList<Store>();
-		ret.add(list.get(1));
-		ret.add(list.get(9));
-		ret.add(list.get(14));
-		ret.add(list.get(22));
-		ret.add(list.get(24));
+		ret.add(list.get(0));
+		ret.add(list.get(8));
+		ret.add(list.get(13));
+		ret.add(list.get(21));
+		ret.add(list.get(23));
 		return new ResponseEntity<List<Store>>(ret, HttpStatus.OK);
 
 	}
