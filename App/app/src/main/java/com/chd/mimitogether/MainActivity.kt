@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.findFragment
 import com.chd.mimitogether.ui.auction.CreateFragment
 import com.chd.mimitogether.ui.auction.MyListFragment
 import com.chd.mimitogether.ui.profile.ProfileFragment
@@ -25,6 +27,7 @@ import com.chd.mimitogether.ui.party.dto.Store
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
 import com.kakao.sdk.link.LinkClient
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.selects.select
 
 class MainActivity : AppCompatActivity() {
@@ -71,7 +74,7 @@ class MainActivity : AppCompatActivity() {
             val bundle = Bundle()
             bundle.putSerializable("partyId", party_id)
             f.arguments = bundle
-            replaceFragment(f)
+            replaceFragment(f, false)
         } else {
             val transaction: FragmentTransaction = fragmentManager.beginTransaction()
             transaction.replace(R.id.frame_layout, PartyListFragment()).commitAllowingStateLoss()
@@ -81,10 +84,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun replaceFragment(fragment: Fragment) {
+    fun replaceFragment(fragment: Fragment, backStackFlag: Boolean) {
         Log.e("mylog", "전환!")
         val transaction: FragmentTransaction = fragmentManager.beginTransaction()
-        transaction.replace(R.id.frame_layout, fragment).addToBackStack(null).commit()
+        if(backStackFlag)
+            transaction.replace(R.id.frame_layout, fragment).addToBackStack(null).commit()
+        else
+            transaction.replace(R.id.frame_layout, fragment).commit()
     }
 
     fun addFragment(fragment: Fragment) {
@@ -152,7 +158,8 @@ class MainActivity : AppCompatActivity() {
 
                 val templateId = 39892L
                 val templateArgs = HashMap<String, String>()
-                templateArgs["partyId"] = selectParty!!.id
+//                templateArgs["partyId"] = selectParty!!.id
+                templateArgs["partyId"] = "5fafcc3c3d6bbc048d9d4d6e"
 
                 val pref = getSharedPreferences("user", 0)
                 templateArgs["userName"] = pref.getString("uname", "")!!
@@ -190,6 +197,22 @@ class MainActivity : AppCompatActivity() {
         peopleItem.isVisible = false
         return true
 //        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onBackPressed() {
+        Log.d("myLog", "MainActivity: onBackPressed")
+        Log.d("myLog", "MainActivity: ${fragmentManager.fragments}")
+
+        val currentf = fragmentManager.findFragmentById(R.id.frame_layout)
+        currentf?.let {
+            fragmentManager.beginTransaction()
+                .remove(it)
+                .commit()
+        }
+
+        Log.d("myLog", "MainActivity: ${fragmentManager.fragments}")
+        super.onBackPressed()
+
     }
 }
 

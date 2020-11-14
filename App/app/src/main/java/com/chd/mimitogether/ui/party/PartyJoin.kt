@@ -62,7 +62,7 @@ class PartyJoin: Fragment() {
                         response_bundle.putSerializable("party_detail", party)
                         fragment_party_detail.arguments = response_bundle
 
-                        mainActivity.replaceFragment(fragment_party_detail)
+                        mainActivity.replaceFragment(fragment_party_detail, false)
 
                         break
                     }
@@ -104,7 +104,9 @@ class PartyJoin: Fragment() {
                         response_bundle.putSerializable("party_detail", party)
                         fragment_party_detail.arguments = response_bundle
 
-                        mainActivity.replaceFragment(fragment_party_detail)
+                        mainActivity.selectParty = response.body()!!
+
+                        mainActivity.replaceFragment(fragment_party_detail, false)
 
                     }
                 })

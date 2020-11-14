@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".ui.party.PartyListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -29,49 +30,49 @@
         android:layout_marginBottom="24dp"
         android:clickable="true"
         android:src="@drawable/ic_add"
-        app:tint="@color/white"
         app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/white" />
 
     <!--    <TextView-->
-<!--        android:id="@+id/textView11"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:layout_marginTop="24dp"-->
-<!--        android:layout_marginEnd="16dp"-->
-<!--        android:fontFamily="@font/maplestory_bold"-->
-<!--        android:text="모임리스트"-->
-<!--        android:textAppearance="@style/TextAppearance.AppCompat.Large"-->
-<!--        android:textColor="#000000"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
+    <!--        android:id="@+id/textView11"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginTop="24dp"-->
+    <!--        android:layout_marginEnd="16dp"-->
+    <!--        android:fontFamily="@font/maplestory_bold"-->
+    <!--        android:text="모임리스트"-->
+    <!--        android:textAppearance="@style/TextAppearance.AppCompat.Large"-->
+    <!--        android:textColor="#000000"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.0"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-<!--    <ImageButton-->
-<!--        android:id="@+id/party_create_btn01"-->
-<!--        android:layout_width="38dp"-->
-<!--        android:layout_height="39dp"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:layout_marginEnd="16dp"-->
-<!--        android:background="@android:color/transparent"-->
-<!--        android:scaleType="fitCenter"-->
-<!--        android:src="@drawable/create_party_icon"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.95"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/textView11"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
+    <!--    <ImageButton-->
+    <!--        android:id="@+id/party_create_btn01"-->
+    <!--        android:layout_width="38dp"-->
+    <!--        android:layout_height="39dp"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        android:layout_marginEnd="16dp"-->
+    <!--        android:background="@android:color/transparent"-->
+    <!--        android:scaleType="fitCenter"-->
+    <!--        android:src="@drawable/create_party_icon"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.95"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/textView11"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-<!--    <ImageView-->
-<!--        android:id="@+id/imageView3"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="1.5dp"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:src="@drawable/line_drawable"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/party_create_btn01" />-->
+    <!--    <ImageView-->
+    <!--        android:id="@+id/imageView3"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="1.5dp"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        android:src="@drawable/line_drawable"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/party_create_btn01" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

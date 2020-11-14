@@ -1,6 +1,7 @@
 package com.chd.mimitogether.ui.party
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
@@ -42,6 +43,7 @@ class PartyDetail : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d("myLog", "LifeCycle: onCreateView")
         val root = inflater.inflate(R.layout.fragment_partydetail, container, false)
         val mainActivity: MainActivity = activity as MainActivity
 
@@ -264,6 +266,7 @@ class PartyDetail : Fragment() {
 //    }
 
     override fun onDestroyView() {
+        Log.d("myLog", "LifeCycle: onDestoryView")
         super.onDestroyView()
 
         val mainActivity = activity as MainActivity
@@ -271,4 +274,48 @@ class PartyDetail : Fragment() {
         mainActivity.peopleItem.isVisible = false
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Log.d("myLog", "LifeCycle: onAttach")
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("myLog", "LifeCycle: onCreate")
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        Log.d("myLog", "LifeCycle: onActivityCreated")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d("myLog", "LifeCycle: onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("myLog", "LifeCycle: onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("myLog", "LifeCycle: onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("myLog", "LifeCycle: onStop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("myLog", "LifeCycle: onDestory")
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Log.d("myLog", "LifeCycle: onDetach")
+    }
 }

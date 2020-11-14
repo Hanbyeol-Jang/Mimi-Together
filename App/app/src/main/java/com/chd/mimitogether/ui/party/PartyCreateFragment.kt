@@ -1,11 +1,14 @@
 package com.chd.mimitogether.ui.party
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.chd.mimitogether.MainActivity
 import com.chd.mimitogether.R
@@ -37,29 +40,49 @@ class PartyCreateFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_partylist, container, false)
-        val mainActivity : MainActivity = activity as MainActivity
+        val mainActivity: MainActivity = activity as MainActivity
 
+        val layout = root.findViewById<ConstraintLayout>(R.id.create_layout)
 
-        val btn : Button = root.findViewById(R.id.move_address_btn)
-        val si : Spinner = root.findViewById(R.id.party_si)
-        val gu : Spinner = root.findViewById(R.id.party_gu)
-        val dong : Spinner = root.findViewById(R.id.party_dong)
+        val clickListener = View.OnClickListener {
+            // 키보드 숨기기
+            val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(input_party_name.windowToken, 0)
+        }
 
+        val touchListener = View.OnTouchListener { v, event ->
+            // 키보드 숨기기
+            val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(input_party_name.windowToken, 0)
+        }
 
-        val retrofit = Retrofit.Builder().baseUrl(getString(R.string.base_url)).addConverterFactory(GsonConverterFactory.create()).build()
+        layout.setOnClickListener(clickListener)
+
+        val btn: Button = root.findViewById(R.id.move_address_btn)
+        val si: Spinner = root.findViewById(R.id.party_si)
+        val gu: Spinner = root.findViewById(R.id.party_gu)
+        val dong: Spinner = root.findViewById(R.id.party_dong)
+
+        si.setOnTouchListener(touchListener)
+        gu.setOnTouchListener(touchListener)
+        dong.setOnTouchListener(touchListener)
+
+        val retrofit = Retrofit.Builder().baseUrl(getString(R.string.base_url))
+            .addConverterFactory(GsonConverterFactory.create()).build()
         val cityService = retrofit.create(CityService::class.java)
 
         cityService.getSiList().enqueue(object : Callback<List<String>> {
             override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
                 item1.add("시")
                 item1.addAll(response.body() as List<String>)
-                val adapter1 = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item,item1)
+                val adapter1 =
+                    ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, item1)
                 adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 si.adapter = adapter1
             }
 
             override fun onFailure(call: Call<List<String>>, t: Throwable) {
-                Log.e("getSiList","오류"+t.toString())
+                Log.e("getSiList", "오류" + t.toString())
             }
 
         })
@@ -67,12 +90,12 @@ class PartyCreateFragment : Fragment() {
 
 
         item2.add("군/구")
-        val adapter2 = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item,item2)
+        val adapter2 = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, item2)
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         gu.adapter = adapter2
 
         item3.add("동")
-        val adapter3 = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item,item3)
+        val adapter3 = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, item3)
         adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         dong.adapter = adapter3
 
@@ -87,9 +110,9 @@ class PartyCreateFragment : Fragment() {
                 gu_text = ""
                 dong_text = ""
 
-                if(item1[position] != "시"){
+                if (item1[position] != "시") {
                     si_text = item1[position]
-                    cityService.getGuList(si= si_text).enqueue(object : Callback<List<String>> {
+                    cityService.getGuList(si = si_text).enqueue(object : Callback<List<String>> {
                         override fun onResponse(
                             call: Call<List<String>>,
                             response: Response<List<String>>
@@ -100,26 +123,35 @@ class PartyCreateFragment : Fragment() {
                             item3.add("동")
                             item2.addAll(response.body() as List<String>)
 
-                            val adapter2 = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item,item2)
+                            val adapter2 = ArrayAdapter(
+                                requireContext(),
+                                android.R.layout.simple_spinner_item,
+                                item2
+                            )
                             adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                             gu.adapter = adapter2
 
-                            val adapter3 = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item,item3)
+                            val adapter3 = ArrayAdapter(
+                                requireContext(),
+                                android.R.layout.simple_spinner_item,
+                                item3
+                            )
                             adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                             dong.adapter = adapter3
                         }
 
                         override fun onFailure(call: Call<List<String>>, t: Throwable) {
-                            Log.e("getguList","오류"+t.toString())
+                            Log.e("getguList", "오류" + t.toString())
                         }
 
                     })
 
 
-                    val adapter2 = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item,item2)
+                    val adapter2 =
+                        ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, item2)
                     adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     gu.adapter = adapter2
-                }else{
+                } else {
                     si_text = ""
                 }
 
@@ -139,28 +171,33 @@ class PartyCreateFragment : Fragment() {
                 id: Long
             ) {
                 dong_text = ""
-                if(item2[position] != "군/구"){
+                if (item2[position] != "군/구") {
                     gu_text = item2[position]
-                    cityService.getDongList(si= si_text, gun= gu_text).enqueue(object:Callback<List<String>>{
-                        override fun onResponse(
-                            call: Call<List<String>>,
-                            response: Response<List<String>>
-                        ) {
-                            item3.clear()
-                            item3.add("동")
-                            item3.addAll(response.body() as List<String>)
+                    cityService.getDongList(si = si_text, gun = gu_text)
+                        .enqueue(object : Callback<List<String>> {
+                            override fun onResponse(
+                                call: Call<List<String>>,
+                                response: Response<List<String>>
+                            ) {
+                                item3.clear()
+                                item3.add("동")
+                                item3.addAll(response.body() as List<String>)
 
-                            val adapter3 = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item,item3)
-                            adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                            dong.adapter = adapter3
-                        }
+                                val adapter3 = ArrayAdapter(
+                                    requireContext(),
+                                    android.R.layout.simple_spinner_item,
+                                    item3
+                                )
+                                adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                                dong.adapter = adapter3
+                            }
 
-                        override fun onFailure(call: Call<List<String>>, t: Throwable) {
-                            Log.e("getDongList","오류"+t.toString())
-                        }
+                            override fun onFailure(call: Call<List<String>>, t: Throwable) {
+                                Log.e("getDongList", "오류" + t.toString())
+                            }
 
-                    })
-                }else{
+                        })
+                } else {
                     gu_text = ""
                 }
 
@@ -180,7 +217,7 @@ class PartyCreateFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
-                if(item3[position] != "동"){
+                if (item3[position] != "동") {
                     dong_text = item3[position]
                 }
             }
@@ -195,15 +232,16 @@ class PartyCreateFragment : Fragment() {
 
         btn.setOnClickListener {
             val ptName = input_party_name.text.toString()
-            if(ptName == ""){
-                Toast.makeText(mainActivity.applicationContext, "모임 이름을 적어주세요.", Toast.LENGTH_SHORT).show()
-            }else if(si_text == ""){
+            if (ptName == "") {
+                Toast.makeText(mainActivity.applicationContext, "모임 이름을 적어주세요.", Toast.LENGTH_SHORT)
+                    .show()
+            } else if (si_text == "") {
                 Toast.makeText(requireContext(), "시 를 선택해주세요.", Toast.LENGTH_SHORT).show()
-            }else if(gu_text == ""){
+            } else if (gu_text == "") {
                 Toast.makeText(requireContext(), "군/구 를 선택해주세요.", Toast.LENGTH_SHORT).show()
-            }else if(dong_text == ""){
+            } else if (dong_text == "") {
                 Toast.makeText(requireContext(), "동 을 선택해주세요.", Toast.LENGTH_SHORT).show()
-            }else{
+            } else {
                 val retrofit =
                     Retrofit.Builder().baseUrl(getString(R.string.base_url))
                         .addConverterFactory(
@@ -212,9 +250,10 @@ class PartyCreateFragment : Fragment() {
                 val partyService = retrofit.create(PartyService::class.java)
 
                 val uid = mainActivity.loadData("uid")
-                val location = si_text+" "+gu_text+" "+dong_text
+                val location = si_text + " " + gu_text + " " + dong_text
 
-                val partyCreate = PartyCreate(ptName = ptName, userID = uid, promiseLocation =  location)
+                val partyCreate =
+                    PartyCreate(ptName = ptName, userID = uid, promiseLocation = location)
                 partyService.createParty(partyCreate)
                     .enqueue(object : Callback<Party> {
                         override fun onFailure(
@@ -228,14 +267,14 @@ class PartyCreateFragment : Fragment() {
                             call: Call<Party>,
                             response: Response<Party>
                         ) {
-                            Log.e("createParty",response.body().toString())
+                            Log.e("createParty", response.body().toString())
                             val f = PartyDetail()
                             val bundle = Bundle()
                             bundle.putSerializable("party_detail", response.body())
                             f.arguments = bundle
                             mainActivity.selectParty = response.body()
 
-                            mainActivity.replaceFragment(f)
+                            mainActivity.replaceFragment(f, false)
                         }
                     })
             }

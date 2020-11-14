@@ -89,7 +89,7 @@ class PartyInputAddressFragment : Fragment() {
                 bundle.putSerializable("partyName", ptName)
                 bundle.putSerializable("partyAddress", juso.jibunAddr)
                 f.arguments = bundle
-                mainActivity.replaceFragment(f)
+                mainActivity.replaceFragment(f, false)
             }
         })
 

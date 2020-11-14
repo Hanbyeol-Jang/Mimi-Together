@@ -94,7 +94,7 @@ class ProfileFragment : Fragment() {
                             val store = response.body()
                             if (store != null) {
                                 mainActivity.saveStore(store)
-                                mainActivity.replaceFragment(StoreDetail())
+                                mainActivity.replaceFragment(StoreDetail(), true)
                             } else {
                                 Log.e("myLog", "Failllllllllllllllllllll")
                             }

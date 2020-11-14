@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chd.mimitogether.MainActivity
@@ -82,14 +83,19 @@ class PartyListFragment : Fragment() {
 
                 mainActivity.selectParty = adapter.partyList[position]
 
-                mainActivity.replaceFragment(f)
+                mainActivity.replaceFragment(f, true)
             }
         })
 
         btn.setOnClickListener {
             val mainActivity : MainActivity = activity as MainActivity
-            mainActivity.replaceFragment(PartyCreateFragment())
+            mainActivity.replaceFragment(PartyCreateFragment(), true)
+
+//            val transaction: FragmentTransaction = mainActivity.supportFragmentManager.beginTransaction()
+//            transaction.replace(R.id.frame_layout, PartyCreateFragment()).addToBackStack("partyList").commit()
         }
+
+
 
         return root
     }

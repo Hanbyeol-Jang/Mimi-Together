@@ -67,7 +67,7 @@ class StoreDetail : Fragment() {
 
         promisebtn.setOnClickListener {
             if(party !=null && party.userList[0].id == uid){
-                mainActivity.replaceFragment(PartyPromiseCreate())
+                mainActivity.replaceFragment(PartyPromiseCreate(), true)
             }else{
                 Toast.makeText(requireContext(), "파티를 만든 사람만 이용가능합니다.", Toast.LENGTH_LONG).show()
             }

@@ -72,7 +72,7 @@ class PartyCreateResultFragment : Fragment() {
                         f.arguments = bundle
                         mainActivity.selectParty = response.body()
 
-                        mainActivity.replaceFragment(f)
+                        mainActivity.replaceFragment(f, false)
                     }
                 })
         }

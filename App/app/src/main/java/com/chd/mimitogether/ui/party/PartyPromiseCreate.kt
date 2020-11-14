@@ -101,7 +101,7 @@ class PartyPromiseCreate : Fragment(), TimePickerDialog.OnTimeSetListener,
 
             partyService.createPromise(date).enqueue(object : Callback<Party> {
                 override fun onResponse(call: Call<Party>, response: Response<Party>) {
-                    mainActivity.replaceFragment(PartyListFragment())
+                    mainActivity.replaceFragment(PartyListFragment(), false)
                 }
 
                 override fun onFailure(call: Call<Party>, t: Throwable) {
