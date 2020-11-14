@@ -178,7 +178,7 @@ public class PartyController {
 //			System.out.println(list);
 
 			List<PartyResponse> partyList = new ArrayList<>();
-			for (int i = list.size() - 1; i > 0; i--) {
+			for (int i = list.size() - 1; i >= 0; i--) {
 				Party partyInfo = partyService.getParty(list.get(i));
 				PartyResponse partyres = makePartyRes(partyInfo);
 				partyList.add(partyres);
