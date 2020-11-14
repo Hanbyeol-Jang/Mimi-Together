@@ -17,4 +17,9 @@ public interface RecommandDao extends MongoRepository<Recommand, Object> {
 	public List<Recommand> findByUidAndAddressLikeOrderByRid(String name, String address);
 
 	public List<Recommand> findByUid(String name);
+
+	public List<Recommand> findByUidAndAddressLike(String name, String address);
+
+	public List<Recommand> findByUidAndAddressLikeOrderByRating(String name, String address);
+
 }

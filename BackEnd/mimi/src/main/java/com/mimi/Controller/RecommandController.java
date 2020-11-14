@@ -61,12 +61,15 @@ public class RecommandController {
 		List<User> user_list = party.getUserList();
 		List<List<Recommand>> ls = new LinkedList<List<Recommand>>();
 		List<Recommand> ret = new LinkedList<Recommand>();
-
+		System.out.println("multi recommand....");
+		System.out.println(user_list);
 		for (int i = 0; i < user_list.size(); i++) {
-			ls.add(recommandService.recom(user_list.get(i).getId(), party.getPromiseLocation()));
+			List<Recommand> t = recommandService.recom(user_list.get(i).getId(), party.getPromiseLocation());
+			System.out.println(t);
+			ls.add(t);
 		}
-
-		for (int i = 0; i < ls.get(0).size() - 3; i++) {
+		System.out.println(ls);
+		for (int i = 0; i < ls.get(0).size() - 1; i++) {
 			boolean plag = true;
 			double avr_rating = 0;
 
@@ -87,7 +90,7 @@ public class RecommandController {
 
 		return new ResponseEntity<List<Recommand>>(ret, HttpStatus.OK);
 	}
-
+		
 	public void recommand_update() throws IOException, InterruptedException {
 		System.out.println("recommand start.....");
 		String path = "C:/test/MongoConnect.py";
