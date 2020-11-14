@@ -9,5 +9,7 @@
         <domain includeSubdomains="true">www.juso.go.kr</domain>
         <!--니체-->
         <domain includeSubdomains="true">192.168.1.235</domain>
+        <domain includeSubdomains="true">192.168.0.8</domain>
+
     </domain-config>
 </network-security-config>

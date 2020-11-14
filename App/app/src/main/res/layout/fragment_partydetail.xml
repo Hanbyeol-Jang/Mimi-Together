@@ -139,6 +139,13 @@
                 android:layout_marginBottom="13dp"
                 android:src="@drawable/line_drawable" />
 
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/store_grid"
                 android:layout_width="match_parent"

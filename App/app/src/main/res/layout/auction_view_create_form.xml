@@ -11,6 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="회식명"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/form_label2"
         app:layout_constraintStart_toStartOf="@+id/form_label2"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,6 +22,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="지역"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/form_label3"
         app:layout_constraintStart_toStartOf="@+id/form_label3"
         app:layout_constraintTop_toBottomOf="@+id/form_label1" />
@@ -29,6 +33,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="인원수"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/form_label4"
         app:layout_constraintStart_toStartOf="@+id/form_label4"
         app:layout_constraintTop_toBottomOf="@+id/form_label2" />
@@ -38,7 +44,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="금액"
+        android:text="가격/1인당"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/form_label3" />
@@ -86,5 +94,19 @@
         app:layout_constraintBottom_toBottomOf="@+id/form_label4"
         app:layout_constraintStart_toStartOf="@+id/form_input3"
         app:layout_constraintTop_toTopOf="@+id/form_label4" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="(주류가격은 제외)"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/form_input4"
+        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintStart_toEndOf="@+id/form_label4"
+        app:layout_constraintTop_toBottomOf="@+id/form_label3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
