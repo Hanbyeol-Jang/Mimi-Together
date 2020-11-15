@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.chd.mimitogether.MainActivity
 import com.chd.mimitogether.R
@@ -46,19 +47,19 @@ class PartyJoin: Fragment() {
                 ).build()
         val partyService = retrofit.create(PartyService::class.java)
 
-        partyService.getPartyDetail(id = party_id).enqueue(object : Callback<Party>{
+        partyService.getPartyDetail(id = party_id).enqueue(object : Callback<Party> {
             override fun onResponse(call: Call<Party>, response: Response<Party>) {
 
                 Log.d("detailresult", response.body().toString())
                 party = response.body()
 
-                Log.e("mylog",party.toString())
+                Log.e("mylog", party.toString())
 
-                val ptName : TextView = root.findViewById(R.id.party_join_ptname)
+                val ptName: TextView = root.findViewById(R.id.party_join_ptname)
                 ptName.text = party?.ptName
 
-                for (i in 0 until party!!.userList.size){
-                    if(party!!.userList[i].id == user_id){
+                for (i in 0 until party!!.userList.size) {
+                    if (party!!.userList[i].id == user_id) {
                         response_bundle.putSerializable("party_detail", party)
                         fragment_party_detail.arguments = response_bundle
 
@@ -71,6 +72,7 @@ class PartyJoin: Fragment() {
             }
 
             override fun onFailure(call: Call<Party>, t: Throwable) {
+                Toast.makeText( requireContext(), "서버가 불안정합니다.", Toast.LENGTH_SHORT).show()
                 Log.i("JoinService", t.toString())
             }
         })
@@ -91,6 +93,7 @@ class PartyJoin: Fragment() {
                         call: Call<Party>,
                         t: Throwable
                     ) {
+                        Toast.makeText( requireContext(), "서버가 불안정합니다.", Toast.LENGTH_SHORT).show()
                         Log.i("userService", t.toString())
                     }
 

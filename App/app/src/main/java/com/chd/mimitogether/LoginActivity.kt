@@ -93,6 +93,7 @@ class LoginActivity : AppCompatActivity() {
                                             call: Call<UserResponse>,
                                             t: Throwable
                                         ) {
+                                            Toast.makeText( this@LoginActivity, "서버가 불안정합니다.", Toast.LENGTH_SHORT).show()
                                             Log.i("userService", t.toString())
                                         }
 

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -73,6 +74,7 @@ class ProfileFragment : Fragment() {
                 }
 
                 override fun onFailure(call: Call<List<ReviewRequest>>, t: Throwable) {
+                    Toast.makeText( requireContext(), "서버가 불안정합니다.", Toast.LENGTH_SHORT).show()
                     Log.e("myLog", t.toString())
                 }
 
@@ -101,6 +103,7 @@ class ProfileFragment : Fragment() {
                         }
 
                         override fun onFailure(call: Call<Store>, t: Throwable) {
+                            Toast.makeText( requireContext(), "서버가 불안정합니다.", Toast.LENGTH_SHORT).show()
                             Log.e("myLog", t.toString())
                         }
                     })

@@ -105,6 +105,7 @@ class PartyPromiseCreate : Fragment(), TimePickerDialog.OnTimeSetListener,
                 }
 
                 override fun onFailure(call: Call<Party>, t: Throwable) {
+                    Toast.makeText( requireContext(), "서버가 불안정합니다.", Toast.LENGTH_SHORT).show()
                     Log.e("promiseError", t.toString())
                 }
             })

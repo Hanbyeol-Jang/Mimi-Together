@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chd.mimitogether.MainActivity
@@ -52,6 +53,7 @@ class MyListFragment : Fragment() {
                 }
 
                 override fun onFailure(call: Call<List<Auction>>, t: Throwable) {
+                    Toast.makeText( requireContext(), "서버가 불안정합니다.", Toast.LENGTH_SHORT).show()
                     Log.d("myLog", "MyListFragment: ${t.toString()}")
                 }
 

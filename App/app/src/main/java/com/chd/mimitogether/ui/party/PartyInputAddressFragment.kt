@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -73,6 +74,7 @@ class PartyInputAddressFragment : Fragment() {
                 }
 
                 override fun onFailure(call: Call<JusoResponse>, t: Throwable) {
+                    Toast.makeText( requireContext(), "서버가 불안정합니다.", Toast.LENGTH_SHORT).show()
                     Log.e("myLog", t.toString())
                 }
 

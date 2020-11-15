@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.chd.mimitogether.MainActivity
 import com.chd.mimitogether.R
@@ -58,6 +59,7 @@ class PartyCreateResultFragment : Fragment() {
                         call: Call<Party>,
                         t: Throwable
                     ) {
+                        Toast.makeText( requireContext(), "서버가 불안정합니다.", Toast.LENGTH_SHORT).show()
                         Log.i("userService", t.toString())
                     }
 

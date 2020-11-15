@@ -82,6 +82,7 @@ class PartyCreateFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<List<String>>, t: Throwable) {
+                Toast.makeText( requireContext(), "서버가 불안정합니다.", Toast.LENGTH_SHORT).show()
                 Log.e("getSiList", "오류" + t.toString())
             }
 
@@ -141,6 +142,7 @@ class PartyCreateFragment : Fragment() {
                         }
 
                         override fun onFailure(call: Call<List<String>>, t: Throwable) {
+                            Toast.makeText( requireContext(), "서버가 불안정합니다.", Toast.LENGTH_SHORT).show()
                             Log.e("getguList", "오류" + t.toString())
                         }
 
@@ -193,6 +195,7 @@ class PartyCreateFragment : Fragment() {
                             }
 
                             override fun onFailure(call: Call<List<String>>, t: Throwable) {
+                                Toast.makeText( requireContext(), "서버가 불안정합니다.", Toast.LENGTH_SHORT).show()
                                 Log.e("getDongList", "오류" + t.toString())
                             }
 
@@ -260,6 +263,7 @@ class PartyCreateFragment : Fragment() {
                             call: Call<Party>,
                             t: Throwable
                         ) {
+                            Toast.makeText( requireContext(), "서버가 불안정합니다.", Toast.LENGTH_SHORT).show()
                             Log.i("userService", t.toString())
                         }
 
@@ -268,32 +272,13 @@ class PartyCreateFragment : Fragment() {
                             response: Response<Party>
                         ) {
                             Log.e("createParty", response.body().toString())
-                            val f = PartyDetail()
-                            val bundle = Bundle()
-                            bundle.putSerializable("party_detail", response.body())
-                            f.arguments = bundle
                             mainActivity.selectParty = response.body()
 
-                            mainActivity.replaceFragment(f, false)
+                            mainActivity.replaceFragment(PartyDetail(), false)
                         }
                     })
             }
 
-//            if(ptName == ""){
-//                Toast.makeText(mainActivity.applicationContext, "모임 이름을 적어주세요.", Toast.LENGTH_SHORT).show()
-//            }else if(si_text == ""){
-//
-//            }else if(gu_text == ""){
-//                Log.e("hello2","here!!")
-//            }else if(dong_text == ""){
-//                Log.e("hello3","here!!")
-//            }else{
-//                val f = PartyInputAddressFragment()
-//                val bundle = Bundle()
-//                bundle.putSerializable("partyName", ptName)
-//                f.arguments = bundle
-//                mainActivity.replaceFragment(f)
-//            }
         }
 
         return root

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -53,6 +54,7 @@ class ReviewFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<ReviewList>, t: Throwable) {
+                Toast.makeText( requireContext(), "서버가 불안정합니다.", Toast.LENGTH_SHORT).show()
                 Log.e("reviewError", t.toString())
             }
 
@@ -71,6 +73,7 @@ class ReviewFragment : Fragment() {
                         }
 
                         override fun onFailure(call: Call<ReviewList>, t: Throwable) {
+                            Toast.makeText( requireContext(), "서버가 불안정합니다.", Toast.LENGTH_SHORT).show()
                             Log.e("reviewError", t.toString())
                         }
 

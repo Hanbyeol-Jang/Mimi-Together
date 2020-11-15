@@ -24,6 +24,7 @@ import com.chd.mimitogether.ui.party.service.StoreService
 import com.kakao.sdk.link.LinkClient
 import kotlinx.android.synthetic.main.activity_survey.*
 import kotlinx.android.synthetic.main.item_storegrid.view.*
+import kotlinx.coroutines.selects.select
 import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
@@ -47,8 +48,7 @@ class PartyDetail : Fragment() {
         val root = inflater.inflate(R.layout.fragment_partydetail, container, false)
         val mainActivity: MainActivity = activity as MainActivity
 
-        val bundle = arguments
-        val item: Party = bundle?.getSerializable("party_detail") as Party
+        val item: Party = mainActivity.selectParty!!
 //        val name: TextView = root.findViewById(R.id.party_detail_name)
         val location: TextView = root.findViewById(R.id.partydetail_location)
 //        val membercount: TextView = root.findViewById(R.id.partydetail_member_count)
@@ -90,7 +90,7 @@ class PartyDetail : Fragment() {
         val progressbar : ProgressBar = root.findViewById(R.id.progressBar)
         progressbar.visibility = View.VISIBLE
 
-        storeService.getRecommandStoreList(PartyId = mainActivity.selectParty!!.id).enqueue(object : Callback<List<MultiStore>>{
+        storeService.getRecommandStoreList(PartyId = item.id).enqueue(object : Callback<List<MultiStore>>{
             override fun onResponse(
                 call: Call<List<MultiStore>>,
                 response: Response<List<MultiStore>>
@@ -122,6 +122,7 @@ class PartyDetail : Fragment() {
             }
 
             override fun onFailure(call: Call<List<MultiStore>>, t: Throwable) {
+                Toast.makeText( requireContext(), "서버가 불안정합니다.", Toast.LENGTH_SHORT).show()
                 Log.e("storeService", t.toString())
             }
 //            override fun onResponse(call: Call<MultiStore>, response: Response<MultiStore>) {

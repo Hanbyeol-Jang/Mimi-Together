@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -59,6 +60,7 @@ class PartyListFragment : Fragment() {
                     call: Call<List<Party>>,
                     t: Throwable
                 ) {
+                    Toast.makeText( requireContext(), "서버가 불안정합니다.", Toast.LENGTH_SHORT).show()
                     Log.i("userService", t.toString())
                 }
 
@@ -75,15 +77,9 @@ class PartyListFragment : Fragment() {
         adapter.setItemClickListener( object : PartyListAdapter.ItemClickListener{
             override fun onClick(view: View, position: Int) {
 
-                Log.d("mylog",adapter.partyList[position].toString())
-                val f = PartyDetail()
-                val bundle = Bundle()
-                bundle.putSerializable("party_detail", adapter.partyList[position])
-                f.arguments = bundle
-
                 mainActivity.selectParty = adapter.partyList[position]
 
-                mainActivity.replaceFragment(f, true)
+                mainActivity.replaceFragment(PartyDetail(), true)
             }
         })
 
