@@ -48,5 +48,9 @@ public class UserServiceImpl implements UserService {
 	public User update(User user) {
 		return userDao.save(user);
 	}
+	@Override
+	public void delete(String id) {
+		userDao.deleteById(id);
+	}
 
 }
