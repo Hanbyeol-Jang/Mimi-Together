@@ -22,4 +22,6 @@ public interface UserService {
 	public Optional<User> getUserinfo(String id);
 
 	public User update(User user);
+
+	public void delete(String id);
 }

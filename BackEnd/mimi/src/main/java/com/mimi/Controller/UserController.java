@@ -111,6 +111,19 @@ public class UserController {
 		}
 
 	}
+	@GetMapping(value = "/delete/{id}")
+	@ApiOperation(value = "id로 회원 정보 삭제")
+	public ResponseEntity<?> deleteUserinfo(@PathVariable("id") String id) {
+		System.out.println("deleteUserinfo Controller");
+		try {
+			userService.delete(id);
+
+			return new ResponseEntity<>("삭제되었습니다", HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>("삭제 실패!", HttpStatus.NOT_FOUND);
+		}
+
+	}
 
 	@PostMapping("/deleteaccount")
 	@ApiOperation(value = "회원 탈퇴")

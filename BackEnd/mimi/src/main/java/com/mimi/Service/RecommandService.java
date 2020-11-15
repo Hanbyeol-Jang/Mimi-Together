@@ -43,7 +43,8 @@ public class RecommandService {
 
 	public List<Recommand> recom(String name, String address) {
 //		address = "%"+address+"%";
-		return recommandDao.findByUidAndAddressLikeOrderByRid(name, address);
+		System.out.println("name: "+name+" address: "+ address);
+		return recommandDao.findByUidAndAddressLikeOrderByRating(name, address);
 	}
 
 }
