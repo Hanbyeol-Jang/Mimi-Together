@@ -16,8 +16,8 @@ def get_top_n(predictions,store_addr):
     dic = {}
     for uid, iid, true_r, est, _ in predictions:
         store = store_addr.get(iid)
-        dic1 = {"Uid":uid,"Rid":iid, "rating":est,"name":store[0],"address":store[1],"tel":store[2],"category":store[3],"mainMn":store[4],"price":store[5]
-        ,"menu":store[6],"opngTm":store[7],"img":store[10],"tags":store[11]}
+        dic1 = {"uid":uid,"rid":iid, "rating":est,"name":store[0],"address":store[2],"tel":store[3],"category":store[4],"mainMn":store[5],"price":store[6]
+        ,"menu":store[7],"opngTm":store[8],"img":store[11],"tags":store[12]}
         top_n.append(dic1)
         
     # for uid, user_ratings in top_n.items():
@@ -57,7 +57,7 @@ def testreview():
     
     # recom_qs = pd.DataFrame.my_client['mimi']['recommand'].find("Uid" : mid)
     my_client['mimi']['recommand'].remove()
-    
+
     x = my_client['mimi']['recommand'].insert_many(top_n)
     
 
