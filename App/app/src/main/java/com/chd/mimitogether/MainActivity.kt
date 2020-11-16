@@ -236,8 +236,8 @@ class MainActivity : AppCompatActivity() {
 
                 val templateId = 39892L
                 val templateArgs = HashMap<String, String>()
-//                templateArgs["partyId"] = selectParty!!.id
-                templateArgs["partyId"] = "5fafe0f53d6bbc048d9d4d71"
+                templateArgs["partyId"] = selectParty!!.id
+//                templateArgs["partyId"] = "5fafe0f53d6bbc048d9d4d71"
 
                 val pref = getSharedPreferences("user", 0)
                 templateArgs["userName"] = pref.getString("uname", "")!!

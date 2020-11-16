@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,11 +47,17 @@ class ReviewFragment : Fragment() {
         val reviewService = retrofit.create(ReviewService::class.java)
 
         val store = mainActivity.loadStore()
+        val reviewNotFound : LinearLayout = root.findViewById(R.id.review_not_found)
+        reviewNotFound.visibility = View.GONE
 
         reviewService.getStoreview(id = store.id, pageno = 0).enqueue(object : Callback<ReviewList>{
             override fun onResponse(call: Call<ReviewList>, response: Response<ReviewList>) {
+
                 adapter.reviewList.addAll(response.body()?.content as List<Content>)
                 adapter.notifyDataSetChanged()
+                if(adapter.reviewList.size == 0){
+                    reviewNotFound.visibility = View.VISIBLE
+                }
             }
 
             override fun onFailure(call: Call<ReviewList>, t: Throwable) {
@@ -67,8 +74,12 @@ class ReviewFragment : Fragment() {
                 if(!recyclerView.canScrollVertically(1)){
                     reviewService.getStoreview(id = store.id, pageno = pageno).enqueue(object : Callback<ReviewList>{
                         override fun onResponse(call: Call<ReviewList>, response: Response<ReviewList>) {
+
                             adapter.reviewList.addAll(response.body()?.content as List<Content>)
                             adapter.notifyDataSetChanged()
+                            if(adapter.reviewList.size == 0){
+                                reviewNotFound.visibility = View.VISIBLE
+                            }
                             pageno++
                         }
 

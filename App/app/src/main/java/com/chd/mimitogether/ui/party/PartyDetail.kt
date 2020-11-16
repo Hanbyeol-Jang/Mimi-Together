@@ -70,8 +70,9 @@ class PartyDetail : Fragment() {
         val storeService = retrofit.create(StoreService::class.java)
 
         val progressbar: ProgressBar = root.findViewById(R.id.progressBar)
+        val storeNotFound : LinearLayout = root.findViewById(R.id.store_not_found)
         progressbar.visibility = View.VISIBLE
-
+        storeNotFound.visibility = View.GONE
         storeService.getRecommandStoreList(PartyId = item.id)
             .enqueue(object : Callback<List<MultiStore>> {
                 override fun onResponse(
@@ -99,9 +100,15 @@ class PartyDetail : Fragment() {
                         )
                         storeList.add(store)
                     }
+                    if(storeList.isEmpty()){
+                        storeNotFound.visibility = View.VISIBLE
+                    }
+
                     progressbar.visibility = View.GONE
                     adapter.storeList.addAll(storeList)
                     adapter.notifyDataSetChanged()
+
+
                 }
 
                 override fun onFailure(call: Call<List<MultiStore>>, t: Throwable) {

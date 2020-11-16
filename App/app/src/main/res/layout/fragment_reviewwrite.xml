@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:orientation="horizontal"
         android:weightSum="100">
 
@@ -17,6 +18,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="30"
+            android:fontFamily="@font/maplestory_bold"
             android:text="가게 이름" />
 
         <TextView
@@ -24,12 +26,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="70"
+            android:fontFamily="@font/maplestory_light"
             android:text="TextView" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:orientation="horizontal"
         android:weightSum="100">
 
@@ -38,6 +42,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="30"
+            android:fontFamily="@font/maplestory_bold"
             android:text="평점" />
 
         <RatingBar
@@ -53,12 +58,15 @@
         android:id="@+id/text12312"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:fontFamily="@font/maplestory_bold"
         android:text="본문 작성" />
 
     <EditText
         android:id="@+id/review_store_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:inputType="textMultiLine"
         android:lines="8"
         android:maxLines="10"
@@ -70,5 +78,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Button" />
+        android:text="리뷰 작성" />
 </LinearLayout>
