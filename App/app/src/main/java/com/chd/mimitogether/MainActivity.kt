@@ -8,11 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.View
-import android.widget.FrameLayout
-import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,10 +16,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.findFragment
-import com.chd.mimitogether.dto.UserRequest
+import com.chd.mimitogether.ui.auction.AuctionDevelopFragment
 import com.chd.mimitogether.ui.auction.CreateFragment
-import com.chd.mimitogether.ui.auction.MyListFragment
+import com.chd.mimitogether.ui.auction.dto.Auction
 import com.chd.mimitogether.ui.profile.ProfileFragment
 import com.chd.mimitogether.ui.party.*
 import com.chd.mimitogether.ui.party.dto.Party
@@ -32,8 +27,6 @@ import com.chd.mimitogether.ui.party.service.PartyService
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
 import com.kakao.sdk.link.LinkClient
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.selects.select
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,13 +38,11 @@ class MainActivity : AppCompatActivity() {
     private val fragmentManager: FragmentManager = supportFragmentManager
     private val partyListFragment: PartyListFragment = PartyListFragment()
     private val profileFragment: ProfileFragment = ProfileFragment()
-
-    private val myListFragment: MyListFragment = MyListFragment()
-    private val createFragment: CreateFragment = CreateFragment()
-    private val currentFragment: Fragment? = null
+    private val auctionFragment: AuctionDevelopFragment = AuctionDevelopFragment()
     var selectParty: Party? = null
 
     lateinit var peopleItem: MenuItem
+    lateinit var writeItem: MenuItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -68,8 +59,7 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.navigation_party -> transaction.replace(R.id.frame_layout, partyListFragment)
                     .commitAllowingStateLoss()
-                R.id.navigation_auction -> transaction.replace(R.id.frame_layout, createFragment)
-//                R.id.navigation_dashboard -> transaction.replace(R.id.frame_layout, myListFragment)
+                R.id.navigation_auction -> transaction.replace(R.id.frame_layout, auctionFragment)
                     .commitAllowingStateLoss()
                 R.id.navigation_profile -> transaction.replace(R.id.frame_layout, profileFragment)
                     .commitAllowingStateLoss()
@@ -114,7 +104,11 @@ class MainActivity : AppCompatActivity() {
                                             call: Call<Party>,
                                             t: Throwable
                                         ) {
-                                            Toast.makeText( this@MainActivity, "서버가 불안정합니다.", Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(
+                                                this@MainActivity,
+                                                "서버가 불안정합니다.",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
                                             Log.i("userService", t.toString())
                                         }
 
@@ -130,8 +124,10 @@ class MainActivity : AppCompatActivity() {
                                     })
 
                             }.setNegativeButton("취소") { dialogInterface: DialogInterface, i: Int ->
-                                val transaction: FragmentTransaction = fragmentManager.beginTransaction()
-                                transaction.replace(R.id.frame_layout, PartyListFragment()).commitAllowingStateLoss()
+                                val transaction: FragmentTransaction =
+                                    fragmentManager.beginTransaction()
+                                transaction.replace(R.id.frame_layout, PartyListFragment())
+                                    .commitAllowingStateLoss()
                             }
                         val show: AlertDialog = alertDialog.show()
                     }
@@ -150,7 +146,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<Party>, t: Throwable) {
-                    Toast.makeText( this@MainActivity, "서버가 불안정합니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@MainActivity, "서버가 불안정합니다.", Toast.LENGTH_SHORT).show()
                     Log.i("JoinService", t.toString())
                 }
             })
@@ -165,7 +161,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun replaceFragment(fragment: Fragment, backStackFlag: Boolean) {
-        Log.e("mylog", "전환!")
         val transaction: FragmentTransaction = fragmentManager.beginTransaction()
         if (backStackFlag)
             transaction.replace(R.id.frame_layout, fragment).addToBackStack(null).commit()
@@ -174,7 +169,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun addFragment(fragment: Fragment) {
-        Log.e("mylog", "전환!")
         val transaction: FragmentTransaction = fragmentManager.beginTransaction()
         transaction.add(R.id.frame_layout, fragment).addToBackStack(null).commit()
     }
@@ -182,12 +176,16 @@ class MainActivity : AppCompatActivity() {
 
     fun loadData(key: String): String {
         val pref = getSharedPreferences("user", 0)
-        if (key == "uid") {
-            return pref.getLong(key, 0).toString()
-        } else if (key == "uname") {
-            return pref.getString(key, "")!!
-        } else {
-            return "Fail"
+        return when (key) {
+            "uid" -> {
+                pref.getLong(key, 0).toString()
+            }
+            "uname" -> {
+                pref.getString(key, "")!!
+            }
+            else -> {
+                "Fail"
+            }
         }
 
     }
@@ -223,8 +221,8 @@ class MainActivity : AppCompatActivity() {
 
     fun setToolbarTitle(title: String) {
         val toolbar = findViewById<Toolbar>(R.id.my_toolbar)
-        val toolbar_text = toolbar.findViewById<TextView>(R.id.textView14)
-        toolbar_text.text = title
+        val toolbarText = toolbar.findViewById<TextView>(R.id.textView14)
+        toolbarText.text = title
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -263,6 +261,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 true
             }
+            R.id.action_write_review -> {
+                replaceFragment(ReviewWriteFragment(), true)
+                true
+            }
             else -> {
                 super.onOptionsItemSelected(item)
             }
@@ -273,10 +275,14 @@ class MainActivity : AppCompatActivity() {
         val menuInflater = menuInflater
         menuInflater.inflate(R.menu.toolbar_menu, menu)
 
-        peopleItem = menu?.findItem(R.id.action_people)!!
-        peopleItem.isVisible = false
+        menu?.let {
+            peopleItem = menu.findItem(R.id.action_people)
+            peopleItem.isVisible = false
+
+            writeItem = menu.findItem(R.id.action_write_review)
+            writeItem.isVisible = false
+        }
         return true
-//        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onBackPressed() {

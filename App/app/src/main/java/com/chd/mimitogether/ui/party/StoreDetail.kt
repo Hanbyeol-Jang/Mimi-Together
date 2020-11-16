@@ -45,6 +45,9 @@ class StoreDetail : Fragment() {
         stStarNum.text = "("+store.rating+")"
 
         mainActivity.setToolbarTitle("${store.name}")
+        mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        mainActivity.peopleItem.isVisible = false
+        mainActivity.writeItem.isVisible = true
 
         val tablayout : TabLayout = root.findViewById(R.id.store_tabLayout)
         val viewpager : ViewPager2 = root.findViewById(R.id.store_viewpager)
@@ -73,7 +76,6 @@ class StoreDetail : Fragment() {
             }
         }
 
-
         return root
     }
 
@@ -81,8 +83,17 @@ class StoreDetail : Fragment() {
         super.onDestroyView()
         val mainActivity : MainActivity = activity as MainActivity
 
-        val item: Party = mainActivity.selectParty!!
-        mainActivity.setToolbarTitle("${item.ptName} (${item.userList.size}명)")
+        val item= mainActivity.selectParty
+        if(item == null) {
+            mainActivity.setToolbarTitle("나의 리뷰")
+            mainActivity.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+            mainActivity.writeItem.isVisible = false
+            mainActivity.peopleItem.isVisible = false
+        } else {
+            mainActivity.setToolbarTitle("${item.ptName} (${item.userList.size}명)")
+            mainActivity.writeItem.isVisible = false
+            mainActivity.peopleItem.isVisible = true
+        }
     }
 
 }

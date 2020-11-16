@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,7 +35,6 @@ class PartyListFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_party, container, false)
         val mainActivity : MainActivity = activity as MainActivity
-//        val btn : ImageButton = root.findViewById(R.id.party_create_btn01)
         val btn : FloatingActionButton = root.findViewById(R.id.f_a_b)
 
         val adapter = PartyListAdapter()
@@ -54,7 +54,6 @@ class PartyListFragment : Fragment() {
 
         val uid = mainActivity.loadData("uid")
 
-
         partyService.getPartyList(id = uid).enqueue(object : Callback<List<Party>> {
                 override fun onFailure(
                     call: Call<List<Party>>,
@@ -68,9 +67,16 @@ class PartyListFragment : Fragment() {
                     call: Call<List<Party>>,
                     response: Response<List<Party>>
                 ) {
-                    Log.d("mylog2",response.body().toString())
-                    adapter.partyList.addAll(response.body() as List<Party>)
-                    adapter.notifyDataSetChanged()
+                    val partyList = response.body()
+                    partyList?.let{
+                        if(partyList.isEmpty()) {
+                            val emptyLayout = root.findViewById<ConstraintLayout>(R.id.empty_layout)
+                            emptyLayout.visibility = View.VISIBLE
+                        } else {
+                            adapter.partyList.addAll(response.body() as List<Party>)
+                            adapter.notifyDataSetChanged()
+                        }
+                    }
                 }
             })
 

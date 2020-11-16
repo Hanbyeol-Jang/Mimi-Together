@@ -4,8 +4,14 @@
 
     <item
         android:id="@+id/action_people"
-        android:icon="@drawable/ic_people_black_24dp"
+        android:icon="@drawable/ic_person_add"
         android:title="action_people"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_write_review"
+        android:icon="@drawable/ic_writing"
+        android:title="write_review"
         app:showAsAction="ifRoom"/>
 
 </menu>

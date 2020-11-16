@@ -3,8 +3,6 @@ package com.chd.mimitogether
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Window
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,15 +12,11 @@ import com.chd.mimitogether.service.UserService
 import com.kakao.sdk.auth.LoginClient
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
-import kotlinx.android.synthetic.main.activity_login.*
-import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.net.HttpURLConnection
-import java.util.concurrent.TimeUnit
 
 class LoginActivity : AppCompatActivity() {
 
@@ -31,61 +25,36 @@ class LoginActivity : AppCompatActivity() {
 
         val pref = getSharedPreferences("user", 0)
         if (pref.getBoolean("isLogin", false)) {
-            if(pref.getBoolean("isSurvey", false)) {
+            if (pref.getBoolean("isSurvey", false)) {
                 goMainActivity()
             } else {
                 goSurveyActivity()
             }
         } else {
             setContentView(R.layout.activity_login)
-            Log.d("myLog", "LoginActivity")
+            val loginButton: ImageButton = findViewById(R.id.login_button)
 
-            val login_btn : ImageButton = findViewById(R.id.login_button)
-
-            login_btn.setOnClickListener {
+            loginButton.setOnClickListener {
                 // 로그인 공통 callback 구성
                 val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
-                    if (error != null) {
-                        Log.e("myLog", "로그인 실패", error)
-                        val myToast =
-                            Toast.makeText(this, error.toString(), Toast.LENGTH_LONG)
-                            myToast.show()
-                    } else if (token != null) {
-                        Log.i("myLog", "로그인 성공 ${token.accessToken}")
-
+                    if (error == null && token != null) {
                         // 사용자 정보 요청 (기본)
                         UserApiClient.instance.me { user, error ->
-                            if (error != null) {
-                                Log.e("myLog", "사용자 정보 요청 실패", error)
-                                val myToast =
-                                    Toast.makeText(this, error.toString(), Toast.LENGTH_LONG)
-                                myToast.show()
-                            } else if (user != null) {
-                                Log.i(
-                                    "myLog", "사용자 정보 요청 성공" +
-                                            "\n회원번호: ${user.id}" +
-                                            "\n이메일: ${user.kakaoAccount?.email}" +
-                                            "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
-                                            "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}"
-                                )
-
+                            if (error == null && user != null) {
+                                Log.d("myLog", user.toString())
                                 val userRequest = UserRequest(
                                     id = user.id.toString(),
                                     uiName = user.kakaoAccount?.profile?.nickname!!,
                                     isSurvey = "false",
-                                    uiProfile = "https://cdn.pixabay.com/photo/2020/10/28/11/08/castle-5693094_960_720.jpg",
-                                    uiThumb = "https://cdn.pixabay.com/photo/2020/10/28/11/08/castle-5693094_960_720.jpg",
+                                    uiProfile = "",
+                                    uiThumb = "",
                                     uiToken = token.accessToken
                                 )
-
-
-
                                 val retrofit =
                                     Retrofit.Builder().baseUrl(getString(R.string.base_url))
                                         .addConverterFactory(
                                             GsonConverterFactory.create()
                                         ).build()
-
                                 val userService = retrofit.create(UserService::class.java)
                                 userService.userJoin(userRequest)
                                     .enqueue(object : Callback<UserResponse> {
@@ -93,25 +62,26 @@ class LoginActivity : AppCompatActivity() {
                                             call: Call<UserResponse>,
                                             t: Throwable
                                         ) {
-                                            Toast.makeText( this@LoginActivity, "서버가 불안정합니다.", Toast.LENGTH_SHORT).show()
-                                            Log.i("userService", t.toString())
+                                            Toast.makeText(
+                                                this@LoginActivity,
+                                                "서버가 불안정합니다.",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
                                         }
-
                                         override fun onResponse(
                                             call: Call<UserResponse>,
                                             response: Response<UserResponse>
                                         ) {
-
-                                            Log.d("isSurvey", response.body()?.survey.toString())
-
                                             val edit = pref.edit()
                                             edit.putBoolean("isLogin", true)
                                             edit.putBoolean("isSurvey", response.body()?.survey!!)
                                             edit.putLong("uid", user.id)
-                                            edit.putString("uname",user.kakaoAccount?.profile?.nickname)
+                                            edit.putString(
+                                                "uname",
+                                                user.kakaoAccount?.profile?.nickname
+                                            )
                                             edit.putString(
                                                 "unickname",
-
                                                 user.kakaoAccount?.profile?.nickname
                                             )
                                             edit.apply()
