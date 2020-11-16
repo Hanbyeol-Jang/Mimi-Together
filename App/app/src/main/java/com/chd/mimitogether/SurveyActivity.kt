@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.chd.mimitogether.dto.SurveyScoreRequest
@@ -43,6 +44,7 @@ class SurveyActivity : AppCompatActivity() {
 
         surveyService.getStoreList().enqueue(object : Callback<List<SurveyStoreResponse>> {
             override fun onFailure(call: Call<List<SurveyStoreResponse>>, t: Throwable) {
+                Toast.makeText( this@SurveyActivity, "서버가 불안정합니다.", Toast.LENGTH_SHORT).show()
                 Log.i("myLog", t.toString())
             }
 
@@ -106,6 +108,7 @@ class SurveyActivity : AppCompatActivity() {
 
                     call.enqueue(object : Callback<Void> {
                         override fun onFailure(call: Call<Void>, t: Throwable) {
+                            Toast.makeText( this@SurveyActivity, "서버가 불안정합니다.", Toast.LENGTH_SHORT).show()
                             Log.d("myLog", t.toString())
                         }
 

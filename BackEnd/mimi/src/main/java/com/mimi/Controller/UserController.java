@@ -81,5 +81,25 @@ public class UserController {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 	}
+	
+	@PostMapping(value = "/deviceId")
+	@ApiOperation(value = "id기반으로 User 검색 후 deviceId 수정")
+	public ResponseEntity<HashMap<String, Object>> inputDeviceId(@RequestBody User user) {
+		System.out.println("inputDeviceId Controller");
+		try {
+			HashMap<String, Object> map = new HashMap<>();
+
+			Optional<User> userinfo = userService.getUserinfo(user.getId());
+			userinfo.get().setDevice(user.getDevice());
+			userService.join(userinfo.get());
+			
+			map.put("User", userinfo.get());
+
+			return new ResponseEntity<HashMap<String, Object>>(map, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+
+	}
 
 }

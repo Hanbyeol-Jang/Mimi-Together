@@ -6,6 +6,7 @@ import com.mimi.Dto.User;
 
 public interface UserService {
 
+	public User update(User user);
 	// 회원 가입
 	public User join(User user);
 
@@ -14,4 +15,6 @@ public interface UserService {
 
 	// 회원 정보 가져오기
 	public Optional<User> getUserinfo(String id);
+	
+	public User modify(User user);
 }
