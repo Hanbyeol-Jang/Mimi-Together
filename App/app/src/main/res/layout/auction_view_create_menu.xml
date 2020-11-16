@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/menu_button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="전체"
+        app:layout_constraintBottom_toTopOf="@+id/menu_button5"
+        app:layout_constraintEnd_toStartOf="@+id/menu_button2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/menu_button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="한식"
+        app:layout_constraintBottom_toTopOf="@+id/menu_button6"
+        app:layout_constraintEnd_toStartOf="@+id/menu_button3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/menu_button1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/menu_button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="일식"
+        app:layout_constraintBottom_toTopOf="@+id/menu_button7"
+        app:layout_constraintEnd_toStartOf="@+id/menu_button4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/menu_button2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/menu_button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="중식"
+        app:layout_constraintBottom_toTopOf="@+id/menu_button8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/menu_button3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/menu_button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="양식"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/menu_button6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu_button1" />
+
+    <Button
+        android:id="@+id/menu_button6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="세계음식"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/menu_button7"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/menu_button5"
+        app:layout_constraintTop_toBottomOf="@+id/menu_button2" />
+
+    <Button
+        android:id="@+id/menu_button7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="카페"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/menu_button8"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/menu_button6"
+        app:layout_constraintTop_toBottomOf="@+id/menu_button3" />
+
+    <Button
+        android:id="@+id/menu_button8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="주점"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/menu_button7"
+        app:layout_constraintTop_toBottomOf="@+id/menu_button4" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
