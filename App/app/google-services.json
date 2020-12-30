@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "868207603615",
+    "firebase_url": "https://mimitogether-8c770.firebaseio.com",
+    "project_id": "mimitogether-8c770",
+    "storage_bucket": "mimitogether-8c770.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:868207603615:android:a0f5918aa170b861e697aa",
+        "android_client_info": {
+          "package_name": "com.chd.mimitogether"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "868207603615-q6jvrppd03lpavi2il65up77v0gu0cgj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chd.mimitogether",
+            "certificate_hash": "ad166ded154211f3f733a964a75a486b67704520"
+          }
+        },
+        {
+          "client_id": "868207603615-t0j7qdkoh1o16mcnv58c8d62505fph87.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7_xEk508W4JF28Eu6UxFxeB4npm-3WWg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "868207603615-t0j7qdkoh1o16mcnv58c8d62505fph87.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

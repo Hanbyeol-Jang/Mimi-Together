@@ -1,0 +1,17 @@
+/.metadata/
+/.Servers/
+
+/.BackEnd/mimi/HELP.md
+/.BackEnd/mimi/target/
+/.BackEnd/mimi/!.mvn/wrapper/maven-wrapper.jar
+/.BackEnd/mimi/!**/src/main/**/target/
+/.BackEnd/mimi/!**/src/test/**/target/
+
+### STS ###
+/.BackEnd/mimi/.apt_generated
+/.BackEnd/mimi/.classpath
+/.BackEnd/mimi/.factorypath
+/.BackEnd/mimi/.project
+/.BackEnd/mimi/.settings
+/.BackEnd/mimi/.springBeans
+/.BackEnd/mimi/.sts4-cache

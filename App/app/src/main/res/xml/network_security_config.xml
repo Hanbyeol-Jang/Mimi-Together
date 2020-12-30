@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+<!--        <domain includeSubdomains="true">k3b106.p.ssafy.io</domain>-->
+        <!--용우집-->
+        <domain includeSubdomains="true">192.168.219.102</domain>
+        <!--연수원-->
+        <domain includeSubdomains="true">192.168.30.58</domain>
+        <domain includeSubdomains="true">www.juso.go.kr</domain>
+
+        <!--니체-->
+        <domain includeSubdomains="true">192.168.1.235</domain>
+        <domain includeSubdomains="true">192.168.0.8</domain>
+    </domain-config>
+</network-security-config>

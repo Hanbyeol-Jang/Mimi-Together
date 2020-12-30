@@ -1,0 +1,86 @@
+.fc .fc-toolbar-title {
+  font-size: 1em;
+  margin-top:auto;
+  margin-bottom:auto;
+  font-family: 'Do Hyeon', sans-serif;
+  color:orange;
+  margin: 0;
+}
+.fc .fc-button-group > .fc-dayGridWeek-button:focus,
+.fc-dayGridWeek-button.fc-button-primary:not(:disabled):active:focus{
+  background-color:orange;
+}
+.fc .fc-button-group {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 0.9rem;
+}
+.fc-dayGridMonth-button.fc-button.fc-button-primary.fc-button-active{
+  background-color:orange !important;
+}
+.fc .fc-button-group > .fc-button,
+.fc-direction-ltr .fc-button-group > .fc-button:not(:first-child) {
+  background-color:gray;
+  border:0;
+}
+.fc-direction-ltr .fc-button-group > .fc-button:not(:last-child):focus, 
+.fc-direction-ltr .fc-button-group > .fc-button:not(:last-child):active,
+.fc .fc-button-group > .fc-button:focus,
+.fc .fc-button-group > .fc-button:active,
+.fc .fc-button-group > .fc-button.fc-button-active {
+  background-color:orange;
+  border:0;
+}
+.fc .fc-button-group > .fc-button:hover, 
+.fc .fc-dayGridWeek-button.fc-button.fc-button-primary.fc-button-active,
+.fc .fc-listMonth-button.fc-button.fc-button-primary.fc-button-active,
+.fc-direction-ltr .fc-button-group > .fc-button:not(:first-child):hover {
+  background-color:orange;
+}
+.fc .fc-button .fc-icon {
+  font-size: 1em;
+}
+.fc .fc-view-harness {
+  margin:2.5rem 1rem 1rem 1rem !important;
+}
+.fc .fc-col-header-cell-cushion {
+  color:gray;
+  font-size:0.8rem;
+}
+.fc-daygrid-body.fc-daygrid-body-unbalanced,
+.fc .fc-scrollgrid-section table {
+  width:100%;
+}
+.fc .fc-daygrid-day-number {
+  color:black;
+}
+.fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
+  margin:2px;
+}
+.fc .fc-list-table tr > * {
+  font-size:0.8rem;
+  font-family: 'Do Hyeon', sans-serif;
+}
+.fc-direction-ltr .fc-list-day-text,
+.fc-direction-rtl .fc-list-day-side-text {
+  color:gray;
+  font-size:0.8rem;
+}
+.fc-direction-ltr .fc-list-day-side-text,
+.fc-direction-rtl .fc-list-day-text {
+  color:orange;
+  font-size:0.6rem;
+}
+.fc .fc-list-event-title a {
+  font-family: 'IBMPlexSansKR-Text';
+  font-size:0.8rem;
+}
+.fc .fc-toolbar-chunk {
+  align-items:center;
+}
+.fc .fc-toolbar.fc-header-toolbar {
+  padding:1.3rem;
+}
+.fc-daygrid-body.fc-daygrid-body-unbalanced{
+    width:100%;
+}
+

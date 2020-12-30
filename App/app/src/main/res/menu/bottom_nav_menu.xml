@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_party"
+        android:icon="@drawable/ic_party"
+        android:title="@string/title_party" />
+
+    <item
+        android:id="@+id/navigation_auction"
+        android:icon="@drawable/ic_dining"
+        android:title="@string/title_auction" />
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_myreview"
+        android:title="@string/title_profile" />
+
+</menu>
